@@ -6,6 +6,8 @@ en:
   contact_congress: NO
   fcc_docket: null
   redirect_url: FIXME
+  petition_url_string: FIXME
+  join_petition_disclaimer_html: By signing this petition you agree to receive occasional emails from one or more sponsor organization. You may of course unsubscribe at any time.
   tags:
     - net-neutrality
   privacy_html: |
