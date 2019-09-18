@@ -373,7 +373,6 @@ export default {
 
   created() {
     this.comment = this.letterText
-    this.hasSigned = this.hasSignedAlready
   },
 
   mounted() {
