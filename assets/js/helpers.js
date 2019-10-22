@@ -76,18 +76,6 @@ export async function pingCounter(counter) {
   }
 }
 
-// POST to start text flow
-export async function startTextFlow(params) {
-  const axios = require('axios')
-
-  try {
-    const { data } = await axios.post('https://text-flow-starter.fftf.xyz/opt-ins', params)
-    return data
-  } catch (error) {
-    return {}
-  }
-}
-
 // Open a pop-up window (mostly for sharing actions)
 export function openPopup(url, title = 'popup', w = 600, h = 500) {
   // Fixes dual-screen position
