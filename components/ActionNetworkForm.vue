@@ -145,7 +145,7 @@
 
 <script>
 import { mapState } from 'vuex'
-import { sendToMothership, startTextFlow } from '~/assets/js/helpers'
+import { sendToMothership } from '~/assets/js/helpers'
 import ShareButton from '~/components/ShareButton'
 
 export default {
@@ -358,9 +358,6 @@ export default {
         this.isSending = false
         this.hasSigned = true
 
-        if (this.phone) {
-          this.startTextFlow()
-        }
       } catch (err) {
         this.isSending = false
         this.errorMessage = this.$t('global.common.error')
@@ -370,17 +367,6 @@ export default {
     clearComment() {
       this.comment = ''
       this.$refs.comment.focus()
-    },
-
-    startTextFlow() {
-      startTextFlow({
-        opt_in_path: this.textFlowId,
-        phone: this.phone,
-        name: this.name,
-        email: this.email,
-        zip_code: this.zipCode,
-        street: this.address
-      })
     }
   }
 }
