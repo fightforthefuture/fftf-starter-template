@@ -1,13 +1,13 @@
 # GLOBAL Site Translations, intentionally namespaced
 en:
   global:
-    site_title: FFTF Starter Template
+    site_title: __REPLACE_ME_WITH_DOMAIN_NAME__
     sharing:
-      title: FFTF Starter Template
+      title: __REPLACE_ME_WITH_DOMAIN_NAME__
       description: A Fight for the Future website
-      image: https://www.example.com/share.jpg
+      image: https://www.__REPLACE_ME_WITH_DOMAIN_NAME__/share.jpg
       default_tweet_text: FIXME
-      url: https://www.example.com
+      url: https://www.__REPLACE_ME_WITH_DOMAIN_NAME__
     call_script: >
       TODO: call script goes here
     letter_text: |

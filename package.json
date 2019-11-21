@@ -13,7 +13,7 @@
     "lint": "eslint --ext .js,.vue --ignore-path .gitignore .",
     "precommit": "npm run lint",
     "analyze": "nuxt build --analyze",
-    "deploy": "aws s3 sync dist s3://www.example.com --acl public-read --delete --exclude 'styleguide/*'"
+    "deploy": "rsync -avh dist/ static1:~/www/__REPLACE_ME_WITH_DOMAIN_NAME__ --delete"
   },
   "dependencies": {
     "@nuxtjs/axios": "^5.3.6",
