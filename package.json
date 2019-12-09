@@ -19,8 +19,8 @@
     "@nuxtjs/axios": "^5.3.6",
     "clipboard": "^2.0.4",
     "cross-env": "^5.2.0",
-    "nuxt": "^2.7.1",
-    "nuxt-i18n": "^5.10.0"
+    "nuxt": "^2.10.2",
+    "nuxt-i18n": "^6.4.1"
   },
   "devDependencies": {
     "nodemon": "^1.18.9",
