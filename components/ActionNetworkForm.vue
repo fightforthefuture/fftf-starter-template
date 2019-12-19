@@ -52,34 +52,52 @@
         {{ errorMessage }}
       </p>
       <div class="flex-grid sml-flex-row">
-        <input v-model="name"
-          :placeholder="$t('form.name')"
-          type="text"
-          name="member[first_name]"
-          required>
-        <input v-model="email"
-          :placeholder="$t('form.email')"
-          type="email"
-          name="member[email]"
-          required>
+        <div>
+          <label type="text" for="member[first_name]">{{ $t('form.name.label') }}</label>
+          <input v-model="name"
+            :placeholder="$t('form.name.placeholder')"
+            type="text"
+            name="member[first_name]"
+            required>
+        </div>
+        <div>
+          <label type="text" for="member[email]">{{ $t('form.email.label') }}</label>
+          <input v-model="email"
+            :placeholder="$t('form.email.placeholder')"
+            type="email"
+            name="member[email]"
+            required>
+        </div>
       </div> <!-- .flex-grid -->
       <div class="flex-grid sml-flex-row sml-push-y1">
-        <input v-model="address"
-               type="text"
-               class="sml-flex-2"
-               :placeholder="`${$t('form.address')}${shouldContactCongress === 1 ? '*' : ''}`"
-               name="member[street_address]"
-               :required="contactCongress === 1">
-        <input v-model="zipCode"
-               type="tel"
-               :placeholder="$t('form.zip')"
-               name="member[postcode]"
-               required>
-        <input v-model.trim="phone"
-               type="tel"
-               class="sml-flex-2"
-               :placeholder="$t('form.phone')"
-               name="member[phone_number]">
+        <div>
+          <label type="text" for="member[street_address]">{{ $t('form.address.label') }}</label>
+          <input v-model="address"
+                 type="text"
+                 class="sml-flex-2"
+                 :placeholder="`${$t('form.address.placeholder')}${shouldContactCongress === 1 ? '*' : ''}`"
+                 name="member[street_address]"
+                 :required="contactCongress === 1">
+        </div>
+        <div>
+          <label type="text" for="member[postcode]">{{ $t('form.zip.label') }}</label>
+          <input v-model="zipCode"
+                 type="tel"
+                 :placeholder="$t('form.zip.placeholder')"
+                 name="member[postcode]"
+                 required>
+        </div>
+      </div>
+      <div class="flex-grid sml-flex-row sml-push-y1">
+        <div>
+          <label type="text" for="member[postcode]">{{ $t('form.phone.label') }}</label>
+          <input v-model.trim="phone"
+                 type="tel"
+                 class="sml-flex-2"
+                 :placeholder="$t('form.phone.placeholder')"
+                 name="member[phone_number]">
+          <small class="text-purple" v-html="$t('form.phone.disclaimer_html')"></small>
+        </div>
       </div> <!-- .flex-grid -->
       <div v-if="hasCompany" class="sml-push-y1">
         <div v-if="hasCompanyToggle"

@@ -22,12 +22,25 @@ en:
       Privacy Policy
     </a>
   form:
-    name: Name*
-    email: Email*
-    address: Address
-    zip: ZIP*
-    phone: |
-      Phone # (for text list)
+    name:
+      label: Name*
+      placeholder: First Last
+    email:
+      label: E-mail*
+      placeholder: me@example.com
+    address:
+      label: Address
+      placeholder: Street
+    zip:
+      label: ZIP*
+      placeholder: US ZIP Code
+    phone:
+      label: Phone (to receive SMS campaign alerts)
+      placeholder: 555-555-5555
+      disclaimer_html: >
+        Message and data rates apply. Message frequency varies. Text STOP to cancel your subscription. Text HELP for more information. <a href="https://www.fightforthefuture.org/privacy/" target="_blank">Privacy Policy</a> and <a href="https://www.fightforthefuture.org/privacy/" target="_blank">Terms of Service</a>
+    action_comment:
+      label: Message to Congress
     is_an_org: Are you signing for an org or business?
     company: Company Name
     comment: Comment*

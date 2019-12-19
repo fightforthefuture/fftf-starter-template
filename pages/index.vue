@@ -27,7 +27,7 @@
           <div class="sml-c12 lrg-c8 grid-center text-center">
             <h2>{{ $t('sign_title') }}</h2>
             <p class="sml-push-y2 med-push-y3">{{ $t('sign_description') }}</p>
-            <ActionNetworkForm />
+            <ActionNetworkForm class="text-left"/>
           </div> <!-- .c -->
         </div> <!-- .row -->
       </div> <!-- .wrapper -->
