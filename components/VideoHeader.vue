@@ -1,6 +1,7 @@
 <style lang="scss" scoped>
   video.video-hero {
     margin: 0 auto -45vw;
+    width: 100%;
   }
   .video-wrapper {
     position: relative;
