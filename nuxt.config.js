@@ -92,7 +92,7 @@ module.exports = {
       config.module.rules.push({
         resourceQuery: /blockType=i18n/,
         type: "javascript/auto",
-        loader: ["@kazupon/vue-i18n-loader", "yaml-loader"]
+        loader: ["@intlify/vue-i18n-loader", "yaml-loader"]
       })
     }
   },
