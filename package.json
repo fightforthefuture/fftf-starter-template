@@ -26,9 +26,13 @@
     "@nuxtjs/eslint-config": "^0.0.1",
     "@nuxtjs/style-resources": "^0.1.2",
     "babel-polyfill": "^6.26.0",
+    "bootstrap": "^4.4.1",
+    "bootstrap-vue": "^2.10.1",
     "exif-js": "^2.3.0",
     "node-sass": "^4.13.1",
     "nodemon": "^1.19.4",
+    "pug": "^2.0.3",
+    "pug-plain-loader": "^1.0.0",
     "sass-loader": "^7.3.1",
     "yaml-loader": "^0.5.0"
   }

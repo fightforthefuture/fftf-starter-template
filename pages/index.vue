@@ -1,48 +1,30 @@
 <i18n src="~/locales/pages/index.yml"></i18n>
 
-<template>
-  <DefaultLayout>
-    <section class="sml-pad-y3 med-pad-y6 sml-pad-y-top2">
-      <div class="wrapper">
-        <div class="row">
-          <div class="sml-c12 lrg-c8 grid-center text-center">
-            <p>{{ $t('intro') }}</p>
+<style lang="scss" scoped>
+.container {
+  max-width: 680px;
+}
 
-            <ul class="hoz text-center sml-push-y3 med-push-y4">
-              <li>
-                <a @click.prevent="scrollTo('#sign')">
-                  <img src="~assets/images/arrow-down.svg"
-                       :alt="$t('scroll_down')" />
-                </a>
-              </li>
-            </ul>
-          </div> <!-- .c -->
-        </div> <!-- .row -->
-      </div> <!-- .wrapper -->
-    </section>
+section {
+  padding: 3rem;
 
-    <section id="sign" class="sml-pad-y3 med-pad-y6 fill-grey-light">
-      <div class="wrapper">
-        <div class="row">
-          <div class="sml-c12 lrg-c8 grid-center text-center">
-            <h2>{{ $t('sign_title') }}</h2>
-            <p class="sml-push-y2 med-push-y3">{{ $t('sign_description') }}</p>
-            <ActionNetworkForm class="text-left"/>
-          </div> <!-- .c -->
-        </div> <!-- .row -->
-      </div> <!-- .wrapper -->
-    </section>
-  </DefaultLayout>
+  &:nth-child(even) {
+    background-color: $grey-light-color;
+  }
+}
+</style>
+
+<template lang="pug">
+  .index-page.text-center
+    include ../templates/index.html
 </template>
 
 <script>
 import { smoothScrollToElement } from '~/assets/js/helpers'
-import DefaultLayout from '~/components/DefaultLayout'
 import ActionNetworkForm from '~/components/ActionNetworkForm'
 
 export default {
   components: {
-    DefaultLayout,
     ActionNetworkForm
   },
 

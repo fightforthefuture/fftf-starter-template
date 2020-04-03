@@ -3,6 +3,7 @@
 <template>
   <div>
     <nuxt />
+    <PageFooter />
 
     <Modal>
       <CallFormModal v-if="modalType === 'call-form'" />
@@ -21,6 +22,8 @@ import CallFormModal from '~/components/CallFormModal'
 import CallScriptModal from '~/components/CallScriptModal'
 import SelfieModal from '~/components/SelfieModal'
 import ArchivedModal from '~/components/ArchivedModal'
+import PageHeader from '~/components/PageHeader'
+import PageFooter from '~/components/PageFooter'
 
 export default {
   components: {
@@ -28,7 +31,9 @@ export default {
     CallFormModal,
     CallScriptModal,
     SelfieModal,
-    ArchivedModal
+    ArchivedModal,
+    PageHeader,
+    PageFooter
   },
 
   head() {
