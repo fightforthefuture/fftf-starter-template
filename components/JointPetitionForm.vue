@@ -61,52 +61,43 @@
           {{ errorMessage }}
         </p>
         <div class="flex-grid sml-flex-row">
-          <div>
-            <label type="text" for="member[first_name]">{{ $t('form.name.label') }}</label>
-            <input v-model="name"
-              :placeholder="$t('form.name.placeholder')"
-              type="text"
-              name="member[first_name]"
-              required>
-          </div>
-          <div>
-            <label type="text" for="member[email]">{{ $t('form.email.label') }}</label>
-            <input v-model="email"
-              :placeholder="$t('form.email.placeholder')"
-              type="email"
-              name="member[email]"
-              required>
-          </div>
+          <FormInput
+            v-model="name"
+            :placeholder="$t('form.name.placeholder')"
+            name="member[first_name]"
+            :required="true"
+            :label="$t('form.name.label')" />
+          <FormInput
+            v-model="email"
+            :placeholder="$t('form.email.placeholder')"
+            name="member[email]"
+            :required="true"
+            :label="$t('form.email.label')" />
         </div> <!-- .flex-grid -->
         <div class="flex-grid sml-flex-row sml-push-y1">
-          <div>
-            <label type="text" for="member[street_address]">{{ $t('form.address.label') }}</label>
-            <input v-model="address"
-                   type="text"
-                   class="sml-flex-2"
-                   :placeholder="`${$t('form.address.placeholder')}${shouldContactCongress === 1 ? '*' : ''}`"
-                   name="member[street_address]"
-                   :required="contactCongress === 1">
-          </div>
-          <div>
-            <label type="text" for="member[postcode]">{{ $t('form.zip.label') }}</label>
-            <input v-model="zipCode"
-                   type="tel"
-                   :placeholder="$t('form.zip.placeholder')"
-                   name="member[postcode]"
-                   required>
-          </div>
+          <FormInput
+            v-model="address"
+            :placeholder="`${$t('form.address.placeholder')}${shouldContactCongress === 1 ? '*' : ''}`"
+            name="member[street_address]"
+            :required="shouldContactCongress === 1"
+            :label="$t('form.address.label')" />
+          <FormInput
+            v-model="zipCode"
+            :placeholder="$t('form.zip.placeholder')"
+            name="member[postcode]"
+            :label="$t('form.zip.label')"
+            type="tel"
+            :required="true"/>
         </div>
         <div class="flex-grid sml-flex-row sml-push-y1">
-          <div>
-            <label type="text" for="member[postcode]">{{ $t('form.phone.label') }}</label>
-            <input v-model.trim="phone"
-                   type="tel"
-                   class="sml-flex-2"
-                   :placeholder="$t('form.phone.placeholder')"
-                   name="member[phone_number]">
-            <small class="text-purple" v-html="$t('form.phone.disclaimer_html')"></small>
-          </div>
+          <FormInput
+            v-model="phone"
+            :placeholder="$t('form.phone.placeholder')"
+            name="member[phone]"
+            :label="$t('form.phone.label')"
+            type="tel"
+            :required="true"
+            :disclaimer="$t('form.phone.disclaimer_html')"/>
         </div> <!-- .flex-grid -->
         <div v-if="hasCompany" class="sml-push-y1">
           <div v-if="hasCompanyToggle"
@@ -114,49 +105,27 @@
             <p class="sml-flex-2 med-flex-3 text-left">
               {{ $t('form.is_an_org') }}
             </p>
-            <div class="radio-toggle sml-pad-half">
-              <div class="flex-grid sml-flex-row">
-                <div>
-                  <input
-                    v-model="isBusinessOwner"
-                    type="radio"
-                    :value="false"
-                    id="not-biz">
-                  <label for="not-biz">{{ $t('global.common.no') }}</label>
-                </div>
-                <div>
-                  <input
-                    v-model="isBusinessOwner"
-                    type="radio"
-                    :value="true"
-                    id="is-biz">
-                  <label for="is-biz">{{ $t('global.common.yes') }}</label>
-                </div>
-              </div> <!-- .flex-grid -->
-            </div> <!-- .radio-toggle -->
+            <FormRadio
+              v-model="isBusinessOwner"
+              name="isBusinessOwner" />
           </div> <!-- .flex-grid -->
 
           <div v-if="isBusinessOwner || !hasCompanyToggle" class="sml-push-y1">
-            <input
+            <FormInput
               v-model="companyName"
-              type="text"
               :placeholder="`${$t('form.company')}${hasCompanyToggle ? '*': ''}`"
               :required="hasCompanyToggle"
-              name="member[company]">
+              name="member[company]" />
           </div> <!-- v-if isBusinessOwner -->
         </div> <!-- v-if hasCompany -->
         <div v-if="hasComment || shouldContactCongress"
              class="sml-push-y1 textarea-with-btn">
-          <textarea
+          <FormInput
             v-model="comment"
-            ref="comment"
-            :placeholder="$t('form.comment')"
             name="action_comment"
-            required>
-          </textarea>
-          <a class="btn btn-sml btn-alt" @click.prevent="clearComment()">
-            {{ $t('global.common.clear') }}
-          </a>
+            :placeholder="$t('form.comment')"
+            type="textarea"
+            :show-clear="true"/>
         </div> <!-- .textarea-with-btn -->
 
         <button class="btn btn-block btn-cta sml-push-y1" :disabled="isSending">
@@ -175,6 +144,8 @@
 <script>
 import { mapState } from 'vuex'
 import { sendToMothership } from '~/assets/js/helpers'
+import FormInput from '~/components/FormInput'
+import FormRadio from '~/components/FormRadio'
 import ShareButton from '~/components/ShareButton'
 
 function setValue(inputId, newValue) {
@@ -187,6 +158,8 @@ function setValue(inputId, newValue) {
 
 export default {
   components: {
+    FormInput,
+    FormRadio,
     ShareButton
   },
 
@@ -480,11 +453,6 @@ export default {
 
       this.isSending = false
       this.hasSigned = true
-    },
-
-    clearComment() {
-      this.comment = ''
-      this.$refs.comment.focus()
     }
   }
 }
