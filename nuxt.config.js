@@ -44,6 +44,7 @@ module.exports = {
     // Doc: https://axios.nuxtjs.org/usage
     '@nuxtjs/axios',
     '@nuxtjs/style-resources',
+    'bootstrap-vue/nuxt',
     ['nuxt-i18n', {
       locales: [
         {
