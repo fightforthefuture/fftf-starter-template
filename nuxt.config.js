@@ -60,6 +60,12 @@ module.exports = {
       vueI18nLoader: true
     }]
   ],
+
+  bootstrapVue: {
+    css: false,
+    bvCSS: false
+  },
+
   /*
   ** Axios module configuration
   */
