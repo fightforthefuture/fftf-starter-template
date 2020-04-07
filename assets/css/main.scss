@@ -17,5 +17,9 @@
 // @import "components/_article";
 // @import "components/_selfies";
 
+img {
+  max-width: 100%;
+}
+
 @import 'node_modules/bootstrap/scss/bootstrap';
 @import 'node_modules/bootstrap-vue/src/index.scss';
