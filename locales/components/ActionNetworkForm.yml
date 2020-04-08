@@ -39,9 +39,14 @@ en:
     action_comment:
       label: Message to Congress
     is_an_org: Are you signing for an org or business?
+    business_owner_options:
+      - text: NO
+        value: false
+      - text: YES
+        value: true
     company: Company Name
     comment: Comment*
-    button_cta: Sign the Petition
+    button_cta: SIGN THE PETITION
   thanks:
     title: Thanks for signing the petition!
     share: Please consider sharing with your friends and family.

@@ -14,7 +14,7 @@ en:
       TODO: letter text goes here
     common:
       # In Alphabetical Order
-      clear: Clear
+      clear: CLEAR
       donate: Donate
       error: Sorry, that didn’t work for some reason. 😞 Please try again.
       from: from
