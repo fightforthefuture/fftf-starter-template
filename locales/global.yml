@@ -22,6 +22,8 @@ en:
     congress:
       enabled: no
       email_subject: FIXME
+    fcc:
+      docket_number: null
     letter_text: |
       TODO: letter text goes here
     common:
