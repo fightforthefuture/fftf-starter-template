@@ -7,3 +7,7 @@ en:
     <a href="https://www.fightforthefuture.org/privacy/" target="_blank">
       Privacy Policy</a>
   error: Sorry, that didn't work. Please check your info and try again.
+  phone_label: Phone Number*
+  phone_placeholder: 555-555-5555
+  zip_label: ZIP*
+  zip_placeholder: US ZIP Code

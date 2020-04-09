@@ -8,7 +8,7 @@
   "actionNetworkPetitionId": "",
   "actionNetworkTags": [],
   "congressEmailSubject": "",
-  "isArchived": true,
+  "isArchived": false,
   "features": {
     "selfies": false,
     "map": false
