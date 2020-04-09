@@ -1,8 +1,9 @@
 <i18n src="~/locales/global.yml"></i18n>
 
 <template>
-  <a :href="shareURL" target="_blank"
-     :class="[ isButton ? `btn btn-${networkName}` : '' ]"
+  <b-button :href="shareURL" target="_blank"
+     :size="size"
+     :class="`btn ${isButton ? `btn-${networkName}` : 'link'}`"
      @click.prevent="share()">
     <slot>
       <img v-if="networkName === 'twitter' && shouldDisplayIcon"
@@ -15,7 +16,7 @@
         {{ network }}
       </span>
     </slot>
-  </a>
+  </b-button>
 </template>
 
 <script>
@@ -52,6 +53,11 @@ export default {
       type: Boolean,
       required: false,
       default: true
+    },
+    size: {
+      type: String,
+      required: false,
+      default: 'sm'
     }
   },
 

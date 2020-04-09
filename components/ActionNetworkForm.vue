@@ -1,41 +1,43 @@
 <i18n src="~/locales/components/ActionNetworkForm.yml"></i18n>
 <i18n src="~/locales/global.yml"></i18n>
-
 <template>
-  <div class="sml-push-y2 med-push-y3">
-    <div class="text-center">
-      <div v-if="hasSigned">
-        <h2 class="text-success">{{ $t('thanks.title') }}</h2>
-        <p class="sml-push-y1">{{ $t('thanks.share') }}</p>
-        <div class="row sml-push-y2 med-push-y3">
-          <div class="sml-c12 lrg-c4">
+  <div>
+    <div class="text-center"  v-if="hasSigned">
+      <h2 class="text-success">{{ $t('thanks.title') }}</h2>
+      <p>{{ $t('thanks.share') }}</p>
+      <b-container>
+        <b-row>
+          <b-col sm="12" lg="4">
             <ShareButton
+              size="lg"
               network="twitter"
               class="btn-block"
               :text="tweetText"
               @click.native="$trackClick(`twitter_share_button_success_${routeName}`)">
               <span>{{ $t('global.common.tweet') }}</span>
             </ShareButton>
-          </div> <!-- .c -->
-          <div class="sml-c12 lrg-c4 sml-push-y1 lrg-push-y0">
+          </b-col> <!-- .c -->
+          <b-col sm="12" lg="4">
             <ShareButton
+              size="lg"
               network="facebook"
               class="btn-block"
               @click.native="$trackClick(`facebook_share_button_sucess_${routeName}`)">
               <span>{{ $t('global.common.share') }}</span>
             </ShareButton>
-          </div> <!-- .c -->
-          <div class="sml-c12 lrg-c4 sml-push-y1 lrg-push-y0">
-            <a :href="donateUrl"
-               class="btn btn-block"
+          </b-col> <!-- .c -->
+          <b-col sm="12" lg="4">
+            <b-button :href="donateUrl"
+               class="btn btn-block btn-primary"
+               size="lg"
                @click="$trackClick(`donate_button_success_${routeName}`)">
               <span>{{ $t('global.common.donate') }}</span>
-            </a>
-          </div> <!-- .c -->
-        </div> <!-- .row -->
-      </div> <!-- v-if -->
-    </div> <!-- .push -->
-    <form v-if="!hasSigned"
+            </b-button>
+          </b-col>
+        </b-row>
+      </b-container>
+    </div>
+    <b-form v-if="!hasSigned"
           @submit.prevent="submitForm()"
           action="https://queue.fftf.xyz/action"
           method="post">
@@ -48,116 +50,127 @@
       <input type="hidden" name="an_petition_id" :value="anPetitionId">
       <input type="hidden" name="redirect_to" :value="$t('redirect_url')">
 
-      <p v-if="errorMessage" class="text-warn">
+      <p v-if="errorMessage" class="alert-danger">
         {{ errorMessage }}
       </p>
-      <div class="flex-grid sml-flex-row">
-        <div>
-          <label type="text" for="member[first_name]">{{ $t('form.name.label') }}</label>
-          <input v-model="name"
-            :placeholder="$t('form.name.placeholder')"
-            type="text"
-            name="member[first_name]"
-            required>
-        </div>
-        <div>
-          <label type="text" for="member[email]">{{ $t('form.email.label') }}</label>
-          <input v-model="email"
-            :placeholder="$t('form.email.placeholder')"
-            type="email"
-            name="member[email]"
-            required>
-        </div>
-      </div> <!-- .flex-grid -->
-      <div class="flex-grid sml-flex-row sml-push-y1">
-        <div>
-          <label type="text" for="member[street_address]">{{ $t('form.address.label') }}</label>
-          <input v-model="address"
-                 type="text"
-                 class="sml-flex-2"
-                 :placeholder="`${$t('form.address.placeholder')}${shouldContactCongress === 1 ? '*' : ''}`"
-                 name="member[street_address]"
-                 :required="contactCongress === 1">
-        </div>
-        <div>
-          <label type="text" for="member[postcode]">{{ $t('form.zip.label') }}</label>
-          <input v-model="zipCode"
-                 type="tel"
-                 :placeholder="$t('form.zip.placeholder')"
-                 name="member[postcode]"
-                 required>
-        </div>
-      </div>
-      <div class="flex-grid sml-flex-row sml-push-y1">
-        <div>
-          <label type="text" for="member[postcode]">{{ $t('form.phone.label') }}</label>
-          <input v-model.trim="phone"
-                 type="tel"
-                 class="sml-flex-2"
-                 :placeholder="$t('form.phone.placeholder')"
-                 name="member[phone_number]">
-          <small class="text-purple" v-html="$t('form.phone.disclaimer_html')"></small>
-        </div>
-      </div> <!-- .flex-grid -->
-      <div v-if="hasCompany" class="sml-push-y1">
-        <div v-if="hasCompanyToggle"
-             class="flex-grid sml-flex-row flex-center sml-push-y1">
-          <p class="sml-flex-2 med-flex-3 text-left">
-            {{ $t('form.is_an_org') }}
-          </p>
-          <div class="radio-toggle sml-pad-half">
-            <div class="flex-grid sml-flex-row">
-              <div>
-                <input
-                  v-model="isBusinessOwner"
-                  type="radio"
-                  :value="false"
-                  id="not-biz">
-                <label for="not-biz">{{ $t('global.common.no') }}</label>
-              </div>
-              <div>
-                <input
-                  v-model="isBusinessOwner"
-                  type="radio"
-                  :value="true"
-                  id="is-biz">
-                <label for="is-biz">{{ $t('global.common.yes') }}</label>
-              </div>
-            </div> <!-- .flex-grid -->
-          </div> <!-- .radio-toggle -->
-        </div> <!-- .flex-grid -->
+      <b-container>
+        <b-form-row>
+          <b-col sm="12" md="6">
+            <b-form-group
+              :label="$t('form.name.label')"
+              label-for="member[first_name]">
+              <b-form-input
+                type="text"
+                v-model.lazy="name"
+                name="member[first_name]"
+                :placeholder="$t('form.name.placeholder')"
+                required />
+            </b-form-group>
+          </b-col>
+          <b-col sm="12" md="6">
+            <b-form-group
+              :label="$t('form.email.label')"
+              label-for="member[email]">
 
-        <div v-if="isBusinessOwner || !hasCompanyToggle" class="sml-push-y1">
-          <input
-            v-model="companyName"
-            type="text"
-            :placeholder="`${$t('form.company')}${hasCompanyToggle ? '*': ''}`"
-            :required="hasCompanyToggle"
-            name="member[company]">
-        </div> <!-- v-if isBusinessOwner -->
-      </div> <!-- v-if hasCompany -->
-      <div v-if="hasComment || shouldContactCongress"
-           class="sml-push-y1 textarea-with-btn">
-        <textarea
-          v-model="comment"
-          ref="comment"
-          :placeholder="$t('form.comment')"
-          name="action_comment"
-          required>
-        </textarea>
-        <a class="btn btn-sml btn-alt" @click.prevent="clearComment()">
-          {{ $t('global.common.clear') }}
-        </a>
-      </div> <!-- .textarea-with-btn -->
+              <b-form-input
+                type="email"
+                v-model.lazy="email"
+                name="member[email]"
+                :placeholder="$t('form.email.placeholder')"
+                required />
+            </b-form-group>
+          </b-col>
+        </b-form-row>
+        <b-form-row>
+          <b-col sm="12" md="6">
+            <b-form-group
+              :label="$t('form.address.label')"
+              label-for="member[street_address]">
+              <b-form-input
+                type="text"
+                v-model.lazy="address"
+                name="member[street_address]"
+                :placeholder="`${$t('form.address.placeholder')}${shouldContactCongress === 1 ? '*' : ''}`"
+                :required="contactCongress === 1" />
+            </b-form-group>
+          </b-col>
+          <b-col sm="12" md="6">
+            <b-form-group
+              :label="$t('form.zip.label')"
+              label-for="member[postcode]">
 
-      <button class="btn btn-block sml-push-y1" :disabled="isSending">
-        <span v-if="isSending">{{ $t('global.common.sending') }}</span>
-        <span v-else>{{ buttonText }}</span>
-      </button>
-      <p class="sml-push-y1 text-center">
-        <small v-html="$t('privacy_html')"></small>
-      </p>
-    </form>
+              <b-form-input
+                type="text"
+                v-model.lazy="zipCode"
+                name="member[postcode]"
+                :placeholder="$t('form.zip.placeholder')"
+                required />
+            </b-form-group>
+          </b-col>
+        </b-form-row>
+        <b-form-group
+          :label="$t('form.phone.label')"
+          label-for="member[phone_number]">
+          <b-form-input
+            type="tel"
+            v-model.lazy="phone"
+            name="member[phone_number]"
+            :placeholder="$t('form.phone.placeholder')"
+            :required="contactCongress === 1" />
+            <small class="text-muted" v-html="$t('form.phone.disclaimer_html')"></small>
+        </b-form-group>
+
+        <div v-if="hasCompany">
+          <b-form-group v-if="hasCompanyToggle"
+            :label="$t('form.is_an_org')"
+            label-for="isBusinessOwner"
+            label-cols-lg="9"
+            label-cols-md="9"
+            label-cols-sm="auto">
+            <b-form-radio-group
+              v-model="isBusinessOwner"
+              :options="$t('form.business_owner_options')"
+              buttons
+              button-variant="primary"
+              size="lg"
+              class="btn-block"
+              name="isBusinessOwner"
+            ></b-form-radio-group>
+          </b-form-group>
+          <b-form-group>
+            <b-form-input v-if="isBusinessOwner || !hasCompanyToggle"
+              v-model.lazy="companyName"
+              type="text"
+              :placeholder="`${$t('form.company')}${hasCompanyToggle ? '*': ''}`"
+              :required="hasCompanyToggle"
+              name="member[company]" />
+          </b-form-group>
+        </div>
+
+        <b-form-group class="textarea-with-btn" v-if="hasComment || shouldContactCongress">
+          <b-form-textarea
+            v-model="comment"
+            ref="comment"
+            :placeholder="$t('form.comment')"
+            name="action_comment"
+            rows="3"
+            max-rows="6"
+            required></b-form-textarea>
+            <b-button @click.prevent="clearComment()">
+              {{ $t('global.common.clear') }}
+            </b-button>
+        </b-form-group>
+
+        <b-form-group class="text-center">
+          <b-button variant="primary" block size="lg" :disabled="isSending">
+            <span v-if="isSending">{{ $t('global.common.sending') }}</span>
+            <span v-else>{{ buttonText }}</span>
+          </b-button>
+          <small class="text-muted" v-html="$t('privacy_html')"></small>
+        </b-form-group>
+
+      </b-container>
+    </b-form>
   </div>
 </template>
 

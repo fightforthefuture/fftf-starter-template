@@ -6,7 +6,7 @@
 // @import "base/_typography";
 // @import "base/_spacing";
 // @import "base/_modifiers";
-@import "base/_forms";
+// @import "base/_forms";
 // @import "base/_lists";
 // @import "base/_images";
 // @import "base/_video";
@@ -23,3 +23,6 @@ img {
 
 @import 'node_modules/bootstrap/scss/bootstrap';
 @import 'node_modules/bootstrap-vue/src/index.scss';
+
+
+@import "base/_forms";

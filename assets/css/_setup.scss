@@ -86,3 +86,37 @@ $fix-mqs: false !default;
     @media only screen and (max-width: $content) { @content; }
   }
 }
+
+
+//
+//
+// BOOTSTRAP VARIABLE OVERRIDES
+
+$theme-colors: (
+  "twitter": #499FEC,
+  "facebook": #405993
+);
+
+// BODY
+$body-color: #222;
+
+// COMPONENTS
+$border-radius: 5px;
+$grid-gutter-width: 10px;
+
+// TYPOGRAPHY
+$font-family-sans-serif: "Helvetica Neue", Helvetica, Arial, sans-serif;
+$font-weight-bold: 700;
+
+// BUTTONS
+$btn-font-weight: $font-weight-bold;
+
+// FORMS
+$input-focus-border-color: $body-color;
+$input-box-shadow: none;
+$input-focus-box-shadow: none;
+
+$input-padding-y: 0.7rem;
+$input-padding-x: 1.25rem;
+$input-box-shadow: none;
+$input-focus-box-shadow: none;
