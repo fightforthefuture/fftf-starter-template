@@ -2,9 +2,8 @@ import config from '~/config'
 
 export const state = () => ({
   // State > Config
-  callpowerCampaignId: null,
+  callpowerCampaignId: config.callpowerCampaignId,
   donateUrl: config.donateUrl,
-  callScript: null,
   isArchived: config.isArchived,
 
   // State > Modal
@@ -51,15 +50,6 @@ export const mutations = {
 
   setPhone(state, value) {
     state.phone = value
-  },
-
-  // Mutations > Calls
-  setCallpowerCampaignId(state, value) {
-    state.callpowerCampaignId = value
-  },
-
-  setCallScript(state, value) {
-    state.callScript = value
   },
 
   // Mutations > US State Select
