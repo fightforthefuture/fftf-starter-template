@@ -15,7 +15,7 @@
     p
       b {{ $t('script_intro') }}
     p
-      code {{ $t('global.call_script') }}
+      code {{ $t('global.callpower.script') }}
     p.text-warning
       small {{ $t('if_busy') }}
     hr

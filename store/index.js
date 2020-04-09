@@ -2,7 +2,6 @@ import config from '~/config'
 
 export const state = () => ({
   // State > Config
-  callpowerCampaignId: config.callpowerCampaignId,
   donateUrl: config.donateUrl,
   isArchived: config.isArchived,
 

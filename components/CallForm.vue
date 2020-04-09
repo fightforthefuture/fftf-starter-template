@@ -1,3 +1,4 @@
+<i18n src="~/locales/global.yml"></i18n>
 <i18n src="~/locales/components/CallForm.yml"></i18n>
 
 <template lang="pug">
@@ -65,7 +66,7 @@ export default {
       try {
         const { data } = await postFormData(
           'https://call-congress.fightforthefuture.org/create', {
-            campaignId: this.$store.state.callpowerCampaignId,
+            campaignId: this.$t('global.callpower.campaign_id'),
             userPhone: this.phone,
             userLocation: this.zipCode
           }

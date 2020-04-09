@@ -8,8 +8,10 @@ en:
       image: https://www.__REPLACE_ME_WITH_DOMAIN_NAME__/share.jpg
       default_tweet_text: FIXME
       url: https://www.__REPLACE_ME_WITH_DOMAIN_NAME__
-    call_script: >
-      TODO: call script goes here
+    callpower:
+      campaign_id: Take This Seriously
+      script: >
+        TODO: call script goes here
     letter_text: |
       TODO: letter text goes here
     common:
