@@ -2,13 +2,13 @@
 <i18n src="~/locales/global.yml"></i18n>
 
 <template>
-  <div class="sml-push-y2 med-push-y3">
-    <div class="text-center">
-      <div v-if="hasSigned">
-        <h2 class="text-success">{{ $t('thanks.title') }}</h2>
-        <p class="sml-push-y1">{{ $t('thanks.share') }}</p>
-        <div class="row sml-push-y2 med-push-y3">
-          <div class="sml-c12 lrg-c4">
+  <div>
+    <div class="text-center"  v-if="hasSigned">
+      <h2 class="text-success">{{ $t('thanks.title') }}</h2>
+      <p>{{ $t('thanks.share') }}</p>
+      <b-container>
+        <b-row>
+          <b-col sm="12" lg="4">
             <ShareButton
               network="twitter"
               class="btn-block"
@@ -16,25 +16,26 @@
               @click.native="$trackClick(`twitter_share_button_success_${routeName}`)">
               <span>{{ $t('global.common.tweet') }}</span>
             </ShareButton>
-          </div> <!-- .c -->
-          <div class="sml-c12 lrg-c4 sml-push-y1 lrg-push-y0">
+          </b-col> <!-- .c -->
+          <b-col sm="12" lg="4">
             <ShareButton
               network="facebook"
               class="btn-block"
               @click.native="$trackClick(`facebook_share_button_sucess_${routeName}`)">
               <span>{{ $t('global.common.share') }}</span>
             </ShareButton>
-          </div> <!-- .c -->
-          <div class="sml-c12 lrg-c4 sml-push-y1 lrg-push-y0">
-            <a :href="donateUrl"
-               class="btn btn-block"
+          </b-col> <!-- .c -->
+          <b-col sm="12" lg="4">
+            <button :href="donateUrl"
+               type="button"
+               class="btn btn-block btn-primary"
                @click="$trackClick(`donate_button_success_${routeName}`)">
               <span>{{ $t('global.common.donate') }}</span>
-            </a>
-          </div> <!-- .c -->
-        </div> <!-- .row -->
-      </div> <!-- v-if -->
-    </div> <!-- .push -->
+            </button>
+          </b-col>
+        </b-row>
+      </b-container>
+    </div>
     <b-form v-if="!hasSigned"
           @submit.prevent="submitForm()"
           action="https://queue.fftf.xyz/action"
@@ -48,7 +49,7 @@
       <input type="hidden" name="an_petition_id" :value="anPetitionId">
       <input type="hidden" name="redirect_to" :value="$t('redirect_url')">
 
-      <p v-if="errorMessage" class="text-warn">
+      <p v-if="errorMessage" class="alert-danger">
         {{ errorMessage }}
       </p>
       <b-container>
@@ -278,7 +279,7 @@ export default {
   data() {
     return {
       isSending: false,
-      hasSigned: false,
+      hasSigned: true,
       errorMessage: null,
       comment: null,
       isBusinessOwner: false,

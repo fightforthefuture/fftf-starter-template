@@ -108,3 +108,8 @@ $input-focus-box-shadow: none;
 :root {
   --font-family-sans-serif: "Helvetica Neue", Helvetica, Arial, sans-serif;
 }
+
+$theme-colors: (
+  "twitter": $twitter-color,
+  "facebook": $facebook-color
+);
