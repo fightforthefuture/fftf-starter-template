@@ -2,16 +2,26 @@
 en:
   global:
     site_title: __REPLACE_ME_WITH_DOMAIN_NAME__
+    site_url: https://www.__REPLACE_ME_WITH_DOMAIN_NAME__
+    donation_url: https://www.fightforthefuture.org/donate/
     sharing:
       title: __REPLACE_ME_WITH_DOMAIN_NAME__
       description: A Fight for the Future website
       image: https://www.__REPLACE_ME_WITH_DOMAIN_NAME__/share.jpg
       default_tweet_text: FIXME
       url: https://www.__REPLACE_ME_WITH_DOMAIN_NAME__
+    action_network:
+      petition_id: null
+      tags:
+        - net-neutrality
+        - surveillance
     callpower:
       campaign_id: Take This Seriously
       script: >
         TODO: call script goes here
+    congress:
+      enabled: no
+      email_subject: FIXME
     letter_text: |
       TODO: letter text goes here
     common:

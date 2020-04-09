@@ -1,12 +1,7 @@
 {
-  "siteTitle": "FFTF Starter Template",
   "googleAnalyticsId": "",
   "matomoSiteId": "",
-  "donateUrl": "https://donate.fightforthefuture.org/",
   "mapboxToken": "",
-  "actionNetworkPetitionId": "",
-  "actionNetworkTags": [],
-  "congressEmailSubject": "",
   "isArchived": false,
   "features": {
     "selfies": false,
