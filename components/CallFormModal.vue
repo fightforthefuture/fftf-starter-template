@@ -1,14 +1,12 @@
 <i18n src="~/locales/components/CallFormModal.yml"></i18n>
 
-<template>
-  <div>
-    <h2>
-      <span class="text-success">{{ $t('thanks' ) }}</span>
-      {{ $t('please_call') }}
-    </h2>
-    <p class="sml-push-y1">{{ $t('instructions' ) }}</p>
-    <CallForm />
-  </div>
+<template lang="pug">
+b-modal#call-form-modal(:visible="true" centered modal-class="text-center" hide-footer)
+  template(v-slot:modal-title)
+    span.text-success {{ $t('thanks') }}
+    |  {{ $t('please_call') }}
+  p {{ $t('instructions') }}
+  CallForm
 </template>
 
 <script>
