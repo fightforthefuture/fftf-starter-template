@@ -11,10 +11,10 @@ form .textarea-with-btn {
   position: relative;
 }
 form .textarea-with-btn textarea {
-  padding-right: $gutter*10; // NOTE: magic number based on length of button text
+  padding-right: $spacer*10; // NOTE: magic number based on length of button text
 }
 form .textarea-with-btn .btn {
   position: absolute;
-  top:   $gutter;
-  right: $gutter*2;
+  top:   $spacer;
+  right: $spacer*2;
 }

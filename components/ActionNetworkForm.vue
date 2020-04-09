@@ -1,6 +1,5 @@
 <i18n src="~/locales/components/ActionNetworkForm.yml"></i18n>
 <i18n src="~/locales/global.yml"></i18n>
-
 <template>
   <div>
     <div class="text-center"  v-if="hasSigned">
@@ -279,7 +278,7 @@ export default {
   data() {
     return {
       isSending: false,
-      hasSigned: true,
+      hasSigned: false,
       errorMessage: null,
       comment: null,
       isBusinessOwner: false,
