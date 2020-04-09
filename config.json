@@ -4,5 +4,13 @@
   "matomoSiteId": "",
   "donateUrl": "https://donate.fightforthefuture.org/",
   "mapboxToken": "",
-  "isArchived": false
+  "callpowerCampaignId": "",
+  "actionNetworkPetitionId": "",
+  "actionNetworkTags": [],
+  "congressEmailSubject": "",
+  "isArchived": true,
+  "features": {
+    "selfies": false,
+    "map": false
+  }
 }
