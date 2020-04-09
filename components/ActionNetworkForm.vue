@@ -9,6 +9,7 @@
         <b-row>
           <b-col sm="12" lg="4">
             <ShareButton
+              size="lg"
               network="twitter"
               class="btn-block"
               :text="tweetText"
@@ -18,6 +19,7 @@
           </b-col> <!-- .c -->
           <b-col sm="12" lg="4">
             <ShareButton
+              size="lg"
               network="facebook"
               class="btn-block"
               @click.native="$trackClick(`facebook_share_button_sucess_${routeName}`)">
@@ -25,12 +27,12 @@
             </ShareButton>
           </b-col> <!-- .c -->
           <b-col sm="12" lg="4">
-            <button :href="donateUrl"
-               type="button"
+            <b-button :href="donateUrl"
                class="btn btn-block btn-primary"
+               size="lg"
                @click="$trackClick(`donate_button_success_${routeName}`)">
               <span>{{ $t('global.common.donate') }}</span>
-            </button>
+            </b-button>
           </b-col>
         </b-row>
       </b-container>

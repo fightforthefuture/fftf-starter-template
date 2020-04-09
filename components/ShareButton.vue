@@ -1,8 +1,8 @@
 <i18n src="~/locales/global.yml"></i18n>
 
 <template>
-  <button :href="shareURL" target="_blank"
-     type="button"
+  <b-button :href="shareURL" target="_blank"
+     :size="size"
      :class="`btn ${isButton ? `btn-${networkName}` : 'link'}`"
      @click.prevent="share()">
     <slot>
@@ -16,7 +16,7 @@
         {{ network }}
       </span>
     </slot>
-  </button>
+  </b-button>
 </template>
 
 <script>
@@ -53,6 +53,11 @@ export default {
       type: Boolean,
       required: false,
       default: true
+    },
+    size: {
+      type: String,
+      required: false,
+      default: 'sm'
     }
   },
 
