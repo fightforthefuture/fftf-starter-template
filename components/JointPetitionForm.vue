@@ -252,13 +252,6 @@ export default {
         return this.$t('text_flow_id')
       }
     },
-    callScript: {
-      type: String,
-      required: false,
-      default: function () {
-        return this.$t('global.call_script')
-      }
-    },
     buttonText: {
       type: String,
       required: false,

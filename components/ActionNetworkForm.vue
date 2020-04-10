@@ -27,7 +27,7 @@
             </ShareButton>
           </b-col> <!-- .c -->
           <b-col sm="12" lg="4">
-            <b-button :href="donateUrl"
+            <b-button :href="$t('global.donation_url')"
                class="btn btn-block btn-primary"
                size="lg"
                @click="$trackClick(`donate_button_success_${routeName}`)">
@@ -162,10 +162,10 @@
         </b-form-group>
 
         <b-form-group class="text-center">
-          <b-button variant="primary" block size="lg" :disabled="isSending">
+          <button class="btn btn-primary btn-block btn-lg" :disabled="isSending">
             <span v-if="isSending">{{ $t('global.common.sending') }}</span>
             <span v-else>{{ buttonText }}</span>
-          </b-button>
+          </button>
           <small class="text-muted" v-html="$t('privacy_html')"></small>
         </b-form-group>
 
@@ -175,7 +175,6 @@
 </template>
 
 <script>
-import { mapState } from 'vuex'
 import { sendToMothership } from '~/assets/js/helpers'
 import ShareButton from '~/components/ShareButton'
 
@@ -189,56 +188,40 @@ export default {
       type: String,
       required: false,
       default: function () {
-        return this.$t('petition_id')
+        return this.$te('global.action_network.petition_id') ? this.$t('global.action_network.petition_id') : ''
       }
     },
     subject: {
       type: String,
       required: false,
       default: function () {
-        return this.$t('subject')
+        return this.$t('global.congress.email_subject')
       }
     },
     contactCongress: {
       type: String,
       required: false,
       default: function () {
-        return this.$t('contact_congress')
+        return this.$t('global.congress.enabled')
       }
     },
-    /* eslint-disable vue/require-prop-types */
     fccDocket: {
       required: false,
       default: function () {
-        return this.$te('fcc_docket') ? this.$t('fcc_docket') : null
+        return this.$te('global.fcc.docket_number') ? this.$t('global.fcc.docket_number') : ''
       }
     },
     callpowerId: {
       required: false,
       default: function () {
-        return this.$te('callpower_id') ? this.$t('callpower_id') : null
+        return this.$te('global.callpower.campaign_id') ? this.$t('global.callpower.campaign_id') : ''
       }
     },
-    /* eslint-enable vue/require-prop-types */
     tags: {
       type: Object,
       required: false,
       default: function () {
-        return this.$t('tags')
-      }
-    },
-    textFlowId: {
-      type: String,
-      required: false,
-      default: function () {
-        return this.$t('text_flow_id')
-      }
-    },
-    callScript: {
-      type: String,
-      required: false,
-      default: function () {
-        return this.$t('global.call_script')
+        return this.$t('global.action_network.tags')
       }
     },
     buttonText: {
@@ -289,8 +272,6 @@ export default {
   },
 
   computed: {
-    ...mapState(['donateUrl']),
-
     routeName() { return this.$nuxt.$route.name },
 
     name: {
@@ -339,7 +320,7 @@ export default {
     },
 
     shouldContactCongress() {
-      return this.contactCongress.toLowerCase() === 'yes' ? 1 : 0
+      return this.$t('global.congress.enabled').toLowerCase() === 'yes'
     },
 
     mothershipTags() {
@@ -353,12 +334,13 @@ export default {
 
   methods: {
     async submitForm() {
+      console.log('submit')
       if (this.isSending) return
 
       this.isSending = true
 
       try {
-        const response = await sendToMothership({ // eslint-disable-line no-unused-vars
+        const response = await sendToMothership({
           subject: this.subject,
           member: {
             first_name: this.name,
@@ -379,19 +361,17 @@ export default {
         })
 
         this.$trackEvent(`petition_form_${this.routeName}`, 'submit')
-
-        if (this.callpowerId) {
-          this.$store.commit('setCallpowerCampaignId', this.callpowerId)
-          this.$store.commit('setCallScript', this.callScript)
-          this.$store.commit('setModalVisibility', true)
-          this.$store.commit('setModalType', 'call-form')
-        }
-        this.isSending = false
         this.hasSigned = true
 
-      } catch (err) {
-        this.isSending = false
+      }
+      catch (err) {
         this.errorMessage = this.$t('global.common.error')
+      }
+
+      this.isSending = false
+
+      if (this.callpowerId) {
+        this.$store.commit('showModal', 'call-form')
       }
     },
 
