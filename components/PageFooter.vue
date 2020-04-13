@@ -7,7 +7,8 @@
       {{ $t('built_by') }}<br>
       <a href="https://www.fightforthefuture.org">
         <img src="~assets/images/fftf-logo-dark.svg"
-             :alt="$t('global.common.logo_alt')">
+             :alt="$t('global.common.logo_alt')"
+             width="300" >
       </a>
     </p>
     <p>
