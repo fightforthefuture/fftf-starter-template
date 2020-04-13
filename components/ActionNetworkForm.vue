@@ -81,6 +81,19 @@
             </b-form-group>
           </b-col>
         </b-form-row>
+        <b-form-row v-if="isInternational">
+          <b-col>
+            <b-form-group
+              :label="$t('form.country.label')"
+              label-for="member[country]">
+              <b-form-select v-model="country">
+                <b-form-select-option v-for="(text, value) in countries"
+                  :value="value"
+                  :key="`country-select-${value}`">{{ text }}</b-form-select-option>
+              </b-form-select>
+            </b-form-group>
+          </b-col>
+        </b-form-row>
         <b-form-row>
           <b-col sm="12" md="6">
             <b-form-group
@@ -96,7 +109,7 @@
           </b-col>
           <b-col sm="12" md="6">
             <b-form-group
-              :label="$t('form.zip.label')"
+              :label="$t('form.zip.label') + (isUnitedStates ? '*' : '')"
               label-for="member[postcode]">
 
               <b-form-input
@@ -104,7 +117,7 @@
                 v-model.lazy="zipCode"
                 name="member[postcode]"
                 :placeholder="$t('form.zip.placeholder')"
-                required />
+                :required="isUnitedStates" />
             </b-form-group>
           </b-col>
         </b-form-row>
@@ -161,6 +174,20 @@
             </b-button>
         </b-form-group>
 
+        <b-form-group v-if="isGDPRCountry" class="opt-in-wrapper">
+          <p>{{ $t('gdpr.opt_in_label') }}</p>
+          <b-form-radio-group
+              v-model="optedOut"
+              :options="$t('gdpr.opt_out_options')"
+              stacked
+              name="optedOut"
+            ></b-form-radio-group>
+        </b-form-group>
+        <b-form-group v-if="optedOut" class="opt-in-pitch">
+          <p>{{ $t('gdpr.nudge') }}</p>
+          <b-button size="sm" variant="primary" @click.prevent="optedOut = false" >{{ $t('gdpr.nudge_button') }}</b-button>
+        </b-form-group>
+
         <b-form-group class="text-center">
           <button class="btn btn-primary btn-block btn-lg" :disabled="isSending">
             <span v-if="isSending">{{ $t('global.common.sending') }}</span>
@@ -177,6 +204,7 @@
 <script>
 import { sendToMothership } from '~/assets/js/helpers'
 import ShareButton from '~/components/ShareButton'
+import countries from '~/assets/data/countries'
 
 export default {
   components: {
@@ -257,6 +285,11 @@ export default {
       default: function () {
         return this.$t('global.letter_text')
       }
+    },
+    isInternational: {
+      type: Boolean,
+      required: false,
+      default: false
     }
   },
 
@@ -267,7 +300,8 @@ export default {
       errorMessage: null,
       comment: null,
       isBusinessOwner: false,
-      companyName: null
+      companyName: null,
+      optedOut: null
     }
   },
 
@@ -319,12 +353,62 @@ export default {
       }
     },
 
+    country: {
+      get() {
+        return this.$store.state.country
+      },
+      set(value) {
+        this.$store.commit('setCountry', value)
+      }
+    },
+
     shouldContactCongress() {
       return this.$t('global.congress.enabled').toLowerCase() === 'yes'
     },
 
     mothershipTags() {
       return JSON.stringify(Object.values(this.tags))
+    },
+
+    countries() {
+      return countries
+    },
+
+    isGDPRCountry() {
+      return [
+        "AT",
+        "BE",
+        "BG",
+        "HR",
+        "CY",
+        "CZ",
+        "DK",
+        "EE",
+        "FI",
+        "FR",
+        "DE",
+        "GR",
+        "HU",
+        "IE",
+        "IT",
+        "LV",
+        "LT",
+        "LU",
+        "MT",
+        "NL",
+        "PL",
+        "PT",
+        "RO",
+        "SK",
+        "SI",
+        "ES",
+        "SE",
+        "GB"
+      ].includes(this.country)
+    },
+
+    isUnitedStates() {
+      return this.country === 'US'
     }
   },
 
@@ -334,7 +418,6 @@ export default {
 
   methods: {
     async submitForm() {
-      console.log('submit')
       if (this.isSending) return
 
       this.isSending = true
@@ -348,7 +431,7 @@ export default {
             phone_number: this.phone,
             street_address: this.address,
             postcode: this.zipCode,
-            country: 'US',
+            country: this.country,
             company: this.companyName
           },
           hp_enabled: 'true',

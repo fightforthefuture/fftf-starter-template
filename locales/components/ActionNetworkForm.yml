@@ -21,8 +21,10 @@ en:
       label: Address
       placeholder: Street
     zip:
-      label: ZIP*
+      label: ZIP
       placeholder: US ZIP Code
+    country:
+      label: Country*
     phone:
       label: Phone (to receive SMS campaign alerts)
       placeholder: 555-555-5555
@@ -42,3 +44,12 @@ en:
   thanks:
     title: Thanks for signing the petition!
     share: Please consider sharing with your friends and family.
+  gdpr:
+    opt_in_label: Would you like to receive important campaign updates and action alerts by email?
+    opt_out_options:
+      - value: false
+        text: Yes, please
+      - value: true
+        text: No, thanks
+    nudge: Are you sure? Email is how we will stay in touch and report on our progress. You can unsubscribe at any time.
+    nudge_button: Yes, keep me involved
