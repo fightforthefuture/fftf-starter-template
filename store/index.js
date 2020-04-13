@@ -14,6 +14,7 @@ export const state = () => ({
   address: null,
   zipCode: null,
   phone: null,
+  country: 'US',
 
   // State > US State Select
   selectedState: null
@@ -48,6 +49,10 @@ export const mutations = {
 
   setPhone(state, value) {
     state.phone = value
+  },
+
+  setCountry(state, value) {
+    state.country = value
   },
 
   // Mutations > US State Select
