@@ -120,3 +120,9 @@ $input-padding-y: 0.7rem;
 $input-padding-x: 1.25rem;
 $input-box-shadow: none;
 $input-focus-box-shadow: none;
+
+// these need to be here to make mixins available
+// to vue components
+@import "~bootstrap/scss/functions";
+@import "~bootstrap/scss/variables";
+@import "~bootstrap/scss/mixins";
