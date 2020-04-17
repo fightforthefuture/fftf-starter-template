@@ -1,28 +1,84 @@
-/// Main Stylesheet
-
-// @import "_reset";
-// @import "base/_base";
-// @import "base/_grid";
-// @import "base/_typography";
-// @import "base/_spacing";
-// @import "base/_modifiers";
-// @import "base/_forms";
-// @import "base/_lists";
-// @import "base/_images";
-// @import "base/_video";
-// @import "base/_interactions";
-// @import "components/_buttons";
-// @import "components/_page-header";
-// @import "components/_page-footer";
-// @import "components/_article";
-// @import "components/_selfies";
+@import 'node_modules/bootstrap/scss/bootstrap';
+@import 'node_modules/bootstrap-vue/src/index.scss';
 
 img {
   max-width: 100%;
 }
 
-@import 'node_modules/bootstrap/scss/bootstrap';
-@import 'node_modules/bootstrap-vue/src/index.scss';
+.btn {
+  color: $btn-color;
+  text-transform: uppercase;
+  text-decoration: none;
 
+  &.disabled,
+  &:disabled {
+    color: $btn-color;
+  }
+}
 
-@import "base/_forms";
+.btn-facebook,
+.btn-twitter,
+.btn-facebook:hover,
+.btn-twitter:hover {
+  color: #fff !important;
+}
+
+.textarea-with-btn {
+  position: relative;
+
+  textarea {
+    // NOTE: magic number based on length of button text
+    padding-right: $spacer*10;
+  }
+
+  .btn {
+    position: absolute;
+    top:   $spacer;
+    right: $spacer*2;
+  }
+}
+
+.modal {
+  .text-muted {
+    color: $gray-600 !important;
+  }
+
+  a {
+    color: $blue;
+
+    &:hover {
+      color: darken($blue, 10%);
+    }
+  }
+}
+
+.container {
+  max-width: 680px;
+}
+
+section {
+  padding: 3rem;
+
+  &:nth-child(even) {
+    background-color: theme-color(alt);
+  }
+
+  &:last-child {
+    padding-bottom: $spacer * 10;
+  }
+}
+
+.fftf-logo {
+  background-image: url("~assets/images/fftf-logo-dark.svg");
+  background-size: cover;
+  background-repeat: no-repeat;
+  width: 300px;
+  height: 72px;
+  display: inline-block;
+}
+
+@if $theme == dark {
+  .fftf-logo {
+    background-image: url("~assets/images/fftf-logo-light.svg");
+  }
+}

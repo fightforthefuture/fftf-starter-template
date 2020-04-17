@@ -1,5 +1,4 @@
 en:
-  redirect_url: FIXME
   petition_url_string: FIXME
   join_petition_disclaimer_html: By signing this petition you agree to receive occasional emails from one or more sponsor organization. You may of course unsubscribe at any time.
   privacy_html: |
@@ -30,26 +29,19 @@ en:
       placeholder: 555-555-5555
       disclaimer_html: >
         Message and data rates apply. Message frequency varies. Text STOP to cancel your subscription. Text HELP for more information. <a href="https://www.fightforthefuture.org/privacy/" target="_blank">Privacy Policy</a> and <a href="https://www.fightforthefuture.org/privacy/" target="_blank">Terms of Service</a>
-    action_comment:
-      label: Message to Congress
-    is_an_org: Are you signing for an org or business?
-    business_owner_options:
-      - text: NO
-        value: false
-      - text: YES
-        value: true
-    company: Company Name
-    comment: Comment*
+    company:
+      label: Company
+      placeholder: Name of your company or organization
+    comment:
+      label: Comment*
+      placeholder: Your comments
     button_cta: SIGN THE PETITION
   thanks:
     title: Thanks for signing the petition!
     share: Please consider sharing with your friends and family.
   gdpr:
     opt_in_label: Would you like to receive important campaign updates and action alerts by email?
-    opt_out_options:
-      - value: false
-        text: Yes, please
-      - value: true
-        text: No, thanks
+    yes_label: Yes, please
+    no_label: No, thanks
     nudge: Are you sure? Email is how we will stay in touch and report on our progress. You can unsubscribe at any time.
     nudge_button: Yes, keep me involved

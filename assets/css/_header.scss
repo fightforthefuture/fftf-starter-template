@@ -1,0 +1,69 @@
+// Setup: Variables & Mixins
+//
+// This file is injected into every Vue component and SCSS file
+
+
+//
+//
+// BOOTSTRAP VARIABLE OVERRIDES
+
+// COLORS
+$theme-colors: (
+  "twitter": #499FEC,
+  "facebook": #405993,
+);
+
+// BODY
+// $body-color: #222;
+
+// COMPONENTS
+$border-radius: 5px;
+$grid-gutter-width: 10px;
+
+// TYPOGRAPHY
+$font-family-sans-serif: 'Open Sans', -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, "Noto Sans", sans-serif, "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol", "Noto Color Emoji";
+$font-weight-bold: 700;
+$headings-font-family: 'Montserrat', $font-family-sans-serif;
+$headings-font-weight: 700;
+
+// BUTTONS
+$btn-font-weight: $font-weight-bold;
+
+// FORMS
+// $input-focus-border-color: $body-color;
+// $input-box-shadow: none;
+// $input-focus-box-shadow: none;
+$input-padding-y: 0.7rem;
+$input-padding-x: 1.25rem;
+// $input-box-shadow: none;
+// $input-focus-box-shadow: none;
+
+// Active theme
+@import 'themes/dark';
+// @import 'themes/light.scss';
+// @import 'themes/purple.scss';
+// @import 'themes/blue.scss';
+
+
+// MIXINS
+
+@mixin arrow-up($color, $size: $spacer*1.5) {
+  position: relative;
+
+  &:after {
+    bottom: 100%;
+    left: 50%;
+    border: solid transparent;
+    content: " ";
+    height: 0;
+    width: 0;
+    position: absolute;
+    pointer-events: none;
+    border-color: transparent;
+    border-bottom-color: $color;
+    border-width: $size;
+    margin-left: $size * -1;
+  }
+}
+
+

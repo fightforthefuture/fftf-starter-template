@@ -1,205 +1,201 @@
 <i18n src="~/locales/components/ActionNetworkForm.yml"></i18n>
 <i18n src="~/locales/global.yml"></i18n>
+
 <template>
   <div>
-    <div class="text-center"  v-if="hasSigned">
-      <h2 class="text-success">{{ $t('thanks.title') }}</h2>
-      <p>{{ $t('thanks.share') }}</p>
-      <b-container>
-        <b-row>
-          <b-col sm="12" lg="4">
-            <ShareButton
-              size="lg"
-              network="twitter"
-              class="btn-block"
-              :text="tweetText"
-              @click.native="$trackClick(`twitter_share_button_success_${routeName}`)">
-              <span>{{ $t('global.common.tweet') }}</span>
-            </ShareButton>
-          </b-col> <!-- .c -->
-          <b-col sm="12" lg="4">
-            <ShareButton
-              size="lg"
-              network="facebook"
-              class="btn-block"
-              @click.native="$trackClick(`facebook_share_button_sucess_${routeName}`)">
-              <span>{{ $t('global.common.share') }}</span>
-            </ShareButton>
-          </b-col> <!-- .c -->
-          <b-col sm="12" lg="4">
-            <b-button :href="$t('global.donation_url')"
-               class="btn btn-block btn-primary"
-               size="lg"
-               @click="$trackClick(`donate_button_success_${routeName}`)">
-              <span>{{ $t('global.common.donate') }}</span>
-            </b-button>
-          </b-col>
-        </b-row>
-      </b-container>
-    </div>
-    <b-form v-if="!hasSigned"
+    <!-- STEP 1: THE FORM -->
+    <form v-if="!hasSigned"
           @submit.prevent="submitForm()"
           action="https://queue.fftf.xyz/action"
-          method="post">
-      <input type="hidden" name="subject" :value="subject">
+          method="post"
+          class="text-left"
+    >
+      <input type="hidden" name="subject" :value="congressEmailSubject">
       <input type="hidden" name="hp_enabled" value="true">
       <input type="hidden" name="guard" value="">
-      <input type="hidden" name="contact_congress" :value="shouldContactCongress">
+      <input type="hidden" name="contact_congress" :value="contactCongress">
       <input type="hidden" name="fcc_ecfs_docket" :value="fccDocket">
       <input type="hidden" name="an_tags" :value="mothershipTags">
-      <input type="hidden" name="an_petition_id" :value="anPetitionId">
-      <input type="hidden" name="redirect_to" :value="$t('redirect_url')">
+      <input type="hidden" name="an_petition_id" :value="petitionId">
+      <input type="hidden" name="redirect_to" :value="redirectTo">
 
       <p v-if="errorMessage" class="alert-danger">
         {{ errorMessage }}
       </p>
-      <b-container>
-        <b-form-row>
-          <b-col sm="12" md="6">
-            <b-form-group
-              :label="$t('form.name.label')"
-              label-for="member[first_name]">
-              <b-form-input
-                type="text"
-                v-model.lazy="name"
-                name="member[first_name]"
-                :placeholder="$t('form.name.placeholder')"
-                required />
-            </b-form-group>
-          </b-col>
-          <b-col sm="12" md="6">
-            <b-form-group
-              :label="$t('form.email.label')"
-              label-for="member[email]">
 
-              <b-form-input
-                type="email"
-                v-model.lazy="email"
-                name="member[email]"
-                :placeholder="$t('form.email.placeholder')"
-                required />
-            </b-form-group>
-          </b-col>
-        </b-form-row>
-        <b-form-row v-if="isInternational">
-          <b-col>
-            <b-form-group
-              :label="$t('form.country.label')"
-              label-for="member[country]">
-              <b-form-select v-model="country">
-                <b-form-select-option v-for="(text, value) in countries"
-                  :value="value"
-                  :key="`country-select-${value}`">{{ text }}</b-form-select-option>
-              </b-form-select>
-            </b-form-group>
-          </b-col>
-        </b-form-row>
-        <b-form-row>
-          <b-col sm="12" md="6">
-            <b-form-group
-              :label="$t('form.address.label')"
-              label-for="member[street_address]">
-              <b-form-input
-                type="text"
-                v-model.lazy="address"
-                name="member[street_address]"
-                :placeholder="`${$t('form.address.placeholder')}${shouldContactCongress === 1 ? '*' : ''}`"
-                :required="contactCongress === 1" />
-            </b-form-group>
-          </b-col>
-          <b-col sm="12" md="6">
-            <b-form-group
-              :label="$t('form.zip.label') + (isUnitedStates ? '*' : '')"
-              label-for="member[postcode]">
-
-              <b-form-input
-                type="text"
-                v-model.lazy="zipCode"
-                name="member[postcode]"
-                :placeholder="$t('form.zip.placeholder')"
-                :required="isUnitedStates" />
-            </b-form-group>
-          </b-col>
-        </b-form-row>
-        <b-form-group
-          :label="$t('form.phone.label')"
-          label-for="member[phone_number]">
-          <b-form-input
-            type="tel"
-            v-model.lazy="phone"
-            name="member[phone_number]"
-            :placeholder="$t('form.phone.placeholder')"
-            :required="contactCongress === 1" />
-            <small class="text-muted" v-html="$t('form.phone.disclaimer_html')"></small>
-        </b-form-group>
-
-        <div v-if="hasCompany">
-          <b-form-group v-if="hasCompanyToggle"
-            :label="$t('form.is_an_org')"
-            label-for="isBusinessOwner"
-            label-cols-lg="9"
-            label-cols-md="9"
-            label-cols-sm="auto">
-            <b-form-radio-group
-              v-model="isBusinessOwner"
-              :options="$t('form.business_owner_options')"
-              buttons
-              button-variant="primary"
-              size="lg"
-              class="btn-block"
-              name="isBusinessOwner"
-            ></b-form-radio-group>
-          </b-form-group>
-          <b-form-group>
-            <b-form-input v-if="isBusinessOwner || !hasCompanyToggle"
-              v-model.lazy="companyName"
+      <div class="form-row">
+        <div class="col-sm-12 col-md-6">
+          <div class="form-group">
+            <label>{{ $t('form.name.label') }}</label>
+            <input
+              class="form-control"
               type="text"
-              :placeholder="`${$t('form.company')}${hasCompanyToggle ? '*': ''}`"
-              :required="hasCompanyToggle"
-              name="member[company]" />
-          </b-form-group>
+              v-model.lazy.trim="name"
+              name="member[first_name]"
+              :placeholder="$t('form.name.placeholder')"
+              required />
+          </div>
         </div>
+        <div class="col-sm-12 col-md-6">
+          <div class="form-group">
+            <label>{{ $t('form.email.label') }}</label>
+            <input
+              class="form-control"
+              type="email"
+              v-model.lazy.trim="email"
+              name="member[email]"
+              :placeholder="$t('form.email.placeholder')"
+              required />
+          </div>
+        </div>
+      </div>
 
-        <b-form-group class="textarea-with-btn" v-if="hasComment || shouldContactCongress">
-          <b-form-textarea
+      <div class="form-row" v-if="isInternational">
+        <div class="col">
+          <div class="form-group">
+            <label>{{ $t('form.country.label') }}</label>
+            <select class="form-control" v-model="country">
+              <option v-for="(text, value) in countries"
+                :value="value"
+                :key="`country-select-${value}`">{{ text }}</option>
+            </select>
+          </div>
+        </div>
+      </div>
+
+      <div class="form-row">
+        <div class="col-sm-12 col-md-6">
+          <div class="form-group">
+            <label>{{ $t('form.address.label') }}</label>
+            <input
+              class="form-control"
+              type="text"
+              v-model.lazy.trim="address"
+              name="member[street_address]"
+              :placeholder="`${$t('form.address.placeholder')}${contactCongress ? '*' : ''}`"
+              :required="contactCongress === 1" />
+          </div>
+        </div>
+        <div class="col-sm-12 col-md-6">
+          <div class="form-group">
+            <label>{{ $t('form.zip.label') }}</label>
+            <input
+              class="form-control"
+              type="text"
+              v-model.lazy.trim="zipCode"
+              name="member[postcode]"
+              :placeholder="$t('form.zip.placeholder')"
+              :required="isUnitedStates" />
+          </div>
+        </div>
+      </div>
+
+      <div class="form-group">
+        <label>{{ $t('form.phone.label') }}</label>
+        <input
+          class="form-control"
+          type="tel"
+          v-model.lazy.trim="phone"
+          name="member[phone_number]"
+          :placeholder="$t('form.phone.placeholder')"
+          :required="contactCongress === 1" />
+        <small class="d-block mt-1 text-muted" v-html="$t('form.phone.disclaimer_html')"></small>
+      </div>
+
+      <div v-if="hasCompany" class="form-group">
+        <label>{{ $t('form.company.label') }}</label>
+        <input
+          class="form-control"
+          v-model.lazy.trim="companyName"
+          type="text"
+          :placeholder="$t('form.company.placeholder')"
+          name="member[company]" />
+      </div>
+
+      <div class="form-group" v-if="hasComment">
+        <label>{{ $t('form.comment.label') }}</label>
+        <div class="textarea-with-btn">
+          <textarea
+            class="form-control"
             v-model="comment"
             ref="comment"
-            :placeholder="$t('form.comment')"
+            :placeholder="$t('form.comment.placeholder')"
             name="action_comment"
             rows="3"
             max-rows="6"
-            required></b-form-textarea>
-            <b-button @click.prevent="clearComment()">
-              {{ $t('global.common.clear') }}
-            </b-button>
-        </b-form-group>
+            required></textarea>
+          <a class="btn btn-secondary" href="#" @click.prevent="clearComment()">
+            {{ $t('global.common.clear') }}
+          </a>
+        </div>
+      </div>
 
-        <b-form-group v-if="isGDPRCountry" class="opt-in-wrapper">
-          <p>{{ $t('gdpr.opt_in_label') }}</p>
-          <b-form-radio-group
-              v-model="optedOut"
-              :options="$t('gdpr.opt_out_options')"
-              stacked
-              name="optedOut"
-            ></b-form-radio-group>
-        </b-form-group>
-        <b-form-group v-if="optedOut" class="opt-in-pitch">
-          <p>{{ $t('gdpr.nudge') }}</p>
-          <b-button size="sm" variant="primary" @click.prevent="optedOut = false" >{{ $t('gdpr.nudge_button') }}</b-button>
-        </b-form-group>
+      <div v-if="isGDPRCountry" class="form-group opt-in-wrapper">
+        <label>{{ $t('gdpr.opt_in_label') }}</label>
+        <div class="form-check">
+          <input class="form-check-input" type="radio" name="opt_out" :value="false" v-model="optedOut" required id="gdpr_yes">
+          <label class="form-check-label" for="gdpr_yes">
+            {{ $t('gdpr.yes_label') }}
+          </label>
+        </div>
+        <div class="form-check">
+          <input class="form-check-input" type="radio" name="opt_out" :value="true" v-model="optedOut" required id="gdpr_no">
+          <label class="form-check-label" for="gdpr_no">
+            {{ $t('gdpr.no_label') }}
+          </label>
+        </div>
 
-        <b-form-group class="text-center">
-          <button class="btn btn-primary btn-block btn-lg" :disabled="isSending">
-            <span v-if="isSending">{{ $t('global.common.sending') }}</span>
-            <span v-else>{{ buttonText }}</span>
-          </button>
-          <small class="text-muted" v-html="$t('privacy_html')"></small>
-        </b-form-group>
+        <div v-if="optedOut" class="mt-4 mb-5">
+          <label>{{ $t('gdpr.nudge') }}</label>
+          <a class="btn btn-primary btn-sm" @click.prevent="optedOut = false">{{ $t('gdpr.nudge_button') }}</a>
+        </div>
+      </div>
 
-      </b-container>
-    </b-form>
+      <div class="form-group text-center">
+        <button class="btn btn-primary btn-block btn-lg" :disabled="isSending">
+          <span v-if="isSending">{{ $t('global.common.sending') }}</span>
+          <span v-else>{{ buttonCta }}</span>
+        </button>
+        <small class="text-muted" v-html="$t('privacy_html')"></small>
+      </div>
+    </form>
+
+    <!-- STEP 2: AFTER-ACTION -->
+    <div v-if="hasSigned" class="text-center mt-5">
+      <h2 class="text-success">{{ $t('thanks.title') }}</h2>
+      <p>{{ $t('thanks.share') }}</p>
+      <div class="row">
+        <div class="col-sm-12 col-lg-4">
+          <ShareButton
+            size="lg"
+            network="twitter"
+            class="btn-block"
+            :text="shareTweet"
+            @click.native="$trackClick(`twitter_share_button_success_${routeName}`)">
+            <span>{{ $t('global.common.tweet') }}</span>
+          </ShareButton>
+        </div> <!-- .c -->
+        <div class="col-sm-12 col-lg-4">
+          <ShareButton
+            size="lg"
+            network="facebook"
+            class="btn-block"
+            @click.native="$trackClick(`facebook_share_button_sucess_${routeName}`)">
+            <span>{{ $t('global.common.share') }}</span>
+          </ShareButton>
+        </div> <!-- .c -->
+        <div class="col-sm-12 col-lg-4">
+          <a :href="$t('global.donation_url')"
+             class="btn btn-block btn-primary btn-lg"
+             @click="$trackClick(`donate_button_success_${routeName}`)">
+            <span>{{ $t('global.common.donate') }}</span>
+          </a>
+        </div>
+      </div>
+    </div>
   </div>
 </template>
+
 
 <script>
 import { sendToMothership } from '~/assets/js/helpers'
@@ -212,84 +208,74 @@ export default {
   },
 
   props: {
-    anPetitionId: {
+    petitionId: {
       type: String,
-      required: false,
-      default: function () {
-        return this.$te('global.action_network.petition_id') ? this.$t('global.action_network.petition_id') : ''
-      }
+      required: true
     },
-    subject: {
+    tags: {
       type: String,
-      required: false,
-      default: function () {
-        return this.$t('global.congress.email_subject')
-      }
+      required: false
     },
     contactCongress: {
+      type: Boolean,
+      required: false,
+      default: false
+    },
+    congressEmailSubject: {
       type: String,
       required: false,
       default: function () {
-        return this.$t('global.congress.enabled')
+        return this.$t('global.site_title')
       }
     },
     fccDocket: {
-      required: false,
-      default: function () {
-        return this.$te('global.fcc.docket_number') ? this.$t('global.fcc.docket_number') : ''
-      }
+      type: String,
+      required: false
     },
     callpowerId: {
-      required: false,
-      default: function () {
-        return this.$te('global.callpower.campaign_id') ? this.$t('global.callpower.campaign_id') : ''
-      }
-    },
-    tags: {
-      type: Object,
-      required: false,
-      default: function () {
-        return this.$t('global.action_network.tags')
-      }
-    },
-    buttonText: {
       type: String,
-      required: false,
-      default: function () {
-        return this.$t('form.button_cta')
-      }
+      required: false
+    },
+    callpowerScript: {
+      type: String,
+      required: false
     },
     hasComment: {
       type: Boolean,
       required: false,
       default: false
     },
+    defaultComment: {
+      type: String,
+      required: false
+    },
     hasCompany: {
       type: Boolean,
       required: false,
       default: false
     },
-    hasCompanyToggle: {
-      type: Boolean,
-      required: false,
-      default: false
-    },
-    tweetText: {
-      type: String,
-      required: false,
-      default: null
-    },
-    letterText: {
-      type: String,
-      required: false,
-      default: function () {
-        return this.$t('global.letter_text')
-      }
-    },
     isInternational: {
       type: Boolean,
       required: false,
-      default: false
+      default: true
+    },
+    shareTweet: {
+      type: String,
+      required: false
+    },
+    buttonCta: {
+      type: String,
+      required: false,
+      default: function () {
+        return this.$t('form.button_cta')
+      }
+    },
+    redirectTo: {
+      type: String,
+      required: false,
+      default: function() {
+        return `${this.$t('global.site_url')}?signed=true`
+      }
     }
   },
 
@@ -299,7 +285,6 @@ export default {
       hasSigned: false,
       errorMessage: null,
       comment: null,
-      isBusinessOwner: false,
       companyName: null,
       optedOut: null
     }
@@ -367,7 +352,13 @@ export default {
     },
 
     mothershipTags() {
-      return JSON.stringify(Object.values(this.tags))
+      let tagsArray = this.tags
+
+      if (typeof tagsArray === 'string') {
+        tagsArray = this.tags.split(',').map(s => s.trim())
+      }
+
+      return JSON.stringify(Object.values(tagsArray))
     },
 
     countries() {
@@ -413,7 +404,7 @@ export default {
   },
 
   created() {
-    this.comment = this.letterText
+    this.comment = this.defaultComment
   },
 
   methods: {
@@ -424,7 +415,7 @@ export default {
 
       try {
         const response = await sendToMothership({
-          subject: this.subject,
+          subject: this.congressEmailSubject,
           member: {
             first_name: this.name,
             email: this.email,
@@ -436,10 +427,10 @@ export default {
           },
           hp_enabled: 'true',
           guard: '',
-          contact_congress: this.shouldContactCongress,
+          contact_congress: this.contactCongress,
           fcc_ecfs_docket: this.fccDocket,
           an_tags: this.mothershipTags,
-          an_petition_id: this.anPetitionId,
+          an_petition_id: this.petitionId,
           action_comment: this.hasComment ? this.comment : ''
         })
 
@@ -454,6 +445,8 @@ export default {
       this.isSending = false
 
       if (this.callpowerId) {
+        this.$store.commit('setCallpowerId', this.callpowerId)
+        this.$store.commit('setCallpowerScript', this.callpowerScript)
         this.$store.commit('showModal', 'call-form')
       }
     },

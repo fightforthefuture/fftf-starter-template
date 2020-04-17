@@ -17,7 +17,11 @@ export const state = () => ({
   country: 'US',
 
   // State > US State Select
-  selectedState: null
+  selectedState: null,
+
+  // Callpower
+  callpowerId: null,
+  callpowerScript: null
 })
 
 export const mutations = {
@@ -58,5 +62,14 @@ export const mutations = {
   // Mutations > US State Select
   setSelectedState(state, value) {
     state.selectedState = value
+  },
+
+  // Mutations > Callpower
+  setCallpowerId(state, value) {
+    state.callpowerId = value
+  },
+
+  setCallpowerScript(state, value) {
+    state.callpowerScript = value
   }
 }
