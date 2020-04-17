@@ -3,189 +3,161 @@
 
 <template>
   <div>
-    <div class="text-center"  v-if="hasSigned">
-      <h2 class="text-success">{{ $t('thanks.title') }}</h2>
-      <p>{{ $t('thanks.share') }}</p>
-      <b-container>
-        <b-row>
-          <b-col sm="12" lg="4">
-            <ShareButton
-              size="lg"
-              network="twitter"
-              class="btn-block"
-              :text="tweetText"
-              @click.native="$trackClick(`twitter_share_button_success_${routeName}`)">
-              <span>{{ $t('global.common.tweet') }}</span>
-            </ShareButton>
-          </b-col> <!-- .c -->
-          <b-col sm="12" lg="4">
-            <ShareButton
-              size="lg"
-              network="facebook"
-              class="btn-block"
-              @click.native="$trackClick(`facebook_share_button_sucess_${routeName}`)">
-              <span>{{ $t('global.common.share') }}</span>
-            </ShareButton>
-          </b-col> <!-- .c -->
-          <b-col sm="12" lg="4">
-            <b-button :href="donateUrl"
-               size="lg"
-               class="btn btn-block btn-primary"
-               @click="$trackClick(`donate_button_success_${routeName}`)">
-              <span>{{ $t('global.common.donate') }}</span>
-            </b-button>
-          </b-col>
-        </b-row>
-      </b-container>
-    </div>
+    <!-- STEP 1: THE FORM -->
+    <div v-if="!hasSigned">
 
-    <div v-else>
-      <div
-        class="d-none"
-        :id="'can-petition-area-'+$t('petition_url_string')">
+      <div v-if="petitionUrl"
+        style="display:none"
+        :id="`can-petition-area-${petitionUrl}`">
           <!-- The Action Network form embed will be inserted here -->
       </div>
 
-      <b-form
-          @submit.prevent="submitForm()"
-          action="https://queue.fftf.xyz/action"
-          method="post">
-        <input type="hidden" name="subject" :value="subject">
-        <input type="hidden" name="hp_enabled" value="true">
-        <input type="hidden" name="guard" value="">
-        <input type="hidden" name="contact_congress" :value="shouldContactCongress">
-        <input type="hidden" name="fcc_ecfs_docket" :value="fccDocket">
-        <input type="hidden" name="an_tags" :value="mothershipTags">
-        <input type="hidden" name="an_petition_id" :value="anPetitionId">
-        <input type="hidden" name="redirect_to" :value="$t('redirect_url')">
-
+      <form @submit.prevent="submitForm()" class="text-left">
         <p v-if="errorMessage" class="alert-danger">
           {{ errorMessage }}
         </p>
-        <b-container>
-          <b-form-row>
-            <b-col sm="12" md="6">
-              <b-form-group
-                :label="$t('form.name.label')"
-                label-for="member[first_name]">
-                <b-form-input
-                  type="text"
-                  v-model.lazy="name"
-                  name="member[first_name]"
-                  :placeholder="$t('form.name.placeholder')"
-                  required />
-              </b-form-group>
-            </b-col>
-            <b-col sm="12" md="6">
-              <b-form-group
-                :label="$t('form.email.label')"
-                label-for="member[email]">
 
-                <b-form-input
-                  type="email"
-                  v-model.lazy="email"
-                  name="member[email]"
-                  :placeholder="$t('form.email.placeholder')"
-                  required />
-              </b-form-group>
-            </b-col>
-          </b-form-row>
-          <b-form-row>
-            <b-col sm="12" md="6">
-              <b-form-group
-                :label="$t('form.address.label')"
-                label-for="member[street_address]">
-                <b-form-input
-                  type="text"
-                  v-model.lazy="address"
-                  name="member[street_address]"
-                  :placeholder="`${$t('form.address.placeholder')}${shouldContactCongress === 1 ? '*' : ''}`"
-                  :required="contactCongress === 1" />
-              </b-form-group>
-            </b-col>
-            <b-col sm="12" md="6">
-              <b-form-group
-                :label="$t('form.zip.label')"
-                label-for="member[postcode]">
-
-                <b-form-input
-                  type="text"
-                  v-model.lazy="zipCode"
-                  name="member[postcode]"
-                  :placeholder="$t('form.zip.placeholder')"
-                  required />
-              </b-form-group>
-            </b-col>
-          </b-form-row>
-          <b-form-group
-            :label="$t('form.phone.label')"
-            label-for="member[phone_number]">
-            <b-form-input
-              type="tel"
-              v-model.lazy="phone"
-              name="member[phone_number]"
-              :placeholder="$t('form.phone.placeholder')"
-              :required="contactCongress === 1" />
-              <small class="text-muted" v-html="$t('form.phone.disclaimer_html')"></small>
-          </b-form-group>
-
-          <div v-if="hasCompany">
-            <b-form-group v-if="hasCompanyToggle"
-              :label="$t('form.is_an_org')"
-              label-for="isBusinessOwner"
-              label-cols-lg="9"
-              label-cols-md="9"
-              label-cols-sm="auto">
-              <b-form-radio-group
-                v-model="isBusinessOwner"
-                :options="$t('form.business_owner_options')"
-                buttons
-                button-variant="primary"
-                size="lg"
-                class="btn-block"
-                name="isBusinessOwner"
-              ></b-form-radio-group>
-            </b-form-group>
-            <b-form-group>
-              <b-form-input v-if="isBusinessOwner || !hasCompanyToggle"
-                v-model.lazy="companyName"
+        <div class="form-row">
+          <div class="col-sm-12 col-md-6">
+            <div class="form-group">
+              <label>{{ $t('form.name.label') }}</label>
+              <input
+                class="form-control"
                 type="text"
-                :placeholder="`${$t('form.company')}${hasCompanyToggle ? '*': ''}`"
-                :required="hasCompanyToggle"
-                name="member[company]" />
-            </b-form-group>
+                v-model.lazy.trim="name"
+                name="member[first_name]"
+                :placeholder="$t('form.name.placeholder')"
+                required />
+            </div>
           </div>
+          <div class="col-sm-12 col-md-6">
+            <div class="form-group">
+              <label>{{ $t('form.email.label') }}</label>
+              <input
+                class="form-control"
+                type="email"
+                v-model.lazy.trim="email"
+                name="member[email]"
+                :placeholder="$t('form.email.placeholder')"
+                required />
+            </div>
+          </div>
+        </div>
 
-          <b-form-group class="textarea-with-btn" v-if="hasComment || shouldContactCongress">
-            <b-form-textarea
+        <div class="form-row">
+          <div class="col-sm-12 col-md-6">
+            <div class="form-group">
+              <label>{{ $t('form.address.label') }}{{ contactCongress ? '*' : '' }}</label>
+              <input
+                class="form-control"
+                type="text"
+                v-model.lazy.trim="address"
+                name="member[street_address]"
+                :placeholder="$t('form.address.placeholder')"
+                :required="contactCongress === 1" />
+            </div>
+          </div>
+          <div class="col-sm-12 col-md-6">
+            <div class="form-group">
+              <label>{{ $t('form.zip.label') }}*</label>
+              <input
+                class="form-control"
+                type="text"
+                v-model.lazy.trim="zipCode"
+                name="member[postcode]"
+                :placeholder="$t('form.zip.placeholder')"
+                required />
+            </div>
+          </div>
+        </div>
+
+        <div class="form-group">
+          <label>{{ $t('form.phone.label') }}</label>
+          <input
+            class="form-control"
+            type="tel"
+            v-model.lazy.trim="phone"
+            name="member[phone_number]"
+            :placeholder="$t('form.phone.placeholder')"
+            :required="contactCongress === 1" />
+          <small class="d-block mt-1 text-muted" v-html="$t('form.phone.disclaimer_html')"></small>
+        </div>
+
+        <div v-if="hasCompany" class="form-group">
+          <label>{{ $t('form.company.label') }}</label>
+          <input
+            class="form-control"
+            v-model.lazy.trim="companyName"
+            type="text"
+            :placeholder="$t('form.company.placeholder')"
+            name="member[company]" />
+        </div>
+
+        <div class="form-group" v-if="hasComment">
+          <label>{{ $t('form.comment.label') }}</label>
+          <div class="textarea-with-btn">
+            <textarea
+              class="form-control"
               v-model="comment"
               ref="comment"
-              :placeholder="$t('form.comment')"
+              :placeholder="$t('form.comment.placeholder')"
               name="action_comment"
               rows="3"
               max-rows="6"
-              required></b-form-textarea>
-              <b-button @click.prevent="clearComment()">
-                {{ $t('global.common.clear') }}
-              </b-button>
-          </b-form-group>
+              ></textarea>
+            <a class="btn btn-secondary" href="#" @click.prevent="clearComment()">
+              {{ $t('global.common.clear') }}
+            </a>
+          </div>
+        </div>
 
-          <b-form-group class="text-center">
-            <b-button variant="primary" block size="lg" :disabled="isSending">
-              <span v-if="isSending">{{ $t('global.common.sending') }}</span>
-              <span v-else>{{ buttonText }}</span>
-            </b-button>
-            <small class="text-muted" v-html="$t('privacy_html')"></small>
-          </b-form-group>
+        <div class="form-group">
+          <button class="btn btn-primary btn-block btn-lg" :disabled="isSending">
+            <span v-if="isSending">{{ $t('global.common.sending') }}</span>
+            <span v-else>{{ buttonCta }}</span>
+          </button>
+          <small class="text-muted d-block mt-1" v-html="$t('join_petition_disclaimer_html')"></small>
+        </div>
+      </form>
+    </div> <!-- /!hasSigned -->
 
-        </b-container>
-      </b-form>
+    <!-- STEP 2: AFTER-ACTION -->
+    <div v-if="hasSigned" class="text-center mt-5">
+      <h2 class="text-success">{{ $t('thanks.title') }}</h2>
+      <p>{{ $t('thanks.share') }}</p>
+      <div class="row">
+        <div class="col-sm-12 col-lg-4">
+          <ShareButton
+            size="lg"
+            network="twitter"
+            class="btn-block"
+            :text="shareTweet"
+            @click.native="$trackClick(`twitter_share_button_success_${routeName}`)">
+            <span>{{ $t('global.common.tweet') }}</span>
+          </ShareButton>
+        </div> <!-- .c -->
+        <div class="col-sm-12 col-lg-4">
+          <ShareButton
+            size="lg"
+            network="facebook"
+            class="btn-block"
+            @click.native="$trackClick(`facebook_share_button_sucess_${routeName}`)">
+            <span>{{ $t('global.common.share') }}</span>
+          </ShareButton>
+        </div> <!-- .c -->
+        <div class="col-sm-12 col-lg-4">
+          <a :href="$t('global.donation_url')"
+             class="btn btn-block btn-primary btn-lg"
+             @click="$trackClick(`donate_button_success_${routeName}`)">
+            <span>{{ $t('global.common.donate') }}</span>
+          </a>
+        </div>
+      </div>
     </div>
   </div>
 </template>
 
 <script>
-import { mapState } from 'vuex'
 import { sendToMothership } from '~/assets/js/helpers'
 import ShareButton from '~/components/ShareButton'
 
@@ -203,87 +175,62 @@ export default {
   },
 
   props: {
-    anPetitionId: {
+    petitionUrl: {
       type: String,
-      required: false,
-      default: function () {
-        return this.$t('petition_id')
-      }
-    },
-    subject: {
-      type: String,
-      required: false,
-      default: function () {
-        return this.$t('subject')
-      }
+      required: true
     },
     contactCongress: {
+      type: Boolean,
+      required: false,
+      default: false
+    },
+    congressEmailSubject: {
       type: String,
       required: false,
       default: function () {
-        return this.$t('contact_congress')
+        return this.$t('global.site_title')
       }
     },
-    /* eslint-disable vue/require-prop-types */
     fccDocket: {
-      required: false,
-      default: function () {
-        return this.$te('fcc_docket') ? this.$t('fcc_docket') : null
-      }
+      type: String,
+      required: false
     },
     callpowerId: {
-      required: false,
-      default: function () {
-        return this.$te('global.callpower_id') ? this.$t('global.callpower_id') : null
-      }
-    },
-    /* eslint-enable vue/require-prop-types */
-    tags: {
-      type: Object,
-      required: false,
-      default: function () {
-        return this.$t('tags')
-      }
-    },
-    textFlowId: {
       type: String,
-      required: false,
-      default: function () {
-        return this.$t('text_flow_id')
-      }
+      required: false
     },
-    buttonText: {
+    callpowerScript: {
       type: String,
-      required: false,
-      default: function () {
-        return this.$t('form.button_cta')
-      }
+      required: false
     },
     hasComment: {
       type: Boolean,
       required: false,
       default: false
     },
+    defaultComment: {
+      type: String,
+      required: false
+    },
     hasCompany: {
       type: Boolean,
       required: false,
       default: false
     },
-    hasCompanyToggle: {
+    isInternational: {
       type: Boolean,
       required: false,
-      default: false
+      default: true
     },
-    tweetText: {
+    shareTweet: {
       type: String,
-      required: false,
-      default: null
+      required: false
     },
-    letterText: {
+    buttonCta: {
       type: String,
       required: false,
       default: function () {
-        return this.$t('global.letter_text')
+        return this.$t('form.button_cta')
       }
     }
   },
@@ -294,15 +241,12 @@ export default {
       hasSigned: false,
       errorMessage: null,
       comment: null,
-      isBusinessOwner: false,
       companyName: null,
       referrerGroup: null
     }
   },
 
   computed: {
-    ...mapState(['donateUrl']),
-
     routeName() { return this.$nuxt.$route.name },
 
     name: {
@@ -350,20 +294,8 @@ export default {
       }
     },
 
-    shouldContactCongress() {
-      return this.contactCongress.toLowerCase() === 'yes' ? 1 : 0
-    },
-
-    mothershipTags() {
-      return JSON.stringify(Object.values(this.tags))
-    },
-
     referrer() {
       return this.$route.query.referrer
-    },
-
-    petitionString() {
-      return this.$t('petition_url_string')
     },
 
     firstName() {
@@ -402,7 +334,7 @@ export default {
   },
 
   created() {
-    this.comment = this.letterText
+    this.comment = this.defaultComment
   },
 
   mounted() {
@@ -415,7 +347,7 @@ export default {
     script.id = 'ACTION_NETWORK_EMBED_SCRIPT'
     script.type = 'text/javascript'
     script.async = true
-    script.src = `https://actionnetwork.org/widgets/v3/petition/${this.petitionString}?format=js&source=widget&clear_id=true&referrer=${this.referrer}`
+    script.src = `https://actionnetwork.org/widgets/v3/petition/${this.petitionUrl}?format=js&source=widget&clear_id=true&referrer=${this.referrer}`
     document.body.appendChild(script)
 
     document.addEventListener('can_embed_loaded', this.setupForm)
@@ -458,10 +390,10 @@ export default {
     },
 
     async handleFormSuccess() {
-      this.$trackEvent(`petition_swap_form_${this.routeName}`, 'submit')
-      this.$trackEvent(`petition_swap_form_${this.routeName}_${this.referrerGroup}`, 'submit')
+      this.$trackEvent(`joint_petition_form_${this.routeName}`, 'submit')
+      this.$trackEvent(`joint_petition_form_${this.routeName}_${this.referrerGroup}`, 'submit')
 
-      if (this.shouldContactCongress) {
+      if (this.contactCongress) {
         try {
           await sendToMothership({ // eslint-disable-line no-unused-vars
             subject: this.subject,
@@ -485,9 +417,9 @@ export default {
       }
 
       if (this.callpowerId) {
-        this.$store.commit('setCallpowerCampaignId', this.callpowerId)
-        this.$store.commit('setModalVisibility', true)
-        this.$store.commit('setModalType', 'call-form')
+        this.$store.commit('setCallpowerId', this.callpowerId)
+        this.$store.commit('setCallpowerScript', this.callpowerScript)
+        this.$store.commit('showModal', 'call-form')
       }
 
       this.isSending = false

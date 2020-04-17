@@ -78,7 +78,9 @@
         </div>
         <div class="col-sm-12 col-md-6">
           <div class="form-group">
-            <label>{{ $t('form.zip.label') }}</label>
+            <label>
+              {{ $t('form.zip.label') }}
+            </label>
             <input
               class="form-control"
               type="text"
@@ -122,8 +124,7 @@
             :placeholder="$t('form.comment.placeholder')"
             name="action_comment"
             rows="3"
-            max-rows="6"
-            required></textarea>
+            max-rows="6"></textarea>
           <a class="btn btn-secondary" href="#" @click.prevent="clearComment()">
             {{ $t('global.common.clear') }}
           </a>
@@ -151,12 +152,12 @@
         </div>
       </div>
 
-      <div class="form-group text-center">
+      <div class="form-group">
         <button class="btn btn-primary btn-block btn-lg" :disabled="isSending">
           <span v-if="isSending">{{ $t('global.common.sending') }}</span>
           <span v-else>{{ buttonCta }}</span>
         </button>
-        <small class="text-muted" v-html="$t('privacy_html')"></small>
+        <small class="text-muted text-center d-block mt-1" v-html="$t('privacy_html')"></small>
       </div>
     </form>
 
@@ -347,12 +348,8 @@ export default {
       }
     },
 
-    shouldContactCongress() {
-      return this.$t('global.congress.enabled').toLowerCase() === 'yes'
-    },
-
     mothershipTags() {
-      let tagsArray = this.tags
+      let tagsArray = this.tags || []
 
       if (typeof tagsArray === 'string') {
         tagsArray = this.tags.split(',').map(s => s.trim())
@@ -405,6 +402,12 @@ export default {
 
   created() {
     this.comment = this.defaultComment
+  },
+
+  mounted() {
+    if (this.$route.query.signed) {
+      this.hasSigned = true
+    }
   },
 
   methods: {

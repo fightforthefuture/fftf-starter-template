@@ -20,8 +20,8 @@ en:
       label: Address
       placeholder: Street
     zip:
-      label: ZIP
-      placeholder: US ZIP Code
+      label: Postal Code
+      placeholder: US ZIP Code or Postal Code
     country:
       label: Country*
     phone:
@@ -33,7 +33,7 @@ en:
       label: Company
       placeholder: Name of your company or organization
     comment:
-      label: Comment*
+      label: Comment
       placeholder: Your comments
     button_cta: SIGN THE PETITION
   thanks:
