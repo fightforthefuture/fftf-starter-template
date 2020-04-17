@@ -6,7 +6,7 @@
     p.text-danger(v-if="errorMessage") {{ errorMessage }}
     .row.text-left
       .col-sm-6
-        .form-groups
+        .form-group
           label.mb-0(for="call-form-phone") {{ $t('phone_label') }}
           input.form-control#call-form-phone(
             v-model.trim.lazy="phone"
@@ -66,7 +66,7 @@ export default {
       try {
         const { data } = await postFormData(
           'https://call-congress.fightforthefuture.org/create', {
-            campaignId: this.$t('global.callpower.campaign_id'),
+            campaignId: this.$store.state.callpowerId,
             userPhone: this.phone,
             userLocation: this.zipCode
           }

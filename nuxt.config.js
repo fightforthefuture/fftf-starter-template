@@ -10,10 +10,11 @@ module.exports = {
     title: '',
     meta: [
       { charset: 'utf-8' },
-      { name: 'viewport', content: 'width=device-width, initial-scale=1' }
+      { name: 'viewport', content: 'width=device-width, initial-scale=1, shrink-to-fit=no' },
     ],
     link: [
-      { rel: 'icon', type: 'image/x-icon', href: '/favicon.ico' }
+      { rel: 'icon', type: 'image/x-icon', href: '/favicon.ico' },
+      { rel: 'stylesheet', href: 'https://fonts.googleapis.com/css2?family=Montserrat:wght@700&family=Open+Sans:ital,wght@0,300;0,400;0,700;1,300;1,400;1,700&display=swap' }
     ]
   },
 
@@ -34,7 +35,8 @@ module.exports = {
   */
   plugins: [
     { src: '~/plugins/analytics.js', ssr: false },
-    { src: '~/plugins/hash-link-fix.js', ssr: false }
+    { src: '~/plugins/hash-link-fix.js', ssr: false },
+    { src: '~/plugins/scroll-to.js', ssr: false }
   ],
 
   /*
@@ -63,7 +65,11 @@ module.exports = {
 
   bootstrapVue: {
     css: false,
-    bvCSS: false
+    bvCSS: false,
+    components: [
+      'BModal'
+     ],
+    directives: []
   },
 
   /*
@@ -74,7 +80,7 @@ module.exports = {
   },
   styleResources: {
     scss: [
-      '~assets/css/_setup.scss'
+      '~assets/css/_header.scss'
     ]
   },
 

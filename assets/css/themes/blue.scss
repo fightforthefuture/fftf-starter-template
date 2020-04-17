@@ -1,0 +1,32 @@
+// bootstrap overrides
+$body-color: #fff;
+$link-color: #fff;
+$link-decoration: underline;
+$body-bg: #285ED8; // linear-gradient(180deg, #63CEF6 0%, #285ED8 100%);
+$text-muted: rgba(255, 255, 255, 0.7);
+$modal-content-color: #222;
+
+$theme-colors: map-merge(
+  (
+    "primary": #EC583F,
+    "success": #fd7e14,
+    "alt": #1B6CF1,
+    // "secondary":  $secondary,
+    // "success":    $success,
+    // "info":       $info,
+    // "warning":    $warning,
+    // "danger":     $danger,
+    // "light":      $light,
+    // "dark":       $dark
+  ),
+  $theme-colors
+);
+
+// stuff we made up
+$btn-color: #fff;
+$theme: 'blue';
+
+// body {
+//   background: #285ED8 linear-gradient(180deg, #63CEF6 0%, #285ED8 100%);
+// }
+

@@ -1,27 +1,25 @@
-<template>
-  <b-container>
-    <b-row class="text-center">
-      <b-col>
-        <ShareButton
+<template lang="pug">
+  .text-center
+    .row
+      .col
+        ShareButton(
           network="Twitter"
           :url="url"
           :text="tweetText"
           :should-display-icon="false"
           class="btn-block"
           size="sm"
-          @click.native="$trackClick(`twitter_share_button_${routeName}`)" />
-      </b-col>
-      <b-col>
-        <ShareButton
+          @click.native="$trackClick(`twitter_share_button_${routeName}`)"
+        )
+      .col
+        ShareButton(
           network="Facebook"
           :url="url"
           :should-display-icon="false"
           class="btn-block"
           size="sm"
-          @click.native="$trackClick(`facebook_share_button_${routeName}`)" />
-      </b-col>
-    </b-row>
-  </b-container>
+          @click.native="$trackClick(`facebook_share_button_${routeName}`)"
+        )
 </template>
 
 <script>

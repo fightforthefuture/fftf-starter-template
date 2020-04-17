@@ -15,7 +15,7 @@
     p
       b {{ $t('script_intro') }}
     p
-      code {{ $t('global.callpower.script') }}
+      code {{ callpowerScript }}
     p.text-warning
       small {{ $t('if_busy') }}
     hr
@@ -24,11 +24,16 @@
 </template>
 
 <script>
+import { mapState } from 'vuex'
 import SocialShareButtons from '~/components/SocialShareButtons'
 
 export default {
   components: {
     SocialShareButtons
+  },
+
+  computed: {
+    ...mapState(['callpowerScript'])
   }
 }
 </script>

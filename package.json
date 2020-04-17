@@ -18,7 +18,6 @@
   "dependencies": {
     "@nuxtjs/axios": "^5.9.7",
     "clipboard": "^2.0.6",
-    "cross-env": "^5.2.1",
     "nuxt": "^2.12.2",
     "nuxt-i18n": "^6.8.0"
   },
@@ -28,6 +27,7 @@
     "babel-polyfill": "^6.26.0",
     "bootstrap": "^4.4.1",
     "bootstrap-vue": "^2.10.1",
+    "cross-env": "^5.2.1",
     "exif-js": "^2.3.0",
     "node-sass": "^4.13.1",
     "nodemon": "^1.19.4",

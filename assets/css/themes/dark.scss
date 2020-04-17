@@ -1,0 +1,27 @@
+// bootstrap overrides
+$body-color: #fff;
+$link-color: #52B1FF;
+$body-bg: #29303C;
+$text-muted: rgba(255, 255, 255, 0.7);
+$modal-content-color: #222;
+
+$theme-colors: map-merge(
+  (
+    "primary": #41CF7A,
+    "alt": #424956,
+    "success": #41CF7A,
+    // "secondary":  $secondary,
+    // "success":    $success,
+    // "info":       $info,
+    // "warning":    $warning,
+    // "danger":     $danger,
+    // "light":      $light,
+    // "dark":       $dark
+  ),
+  $theme-colors
+);
+
+// stuff we made up
+$alt-bg: #424956;
+$btn-color: #fff;
+$theme: 'dark';
