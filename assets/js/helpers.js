@@ -104,8 +104,6 @@ export function openPopup(url, title = 'popup', w = 600, h = 500) {
 export function smoothScrollTo(endX, endY, duration) {
   const startX = window.scrollX || window.pageXOffset
   const startY = window.scrollY || window.pageYOffset
-  const distanceX = endX - startX
-  const distanceY = endY - startY
   const startTime = new Date().getTime()
 
   duration = typeof duration !== 'undefined' ? duration : 400
@@ -118,8 +116,8 @@ export function smoothScrollTo(endX, endY, duration) {
 
   const timer = window.setInterval(function () {
     const time = new Date().getTime() - startTime
-    const newX = easeInOutQuart(time, startX, distanceX, duration)
-    const newY = easeInOutQuart(time, startY, distanceY, duration)
+    const newX = easeInOutQuart(time, startX, endX, duration)
+    const newY = easeInOutQuart(time, startY, endY, duration)
     if (time >= duration) {
       window.clearInterval(timer)
     }
@@ -133,7 +131,8 @@ export function smoothScrollToElement(el, duration) {
   el = typeof el === 'string' ? document.querySelector(el) : el
 
   if (el) {
-    smoothScrollTo(el.offsetLeft, el.offsetTop, duration)
+    const box = el.getBoundingClientRect()
+    smoothScrollTo(box.x, box.y, duration)
   }
 }
 
