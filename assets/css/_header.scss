@@ -2,7 +2,6 @@
 //
 // This file is injected into every Vue component and SCSS file
 
-
 //
 //
 // BOOTSTRAP VARIABLE OVERRIDES
@@ -38,12 +37,6 @@ $input-padding-x: 1.25rem;
 // $input-box-shadow: none;
 // $input-focus-box-shadow: none;
 
-// Active theme
-@import 'themes/dark';
-// @import 'themes/light.scss';
-// @import 'themes/purple.scss';
-// @import 'themes/blue.scss';
-
 
 // MIXINS
 
@@ -66,4 +59,13 @@ $input-padding-x: 1.25rem;
   }
 }
 
+// Active theme
+@import 'themes/dark';
+// @import 'themes/light.scss';
+// @import 'themes/purple.scss';
+// @import 'themes/blue.scss';
 
+// Give all components access to BS mixins and vars
+@import '~bootstrap/scss/_functions.scss';
+@import '~bootstrap/scss/_mixins.scss';
+@import '~bootstrap/scss/_variables.scss';

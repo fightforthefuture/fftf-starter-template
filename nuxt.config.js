@@ -80,10 +80,7 @@ module.exports = {
   },
   styleResources: {
     scss: [
-      '~assets/css/_header.scss',
-      'node_modules/bootstrap/scss/_functions.scss',
-      'node_modules/bootstrap/scss/_mixins.scss',
-      'node_modules/bootstrap/scss/_variables.scss'
+      '~assets/css/_header.scss'
     ]
   },
 
