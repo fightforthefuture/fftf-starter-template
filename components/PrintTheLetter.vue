@@ -3,19 +3,23 @@
 <template>
   <div>
     <h2>{{ $t('title') }}</h2>
-    <p class="sml-push-y2 med-push-y3">{{ $t('description') }}</p>
-    <div class="flex-grid sml-flex-col med-flex-row sml-push-y3">
-      <select v-model="selectedState" class="sml-flex-2">
-        <option :value="null">{{ $t('select_state') }}</option>
-        <option v-for="(name, abbr) in states" :key="abbr" :value="abbr">
-          {{ name }}
-        </option>
-      </select>
-      <button class="btn sml-push-y1 med-push-y0" :disabled="!selectedState"
-              @click.prevent="printLetter()">
-        {{ $t('button_cta') }}
-      </button>
-    </div> <!-- .flex-grid -->
+    <p>{{ $t('description') }}</p>
+    <div class="form-inline" role="form">
+      <div class="form-row flex-fill">
+        <select v-model="selectedState" class="form-control flex-fill mr-3">
+          <option :value="null">{{ $t('select_state') }}</option>
+          <option v-for="(name, abbr) in states" :key="abbr" :value="abbr">
+            {{ name }}
+          </option>
+        </select>
+
+        <button class="btn btn-primary" :disabled="!selectedState"
+                @click.prevent="printLetter()">
+          {{ $t('button_cta') }}
+        </button>
+      </div>
+    </div>
+
   </div>
 </template>
 
