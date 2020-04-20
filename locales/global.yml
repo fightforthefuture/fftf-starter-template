@@ -26,3 +26,20 @@ en:
       share: Share
       tweet: Tweet
       yes: "Yes"
+    scorecard:
+      tweet:
+        text_bad:
+          "No student should have to trade privacy for an education. __HANDLE__, are you going to install #facialrecognition and compromise academic liberty on your campus?"
+        text_good:
+          "Thank you __HANDLE__ for recognizing that NO student should have to trade privacy for an education. Let's protect academic liberty on every campus. 👍"
+      mailto:
+        cc: team@fightforthefuture.org
+        subject: Do not use facial recognition!
+        body: |
+          Hello,
+
+          I am appalled to see on Fight for the Future's scorecard that you may be using facial recognition technology. At a time when laws are being passed to ban this technology that places people of color, politically active folks, and undocumented people at risk of experiencing further police bias, how could you think this is a good idea?
+
+          This is an absurd choice that threatens the freedom to learn on your campus. It’s a huge waste of resources and a terrible idea that makes no one safer. In fact, facial recognition will make everyone on your campus more vulnerable, putting anyone who walks through campus’ sensitive biometric data at risk. A future of constant surveillance is a future no one wants. Even using facial recognition for something small opens the door for abuse of the technology.
+
+          Please reply all to clarify if you don't plan to use facial recognition on your campus so the scorecard can be updated.

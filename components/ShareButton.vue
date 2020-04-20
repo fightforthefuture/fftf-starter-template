@@ -80,7 +80,11 @@ export default {
 
   methods: {
     share() {
-      openPopup(this.shareURL, 'share')
+      if (this.network=='email') {
+        location.href = this.url
+      } else {
+        openPopup(this.shareURL, 'share')
+      }
     }
   }
 }
