@@ -1,3 +1,5 @@
+<i18n src="~/locales/components/Map.yml"></i18n>
+
 <style lang="scss">
 .map-wrapper {
   position: relative;
@@ -48,7 +50,6 @@
     display: flex;
     align-items: center;
     justify-content: left;
-    // margin-bottom: $spacer*1.5;
     line-height: 1.1;
     font-size: $font-size-base;
     color: $gray-600;
@@ -204,7 +205,6 @@ export default {
   },
 
   mounted() {
-    console.log(this.$store)
     // If events are available right away, create the map
     // In the production env only, creating the map too early ends up creating
     // multiple maps whose events compete with eachother
@@ -251,7 +251,18 @@ export default {
       if (event.category === 'event') {
         html += `<div class="date">${event.formatted_start_date}</div>`
       }
-      html += `<div class="address"><address>${event.address}</address></div><a class="btn btn-primary btn-sm btn-block" href="${event.url}" target="_blank">${event.category === 'facebook_group' ? 'Join Facebook Group' : 'Info & RSVP'}</a>`
+
+      let buttonText
+
+      if (event.category === 'facebook_group') {
+        buttonText = this.$t('facebook_group_button')
+      }
+      else {
+        buttonText = this.$t('info_button')
+      }
+
+      html += `<div class="address"><address>${event.address}</address></div><a class="btn btn-primary btn-sm btn-block" href="${event.url}" target="_blank">${buttonText}</a>`
+
       const marker = L.marker(ll)
         .addTo(map)
         .bindPopup(html)
