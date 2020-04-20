@@ -31,6 +31,12 @@
         br
         LogoCloud
 
+    section(v-if="hasMap")
+      .container
+        h2 Map
+        br
+        Map(:events="mapEvents")
+
     section
       .container
         h2 Modals
@@ -44,15 +50,28 @@
 </template>
 
 <script>
+import config from '~/config'
 import ActionNetworkForm from '~/components/ActionNetworkForm'
 import JointPetitionForm from '~/components/JointPetitionForm'
 import LogoCloud from '~/components/LogoCloud'
+import Map from '~/components/Map'
 
 export default {
   components: {
     ActionNetworkForm,
     JointPetitionForm,
-    LogoCloud
+    LogoCloud,
+    Map
+  },
+
+  computed: {
+    hasMap() {
+      return config.features.map
+    },
+
+    mapEvents() {
+      return [{"id":"124d7eda-8337-11ea-abe7-e56e53e580eb","title":"Washington for Net Neutrality","address":"Washington","url":"https://www.facebook.com/groups/301820760363761/ ","image":"","latitude":"47.41129684","longitude":"-120.5562668","start_date":"2037-09-01T00:00:00.000Z","formatted_start_date":"Tuesday, September 1 at 12AM","category":"facebook_group"},{"id":"124d57c0-8337-11ea-abe7-e56e53e580eb","title":"Utah for Net Neutrality","address":"Utah","url":"https://www.facebook.com/groups/1128003474019104/","image":"","latitude":"39.3237381","longitude":"-111.6782379","start_date":"2037-09-01T00:00:00.000Z","formatted_start_date":"Tuesday, September 1 at 12AM","category":"facebook_group"}]
+    }
   }
 }
 </script>
