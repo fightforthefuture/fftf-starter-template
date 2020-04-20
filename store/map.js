@@ -1,9 +1,5 @@
 import config from '~/config'
 
-// Note that most of this stuff will be broken until we fix
-// the namespacing. See https://nuxtjs.org/guide/vuex-store/
-// for details
-
 let state, mutations
 
 if (config.features.map) {
@@ -16,11 +12,11 @@ if (config.features.map) {
   })
 
   mutations = {
-    setMapZoom(state, value) {
+    setZoom(state, value) {
       state.map.zoom = value
     },
 
-    setMapCurrentPin(state, value) {
+    setCurrentPin(state, value) {
       state.map.currentPin = value
     }
   }
