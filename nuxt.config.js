@@ -67,7 +67,9 @@ module.exports = {
     css: false,
     bvCSS: false,
     components: [
-      'BModal'
+      'BModal',
+      'BCarousel',
+      'BCarouselSlide'
      ],
     directives: []
   },
