@@ -39,6 +39,18 @@
 
     section
       .container
+        h2 ProgressBar
+        br
+        ProgressBar
+
+    section
+      .container
+        h2 QuoteScroller
+        br
+        QuoteScroller
+
+    section
+      .container
         h2 Modals
         br
         .d-flex.justify-content-around
@@ -55,13 +67,17 @@ import ActionNetworkForm from '~/components/ActionNetworkForm'
 import JointPetitionForm from '~/components/JointPetitionForm'
 import LogoCloud from '~/components/LogoCloud'
 import Map from '~/components/Map'
+import ProgressBar from '~/components/ProgressBar'
+import QuoteScroller from '~/components/QuoteScroller'
 
 export default {
   components: {
     ActionNetworkForm,
     JointPetitionForm,
     LogoCloud,
-    Map
+    Map,
+    ProgressBar,
+    QuoteScroller
   },
 
   computed: {
