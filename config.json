@@ -4,7 +4,6 @@
   "mapboxToken": "",
   "isArchived": false,
   "features": {
-    "selfies": false,
     "map": false
   }
 }

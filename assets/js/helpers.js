@@ -123,16 +123,6 @@ export async function geocodeState() {
   return state
 }
 
-// Fetch Representative's scoreboard info
-export async function fetchRepScoreboard(params) {
-  const axios = require('axios')
-
-  const { data } = await axios.get(`https://07myr1bkfa.execute-api.us-east-1.amazonaws.com/v1/rep-scoreboard`, {
-    params: params
-  })
-  return data
-}
-
 /**
  * Determine the mobile operating system.
  * This function returns one of 'iOS', 'Android', 'Windows Phone', or 'unknown'.
