@@ -58,6 +58,11 @@
           button.btn.btn-info(@click.prevent="$store.commit('showModal', 'call-form')") Call Form
           button.btn.btn-info(@click.prevent="$store.commit('showModal', 'call-script')") Call Script
 
+    section
+      .container
+        h2 ClickToCopy
+        br
+        ClickToCopy(text-to-copy="this is the text to copy")
 
 </template>
 
@@ -69,10 +74,12 @@ import LogoCloud from '~/components/LogoCloud'
 import Map from '~/components/Map'
 import ProgressBar from '~/components/ProgressBar'
 import QuoteScroller from '~/components/QuoteScroller'
+import ClickToCopy from '~/components/ClickToCopy'
 
 export default {
   components: {
     ActionNetworkForm,
+    ClickToCopy,
     JointPetitionForm,
     LogoCloud,
     Map,

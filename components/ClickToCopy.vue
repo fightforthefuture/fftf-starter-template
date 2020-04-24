@@ -1,33 +1,19 @@
 <i18n src="~/locales/components/ClickToCopy.yml"></i18n>
 
-<style lang="scss" scoped>
-.copy-input {
-  position: relative;
-  overflow: hidden;
-}
-.copy-input input {
-  padding-right: 80px; // NOTE: Magic number
-  font-family: monospace;
-}
-.copy-input .btn-copy {
-  position: absolute;
-  top:    $gutter/2;
-  bottom: $gutter/2;
-  right:  $gutter/2;
-}
-</style>
-
-<template>
-  <form class="copy-input">
-    <button
-      @click.prevent
-      :data-clipboard-text="textToCopy"
-      class="btn btn-sml btn-copy js-clipboard"
-      v-text="buttonText">
-    </button>
-
-    <input type="text" :value="textToCopy" class="text-input" readonly />
-  </form> <!-- .copy-input -->
+<template lang="pug">
+  form.copy-input
+    .input-group
+      input.form-control(
+        type="text"
+        :value="textToCopy"
+        readonly
+        )
+      .input-group-append
+        button.btn.btn-primary.js-clipboard(
+        type="button"
+        @click.prevent
+        :data-clipboard-text="textToCopy"
+        v-text="buttonText")
 </template>
 
 <script>
