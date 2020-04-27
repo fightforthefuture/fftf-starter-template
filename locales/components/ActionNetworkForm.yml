@@ -1,6 +1,4 @@
 en:
-  petition_url_string: FIXME
-  join_petition_disclaimer_html: By signing this petition you agree to receive occasional emails from one or more sponsor organization. You may of course unsubscribe at any time.
   privacy_html: |
     <a href="https://www.fightforthefuture.org/" target="_blank">
       Fight for the Future
@@ -9,6 +7,15 @@ en:
     <a href="https://www.fightforthefuture.org/privacy/" target="_blank">
       Privacy Policy
     </a>
+  joint_petition_privacy_html: |
+    By signing this petition you agree to receive occasional emails
+    from one or more sponsor organization. You may of course unsubscribe
+    at any time.
+  noscript_html: |
+    Sorry, but this form requires JavaScript. To sign, please turn on
+    JavaScript for this site or visit
+    <a href="https://actionnetwork.org/petitions/{petition_id}"
+      target="_blank">our Action Network page</a>.
   form:
     name:
       label: Name*
@@ -20,7 +27,7 @@ en:
       label: Address
       placeholder: Street
     zip:
-      label: Postal Code
+      label: Postal Code*
       placeholder: US ZIP Code or Postal Code
     country:
       label: Country*

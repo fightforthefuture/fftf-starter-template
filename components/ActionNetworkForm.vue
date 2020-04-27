@@ -6,6 +6,10 @@
     <!-- STEP 1: THE FORM -->
     <div v-if="!hasSigned">
 
+      <noscript v-if="isJointPetition">
+        <p class="alert-danger p-3 rounded text-left" v-html="$t('noscript_html', { petition_id: petitionId })"></p>
+      </noscript>
+
       <div v-if="isJointPetition"
         class="d-none"
         :id="`can-petition-area-${petitionId}`">
@@ -13,7 +17,7 @@
       </div>
 
       <form @submit.prevent="submitForm()"
-            action="https://queue.fftf.xyz/action"
+            :action="isJointPetition ? '' : 'https://queue.fftf.xyz/action'"
             method="post"
             class="text-left">
         <input type="hidden" name="subject" :value="congressEmailSubject">
@@ -25,7 +29,7 @@
         <input type="hidden" name="an_petition_id" :value="petitionId">
         <input type="hidden" name="redirect_to" :value="redirectTo">
 
-        <p v-if="errorMessage" class="alert-danger">
+        <p v-if="errorMessage" class="alert-danger p-3 rounded">
           {{ errorMessage }}
         </p>
 
@@ -79,21 +83,21 @@
                 v-model.lazy.trim="address"
                 name="member[street_address]"
                 :placeholder="`${$t('form.address.placeholder')}${contactCongress ? '*' : ''}`"
-                :required="contactCongress === 1" />
+                :required="contactCongress" />
             </div>
           </div>
           <div class="col-sm-12 col-md-6">
             <div class="form-group">
               <label>
-                {{ $t('form.zip.label')+(isUnitedStates ? '*' :'') }}
+                {{ $t('form.zip.label') }}
               </label>
               <input
                 class="form-control"
                 type="text"
                 v-model.lazy.trim="zipCode"
                 name="member[postcode]"
-                :placeholder="$t('form.zip.placeholder')+(isUnitedStates ? '*' :'')"
-                :required="isUnitedStates" />
+                :placeholder="$t('form.zip.placeholder')"
+                required />
             </div>
           </div>
         </div>
@@ -106,7 +110,7 @@
             v-model.lazy.trim="phone"
             name="member[phone_number]"
             :placeholder="$t('form.phone.placeholder')"
-            :required="contactCongress === 1" />
+            :required="contactCongress" />
           <small class="d-block mt-1 text-muted" v-html="$t('form.phone.disclaimer_html')"></small>
         </div>
 
@@ -140,14 +144,16 @@
         <div v-if="isGDPRCountry" class="form-group opt-in-wrapper">
           <label>{{ $t('gdpr.opt_in_label') }}</label>
           <div class="form-check">
-            <input class="form-check-input" type="radio" name="opt_out" :value="false" v-model="optedOut" required id="gdpr_yes">
-            <label class="form-check-label" for="gdpr_yes">
+            <label class="form-check-label">
+              <input class="form-check-input" type="radio" name="opt_out"
+                :value="false" v-model="optedOut" required>
               {{ $t('gdpr.yes_label') }}
             </label>
           </div>
           <div class="form-check">
-            <input class="form-check-input" type="radio" name="opt_out" :value="true" v-model="optedOut" required id="gdpr_no">
-            <label class="form-check-label" for="gdpr_no">
+            <label class="form-check-label">
+              <input class="form-check-input" type="radio" name="opt_out"
+                :value="true" v-model="optedOut" required>
               {{ $t('gdpr.no_label') }}
             </label>
           </div>
@@ -163,7 +169,7 @@
             <span v-if="isSending">{{ $t('global.common.sending') }}</span>
             <span v-else>{{ buttonCta }}</span>
           </button>
-          <small class="text-muted text-center d-block mt-1" v-html="$t('privacy_html')"></small>
+          <small class="text-muted text-center d-block mt-1" v-html="isJointPetition ? $t('joint_petition_privacy_html') : $t('privacy_html')"></small>
         </div>
       </form>
     </div>
@@ -210,26 +216,27 @@ import { sendToMothership } from '~/assets/js/helpers'
 import ShareButton from '~/components/ShareButton'
 import countries from '~/assets/data/countries'
 
-function setValue(inputId, newValue) {
-  const input = document ? document.getElementById(inputId) : null
+function setValue(selector, newValue=null) {
+  const elements = document ? document.querySelectorAll(selector) : []
 
-  if (input) {
-    input.value = newValue
-  }
-}
+  elements.forEach(el => {
+    if (el.tagName === 'SELECT') {
+      const opts = el.options
 
-function setSelectValue(inputId, newValue) {
-  const sel = document ? document.getElementById(inputId) : null
-  if (sel) {
-    const opts = sel.options
-
-    for (let opt, j = 0; opt = opts[j]; j++) {
-      if (opt.value == newValue) {
-        sel.selectedIndex = j
-        break
+      for (let i = 0; i < opts.length; i++ ) {
+        if (opts[i].value == newValue) {
+          el.selectedIndex = i
+          break
+        }
       }
     }
-  }
+    else if (el.type === 'checkbox') {
+      el.checked = newValue
+    }
+    else {
+      el.value = newValue
+    }
+  })
 }
 
 export default {
@@ -462,7 +469,6 @@ export default {
     if (this.isJointPetition) {
       this.mountJointPetition()
     }
-
   },
 
   destroyed() {
@@ -481,7 +487,7 @@ export default {
       document.body.appendChild(script)
 
       document.addEventListener('can_embed_loaded', this.setupJointPetitionForm)
-      document.addEventListener('can_embed_submitted', this.handleFormSuccess)
+      document.addEventListener('can_embed_submitted', this.handleJointPetitionFormSuccess)
     },
 
     teardownJointPetition() {
@@ -492,7 +498,7 @@ export default {
       }
 
       document.removeEventListener('can_embed_loaded', this.setupJointPetitionForm)
-      document.removeEventListener('can_embed_submitted', this.handleFormSuccess)
+      document.removeEventListener('can_embed_submitted', this.handleJointPetitionFormSuccess)
     },
 
     setupJointPetitionForm() {
@@ -506,45 +512,45 @@ export default {
 
     async submitForm() {
       if (this.isSending) return
+
       this.isSending = true
 
       if (this.isJointPetition) {
-        if (!this.isUnitedStates && this.zipCode===null) {
-          this.zipCode='00000'
-        }
-        // set input vals
-        setValue('form-first_name', this.firstName)
-        setValue('form-last_name', this.lastName)
-        setValue('form-email', this.email)
-        setValue('form-street', this.address)
-        setValue('form-zip_code', this.zipCode)
-        setValue('form-comments', this.comment)
-
-        // set country val
-        setSelectValue('form-country', this.country)
-
-        // set optin
-        const els = document.querySelectorAll('input[name="subscription[group]"]')
-        for(let i=0; i < els.length; i++) {
-          els[i].checked = !this.optedOut
-        }
-
-        document.querySelector('#new_signature input[name="commit"]').click()
-      } else {
-        await this.submitToMothership()
-        this.showAfterAction()
+        this.submitJointPetitionForm()
+      }
+      else {
+        this.submitToMothership()
       }
     },
 
-    async handleFormSuccess() {
+    submitJointPetitionForm() {
+      // set input vals
+      setValue('#form-first_name', this.firstName)
+      setValue('#form-last_name', this.lastName)
+      setValue('#form-email', this.email)
+      setValue('#form-street', this.address)
+      setValue('#form-zip_code', this.zipCode)
+      setValue('#form-comments', this.comment)
+
+      // set country val
+      setValue('#form-country', this.country)
+
+      // set optin
+      setValue('input[name="subscription[group]"]', !this.optedOut)
+
+      document.querySelector('#new_signature input[name="commit"]').click()
+    },
+
+    async handleJointPetitionFormSuccess() {
       this.$trackEvent(`joint_petition_form_${this.routeName}`, 'submit')
       this.$trackEvent(`joint_petition_form_${this.routeName}_${this.referrerGroup}`, 'submit')
 
       if (this.contactCongress) {
-        await this.submitToMothership()
+        this.submitToMothership()
       }
-
-      this.showAfterAction()
+      else {
+        this.showAfterAction()
+      }
     },
 
     async submitToMothership() {
@@ -566,13 +572,12 @@ export default {
           fcc_ecfs_docket: this.fccDocket,
           an_tags: this.mothershipTags,
           an_petition_id: this.petitionId,
-          skip_action_network: this.isJointPetition ? true : null,
+          skip_action_network: this.isJointPetition,
           action_comment: this.hasComment ? this.comment : ''
         })
 
         this.$trackEvent(`petition_form_${this.routeName}`, 'submit')
-        this.hasSigned = true
-
+        this.showAfterAction()
       }
       catch (err) {
         this.errorMessage = this.$t('global.common.error')
