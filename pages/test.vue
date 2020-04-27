@@ -17,12 +17,12 @@
 
     section
       .container
-        h2 JointPetitionForm
+        h2 ActionNetworkForm (Joint Petition)
         br
-        JointPetitionForm(
-          petition-url="ban-facial-recognition-list-swap"
+        ActionNetworkForm(
+          petition-id="international-petition-test"
           has-comment
-          default-comment="this is a test"
+          is-joint-petition
         )
 
     section
@@ -69,7 +69,6 @@
 <script>
 import config from '~/config'
 import ActionNetworkForm from '~/components/ActionNetworkForm'
-import JointPetitionForm from '~/components/JointPetitionForm'
 import LogoCloud from '~/components/LogoCloud'
 import Map from '~/components/Map'
 import ProgressBar from '~/components/ProgressBar'
@@ -80,7 +79,6 @@ export default {
   components: {
     ActionNetworkForm,
     ClickToCopy,
-    JointPetitionForm,
     LogoCloud,
     Map,
     ProgressBar,
