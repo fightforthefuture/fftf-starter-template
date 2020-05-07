@@ -572,7 +572,7 @@ export default {
           fcc_ecfs_docket: this.fccDocket,
           an_tags: this.mothershipTags,
           an_petition_id: this.petitionId,
-          skip_action_network: this.isJointPetition,
+          skip_action_network: this.isJointPetition ? true : null,
           action_comment: this.hasComment ? this.comment : ''
         })
 
