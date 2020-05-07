@@ -82,3 +82,9 @@ section {
     background-image: url("~assets/images/fftf-logo-light.svg");
   }
 }
+
+video,
+iframe {
+  display: block;
+  max-width: 100%;
+}
