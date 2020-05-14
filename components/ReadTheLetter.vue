@@ -4,7 +4,7 @@
 <template>
   <div>
     <h2 class="text-center">{{ $t('title') }}</h2>
-    <div class="sml-push-y2 med-push-y3" v-html="letterText"></div>
+    <div class="mt-sm-3 mt-md-5" v-html="letterText"></div>
   </div>
 </template>
 

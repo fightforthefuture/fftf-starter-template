@@ -1,13 +1,13 @@
 <style lang="scss" scoped>
   video.video-hero {
-    margin: 0 auto -45vw;
+    margin: 0 auto;
     width: 100%;
   }
   .video-wrapper {
     position: relative;
   }
   .video-wrapper:after {
-    background: linear-gradient(rgba($background-color, 0), rgba($background-color,1));
+    background: linear-gradient(rgba($body-bg, 0), rgba($body-bg,1));
     bottom:0;
     content: '';
     height:10vw;

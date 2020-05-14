@@ -1,40 +1,26 @@
+<i18n src="~/locales/global.yml"></i18n>
 <i18n src="~/locales/components/CallScriptModal.yml"></i18n>
 
 <style lang="scss" scoped>
-  .icon-call {
-    max-height: $font-size-2*1.2;
-  }
-  .icon-warning {
-    max-height: $base-font-size*$base-line-height;
-  }
+.icon-call {
+  max-height: 2rem;
+}
 </style>
 
-<template>
-  <div>
-    <div class="with-border-bottom">
-      <h2>
-        <img src="~/assets/images/call-icon.svg" alt="Phone icon"
-             class="img-inline icon-call">
-        {{ $t('calling_now') }}
-      </h2>
-      <p class="sml-push-y1">
-        <strong>{{ $t('script_intro') }}</strong>
-      </p>
-      <p class="text-meta">
-        {{ callScript }}
-      </p>
-      <div class="sml-pad-y2">
-        <p>
-          <img src="~/assets/images/warning-icon.svg" alt="!"
-               class="img-inline icon-warning">
-          {{ $t('if_busy') }}
-        </p>
-      </div> <!-- .pad -->
-    </div> <!-- .with-border-bottom -->
-
-    <h4 class="sml-push-y2">{{ $t('done_calling') }}</h4>
-    <SocialShareButtons class="sml-push-y2" />
-  </div>
+<template lang="pug">
+  b-modal#call-script-modal(:visible="true" centered modal-class="text-center" hide-footer)
+    template(v-slot:modal-title)
+      img.icon-call(src="~/assets/images/call-icon.svg" alt="📞")
+      |  {{ $t('calling_now') }}
+    p
+      b {{ $t('script_intro') }}
+    p
+      code {{ callpowerScript }}
+    p.text-warning
+      small {{ $t('if_busy') }}
+    hr
+    h5 {{ $t('done_calling') }}
+    SocialShareButtons
 </template>
 
 <script>
@@ -47,7 +33,7 @@ export default {
   },
 
   computed: {
-    ...mapState(['callScript'])
+    ...mapState(['callpowerScript'])
   }
 }
 </script>

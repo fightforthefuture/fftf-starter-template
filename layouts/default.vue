@@ -3,32 +3,28 @@
 <template>
   <div>
     <nuxt />
+    <PageFooter />
 
-    <Modal>
-      <CallFormModal v-if="modalType === 'call-form'" />
-      <CallScriptModal v-if="modalType === 'call-script'" />
-      <SelfieModal v-if="modalType === 'selfie'" :selfie="modalData" />
-      <ArchivedModal v-if="modalType === 'archived'" />
-    </Modal>
+    <ArchivedModal v-if="modal === 'archived'" />
+    <CallFormModal v-else-if="modal === 'call-form'" />
+    <CallScriptModal v-else-if="modal === 'call-script'" />
   </div>
 </template>
 
 <script>
 import { mapState } from 'vuex'
 import { createMetaTags } from '~/assets/js/helpers'
-import Modal from '~/components/Modal'
 import CallFormModal from '~/components/CallFormModal'
 import CallScriptModal from '~/components/CallScriptModal'
-import SelfieModal from '~/components/SelfieModal'
 import ArchivedModal from '~/components/ArchivedModal'
+import PageFooter from '~/components/PageFooter'
 
 export default {
   components: {
-    Modal,
     CallFormModal,
     CallScriptModal,
-    SelfieModal,
-    ArchivedModal
+    ArchivedModal,
+    PageFooter
   },
 
   head() {
@@ -45,7 +41,14 @@ export default {
   },
 
   computed: {
-    ...mapState(['modalType', 'modalData'])
+    ...mapState(['modal'])
+  },
+
+  mounted() {
+    // update state when bootstrap modal is closed
+    this.$root.$on('bv::modal::hidden', (bvEvent, modalId) => {
+      this.$store.commit('hideModal')
+    })
   }
 }
 </script>

@@ -1,17 +1,19 @@
+<i18n src="~/locales/components/Map.yml"></i18n>
+
 <style lang="scss">
 .map-wrapper {
   position: relative;
   min-height: 300px;
 
-  @include respond-to(med) {
+  @include media-breakpoint-up(md) {
     min-height: 400px;
   }
 }
 
 .leaflet-container,
 .leaflet-container.dark {
-  font-family: $sans-serif-stack;
-  color: $background-color;
+  font-family: $font-family-sans-serif;
+  color: $body-bg;
 
   // Repetition necessary to override mapbox.css
   a {
@@ -35,7 +37,7 @@
   height: 100%;
 
   .btn {
-    font-weight: $bold-font-weight; // NOTE: overwrites mapbox.css, change if btn style does
+    font-weight: $font-weight-bold; // NOTE: overwrites mapbox.css, change if btn style does
     text-decoration: none;
   }
 
@@ -48,14 +50,13 @@
     display: flex;
     align-items: center;
     justify-content: left;
-    margin-bottom: $gutter*1.5;
     line-height: 1.1;
-    font-size: $base-font-size;
-    color: $grey-light-color;
+    font-size: $font-size-base;
+    color: $gray-600;
 
     img {
       height: 15px;
-      margin-right: $gutter/2;
+      margin-right: $spacer/2;
     }
 
     &:before {
@@ -67,6 +68,7 @@
       width: 15px;
       height: 15px;
       margin-right: 5px;
+      margin-top: -15px;
       padding: 7.5px;
     }
   }
@@ -94,14 +96,14 @@
   }
 
   .leaflet-popup-content {
-    line-height: $base-line-height;
-    font-family: $sans-serif-stack;
-    color: $text-color;
+    line-height: $line-height-base;
+    font-family: $font-family-sans-serif;
+    color: $body-color;
 
     h5 {
-      margin-bottom: $gutter/2;
+      margin-bottom: $spacer/2;
       color: $white;
-      font-size: $base-font-size; // NOTE: change if h5's are ever used
+      font-size: $font-size-base; // NOTE: change if h5's are ever used
     }
   }
 }
@@ -109,7 +111,7 @@
 
 <template>
   <div class="map-wrapper">
-    <div id="js-event-map" class="event-map is-rounded" />
+    <div id="js-event-map" class="event-map rounded" />
   </div>
 </template>
 
@@ -156,7 +158,7 @@ export default {
         return this.$store.state.map.zoom
       },
       set(newVal) {
-        this.$store.commit('setMapZoom', newVal)
+        this.$store.commit('map/setZoom', newVal)
       }
     },
     currentPin: {
@@ -164,7 +166,7 @@ export default {
         return this.$store.state.map.currentPin
       },
       set(newVal) {
-        this.$store.commit('setMapCurrentPin', newVal)
+        this.$store.commit('map/setCurrentPin', newVal)
       }
     }
   },
@@ -249,7 +251,18 @@ export default {
       if (event.category === 'event') {
         html += `<div class="date">${event.formatted_start_date}</div>`
       }
-      html += `<div class="address"><address>${event.address}</address></div><a class="btn btn-sml btn-block" href="${event.url}" target="_blank">${event.category === 'facebook_group' ? 'Join Facebook Group' : 'Info & RSVP'}</a>`
+
+      let buttonText
+
+      if (event.category === 'facebook_group') {
+        buttonText = this.$t('facebook_group_button')
+      }
+      else {
+        buttonText = this.$t('info_button')
+      }
+
+      html += `<div class="address"><address>${event.address}</address></div><a class="btn btn-primary btn-sm btn-block" href="${event.url}" target="_blank">${buttonText}</a>`
+
       const marker = L.marker(ll)
         .addTo(map)
         .bindPopup(html)
@@ -259,7 +272,7 @@ export default {
       this.bounds.extend(ll)
     },
     clickMarker(event) {
-      this.$store.commit('setMapCurrentPin', {
+      this.$store.commit('map/setCurrentPin', {
         id: event.target.eventId,
         latitude: event.latlng.lat,
         longitude: event.latlng.lng,
@@ -278,11 +291,11 @@ export default {
       // Set the current pin to null, unless the popup close was triggered by
       // this or another component updating the current pin value
       if (this.currentPin && (event.popup._source.eventId === this.currentPin.id)) {
-        this.$store.commit('setMapCurrentPin', null)
+        this.$store.commit('map/setCurrentPin', null)
       }
     },
     updateZoomLevel() {
-      this.$store.commit('setMapZoom', map.getZoom())
+      this.$store.commit('map/setZoom', map.getZoom())
     },
     zoomMap(newZoom) {
       // Center the map on the current pin (if one is selected) or the current map center

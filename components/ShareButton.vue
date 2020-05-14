@@ -2,7 +2,7 @@
 
 <template>
   <a :href="shareURL" target="_blank"
-     :class="[ isButton ? `btn btn-${networkName}` : '' ]"
+     :class="`btn btn-${size} ${isButton ? `btn-${networkName}` : 'link'}`"
      @click.prevent="share()">
     <slot>
       <img v-if="networkName === 'twitter' && shouldDisplayIcon"
@@ -52,6 +52,11 @@ export default {
       type: Boolean,
       required: false,
       default: true
+    },
+    size: {
+      type: String,
+      required: false,
+      default: 'sm'
     }
   },
 
@@ -75,7 +80,11 @@ export default {
 
   methods: {
     share() {
-      openPopup(this.shareURL, 'share')
+      if (this.network=='email') {
+        location.href = this.url
+      } else {
+        openPopup(this.shareURL, 'share')
+      }
     }
   }
 }

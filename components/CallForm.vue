@@ -1,28 +1,34 @@
+<i18n src="~/locales/global.yml"></i18n>
 <i18n src="~/locales/components/CallForm.yml"></i18n>
 
-<template>
-  <div>
-    <p v-if="errorMessage" class="text-warn sml-push-y2">
-      {{ errorMessage }}
-    </p>
-    <form class="flex-grid sml-flex-row sml-push-y2" @submit.prevent="submitForm()">
-      <input v-model.trim="phone" class="phone sml-flex-2" type="tel"
-             placeholder="Phone Number*" required>
-      <input v-model.trim="zipCode" class="zip" type="tel"
-             placeholder="ZIP Code*" required>
-      <button class="btn" :disabled="isSending">
-        <span v-if="isSending">{{ $t('sending' ) }}</span>
-        <span v-else>{{ $t('call' ) }}</span>
-      </button>
-    </form>
-    <p class="sml-push-y1">
-      <small v-html="$t('privacy_html')"></small>
-    </p>
-  </div>
+<template lang="pug">
+  form(@submit.prevent="submitForm()")
+    p.text-danger(v-if="errorMessage") {{ errorMessage }}
+    .row.text-left
+      .col-sm-6
+        .form-group
+          label.mb-0(for="call-form-phone") {{ $t('phone_label') }}
+          input.form-control#call-form-phone(
+            v-model.trim.lazy="phone"
+            type="tel"
+            :placeholder="$t('phone_placeholder')"
+          )
+      .col-sm-6
+        .form-group
+          label.mb-0(for="call-form-zip") {{ $t('zip_label') }}
+          input.form-control#call-form-zip(
+            v-model.trim.lazy="zipCode"
+            type="tel"
+            :placeholder="$t('zip_placeholder')"
+          )
+    button.btn.btn-primary.btn-block(:disabled="isSending")
+      span(v-if="isSending") {{ $t('sending') }}
+      span(v-else) {{ $t('call') }}
+    small.d-block.mt-1.text-muted(v-html="$t('privacy_html')")
 </template>
 
+
 <script>
-import { mapState } from 'vuex'
 import { postFormData } from '~/assets/js/helpers'
 
 export default {
@@ -34,8 +40,6 @@ export default {
   },
 
   computed: {
-    ...mapState(['callpowerCampaignId']),
-
     phone: {
       get() {
         return this.$store.state.phone
@@ -60,22 +64,22 @@ export default {
       this.isSending = true
 
       try {
-        const { data } = await postFormData( // eslint-disable-line no-unused-vars
+        const { data } = await postFormData(
           'https://call-congress.fightforthefuture.org/create', {
-            campaignId: this.callpowerCampaignId,
+            campaignId: this.$store.state.callpowerId,
             userPhone: this.phone,
             userLocation: this.zipCode
           }
         )
 
-        this.isSending = false
         this.$trackEvent(`call_form_${this.$nuxt.$route.name}`, 'submit')
-        // Show call script in modal
-        this.$store.commit('setModalType', 'call-script')
-      } catch (err) {
-        this.isSending = false
+      }
+      catch (err) {
         this.errorMessage = this.$t('error')
       }
+
+      this.isSending = false
+      this.$store.commit('showModal', 'call-script')
     }
   }
 }

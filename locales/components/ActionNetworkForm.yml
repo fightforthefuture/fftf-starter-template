@@ -1,15 +1,4 @@
 en:
-  petition_id: FIXME
-  callpower_id: null
-  text_flow_id: OP91C5097075BF0D9B12B2544A6052FB9D
-  subject: FIXME subject
-  contact_congress: NO
-  fcc_docket: null
-  redirect_url: FIXME
-  petition_url_string: FIXME
-  join_petition_disclaimer_html: By signing this petition you agree to receive occasional emails from one or more sponsor organization. You may of course unsubscribe at any time.
-  tags:
-    - net-neutrality
   privacy_html: |
     <a href="https://www.fightforthefuture.org/" target="_blank">
       Fight for the Future
@@ -18,6 +7,15 @@ en:
     <a href="https://www.fightforthefuture.org/privacy/" target="_blank">
       Privacy Policy
     </a>
+  joint_petition_privacy_html: |
+    By signing this petition you agree to receive occasional emails
+    from one or more sponsor organization. You may of course unsubscribe
+    at any time.
+  noscript_html: |
+    Sorry, but this form requires JavaScript. To sign, please turn on
+    JavaScript for this site or visit
+    <a href="https://actionnetwork.org/petitions/{petition_id}"
+      target="_blank">our Action Network page</a>.
   form:
     name:
       label: Name*
@@ -29,19 +27,28 @@ en:
       label: Address
       placeholder: Street
     zip:
-      label: ZIP*
-      placeholder: US ZIP Code
+      label: Postal Code*
+      placeholder: US ZIP Code or Postal Code
+    country:
+      label: Country*
     phone:
       label: Phone (to receive SMS campaign alerts)
       placeholder: 555-555-5555
       disclaimer_html: >
         Message and data rates apply. Message frequency varies. Text STOP to cancel your subscription. Text HELP for more information. <a href="https://www.fightforthefuture.org/privacy/" target="_blank">Privacy Policy</a> and <a href="https://www.fightforthefuture.org/privacy/" target="_blank">Terms of Service</a>
-    action_comment:
-      label: Message to Congress
-    is_an_org: Are you signing for an org or business?
-    company: Company Name
-    comment: Comment*
-    button_cta: Sign the Petition
+    company:
+      label: Company
+      placeholder: Name of your company or organization
+    comment:
+      label: Comment
+      placeholder: Your comments
+    button_cta: SIGN THE PETITION
   thanks:
     title: Thanks for signing the petition!
     share: Please consider sharing with your friends and family.
+  gdpr:
+    opt_in_label: Would you like to receive important campaign updates and action alerts by email?
+    yes_label: Yes, please
+    no_label: No, thanks
+    nudge: Are you sure? Email is how we will stay in touch and report on our progress. You can unsubscribe at any time.
+    nudge_button: Yes, keep me involved
