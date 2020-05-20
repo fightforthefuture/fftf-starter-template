@@ -177,7 +177,7 @@
       <h2 class="text-success">{{ $t('thanks.title') }}</h2>
       <p>{{ $t('thanks.share') }}</p>
       <div class="row">
-        <div class="col-sm-12 col-lg-4">
+        <div class="col-sm-12 col-lg-4 mb-2 mb-md-0">
           <ShareButton
             size="lg"
             network="twitter"
@@ -187,7 +187,7 @@
             <span>{{ $t('global.common.tweet') }}</span>
           </ShareButton>
         </div> <!-- .c -->
-        <div class="col-sm-12 col-lg-4">
+        <div class="col-sm-12 col-lg-4 mb-2 mb-md-0">
           <ShareButton
             size="lg"
             network="facebook"
@@ -196,7 +196,7 @@
             <span>{{ $t('global.common.share') }}</span>
           </ShareButton>
         </div> <!-- .c -->
-        <div class="col-sm-12 col-lg-4">
+        <div class="col-sm-12 col-lg-4 mb-2 mb-md-0">
           <a :href="$t('global.donation_url')"
              class="btn btn-block btn-primary btn-lg"
              @click="$trackClick(`donate_button_success_${routeName}`)">
