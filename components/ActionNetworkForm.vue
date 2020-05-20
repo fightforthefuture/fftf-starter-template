@@ -6,9 +6,7 @@
     <!-- STEP 1: THE FORM -->
     <div v-if="!hasSigned">
 
-      <noscript v-if="isJointPetition">
-        <p class="alert-danger p-3 rounded text-left" v-html="$t('noscript_html', { petition_id: petitionId })"></p>
-      </noscript>
+      <noscript v-if="isJointPetition" class="alert-danger p-3 mb-3 d-block rounded text-left" v-html="$t('noscript_html', { petition_id: petitionId })"></noscript>
 
       <div v-if="isJointPetition"
         class="d-none"
