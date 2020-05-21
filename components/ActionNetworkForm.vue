@@ -107,8 +107,7 @@
             type="tel"
             v-model.lazy.trim="phone"
             name="member[phone_number]"
-            :placeholder="$t('form.phone.placeholder')"
-            :required="contactCongress" />
+            :placeholder="$t('form.phone.placeholder')" />
           <small class="d-block mt-1 text-muted" v-html="$t('form.phone.disclaimer_html')"></small>
         </div>
 
