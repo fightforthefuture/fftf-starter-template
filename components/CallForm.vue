@@ -73,6 +73,7 @@ export default {
         )
 
         this.$trackEvent(`call_form_${this.$nuxt.$route.name}`, 'submit')
+        this.$trackGoal('makePhoneCall')
       }
       catch (err) {
         this.errorMessage = this.$t('error')
