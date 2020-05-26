@@ -27,6 +27,15 @@
 
     section
       .container
+        h2 Letter
+        br
+        Letter.text-left(
+          letter-title="TITLE OF LETTER"
+          download-file="/share.jpg"
+        )
+
+    section
+      .container
         h2 LogoCloud
         br
         LogoCloud
@@ -69,6 +78,7 @@
 <script>
 import config from '~/config'
 import ActionNetworkForm from '~/components/ActionNetworkForm'
+import Letter from '~/components/Letter'
 import LogoCloud from '~/components/LogoCloud'
 import Map from '~/components/Map'
 import ProgressBar from '~/components/ProgressBar'
@@ -79,6 +89,7 @@ export default {
   components: {
     ActionNetworkForm,
     ClickToCopy,
+    Letter,
     LogoCloud,
     Map,
     ProgressBar,

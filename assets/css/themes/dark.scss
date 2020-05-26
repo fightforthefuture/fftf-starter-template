@@ -21,6 +21,12 @@ $theme-colors: map-merge(
   $theme-colors
 );
 
+// card
+$card-color: $body-bg;
+$card-cap-bg: #f6f6f6;
+$card-cap-color: $body-bg;
+$card-border-color: none;
+
 // stuff we made up
 $alt-bg: #424956;
 $btn-color: #fff;
