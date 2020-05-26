@@ -1,6 +1,11 @@
 {
   "googleAnalyticsId": "",
   "matomoSiteId": "",
+  "fathomSiteId": "",
+  "fathomGoals": {
+    "signPetition": "",
+    "makePhoneCall": ""
+  },
   "mapboxToken": "",
   "isArchived": false,
   "features": {

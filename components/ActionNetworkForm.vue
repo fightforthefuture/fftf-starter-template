@@ -541,6 +541,7 @@ export default {
     async handleJointPetitionFormSuccess() {
       this.$trackEvent(`joint_petition_form_${this.routeName}`, 'submit')
       this.$trackEvent(`joint_petition_form_${this.routeName}_${this.referrerGroup}`, 'submit')
+      this.$trackGoal('signPetition')
 
       if (this.contactCongress) {
         this.submitToMothership()
@@ -574,6 +575,7 @@ export default {
         })
 
         this.$trackEvent(`petition_form_${this.routeName}`, 'submit')
+        this.$trackGoal('signPetition')
         this.showAfterAction()
       }
       catch (err) {

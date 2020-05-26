@@ -5,7 +5,6 @@ const AnalyticsPlugin = {
   install(Vue, options) {
     // add event tracking convenience method
     Vue.prototype.$trackEvent = function (category, action, label = null) {
-      /* eslint-disable no-undef */
       if (window.ga) {
         ga('send', 'event', category, action, label)
       }
@@ -14,7 +13,12 @@ const AnalyticsPlugin = {
         _paq.push(['trackEvent', category, action, label])
       }
     }
-    /* eslint-enable no-undef */
+
+    Vue.prototype.$trackGoal = function(goal, valueInCents = 0) {
+      if (window.fathom && config.fathomGoals[goal]) {
+        fathom.trackGoal(config.fathomGoals[goal], valueInCents)
+      }
+    }
 
     // add click tracking convenience method
     Vue.prototype.$trackClick = function (category, label = null) {
@@ -29,10 +33,10 @@ export default ({ app, store }) => {
   // disable analytics in dev
   if (process.env.NODE_ENV !== 'production') return
 
-  // disable analytics if doNotTrack is set
-  if (navigator && navigator.doNotTrack) return
-
   if (config.googleAnalyticsId) {
+    // disable analytics if doNotTrack is set
+    if (navigator && navigator.doNotTrack) return
+
     /* eslint-disable */
     (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
     (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
@@ -59,6 +63,17 @@ export default ({ app, store }) => {
     /* eslint-enable */
   }
 
+  if (config.fathomSiteId) {
+    (function() {
+      const script = document.createElement('script')
+      script.src = 'https://cdn.usefathom.com/script.js'
+      script.defer = true
+      script.setAttribute('site', config.fathomSiteId)
+      script.setAttribute('spa', 'auto')
+      document.body.appendChild(script)
+    })()
+  }
+
   app.router.afterEach((to, from) => {
     /* eslint-disable no-undef */
     if (window.ga) {
@@ -69,6 +84,10 @@ export default ({ app, store }) => {
     if (window._paq) {
       _paq.push(['setDocumentTitle', to.fullPath])
       _paq.push(['trackPageView'])
+    }
+
+    if (window.fathom) {
+      fathom.trackPageview()
     }
     /* eslint-enable no-undef */
   })
