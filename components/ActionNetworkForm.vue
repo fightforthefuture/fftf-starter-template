@@ -480,7 +480,7 @@ export default {
       script.id = 'ACTION_NETWORK_EMBED_SCRIPT'
       script.type = 'text/javascript'
       script.async = true
-      script.src = `https://actionnetwork.org/widgets/v3/petition/${this.petitionId}?format=js&source=widget&clear_id=true&referrer=${this.referrer}`
+      script.src = `https://actionnetwork.org/widgets/v3/petition/${this.petitionId}?format=js&source=widget&clear_id=true&referrer=${this.referrer}&js_inner=true`
       document.body.appendChild(script)
 
       document.addEventListener('can_embed_loaded', this.setupJointPetitionForm)
