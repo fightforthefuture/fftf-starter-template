@@ -4,7 +4,8 @@
   "fathomSiteId": "",
   "fathomGoals": {
     "signPetition": "",
-    "makePhoneCall": ""
+    "makePhoneCall": "",
+    "playVideo": ""
   },
   "mapboxToken": "",
   "isArchived": false,

@@ -36,6 +36,20 @@
 
     section
       .container
+        h2 YoutubeVideo
+        br
+        YoutubeVideo(
+          youtube-id="ZjIPq4pidYU"
+        )
+        br
+        YoutubeVideo(
+          youtube-id="jZjmlJPJgug"
+          placeholder-image="https://i.imgur.com/AXF1Ar1.jpg"
+        )
+
+
+    section
+      .container
         h2 LogoCloud
         br
         LogoCloud
@@ -84,6 +98,7 @@ import Map from '~/components/Map'
 import ProgressBar from '~/components/ProgressBar'
 import QuoteScroller from '~/components/QuoteScroller'
 import ClickToCopy from '~/components/ClickToCopy'
+import YoutubeVideo from '~/components/YoutubeVideo'
 
 export default {
   components: {
@@ -93,7 +108,8 @@ export default {
     LogoCloud,
     Map,
     ProgressBar,
-    QuoteScroller
+    QuoteScroller,
+    YoutubeVideo
   },
 
   computed: {
