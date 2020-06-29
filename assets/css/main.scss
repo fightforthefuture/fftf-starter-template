@@ -1,5 +1,3 @@
-$btn-padding-y-lg: $btn-padding-y * 3;
-
 @import 'node_modules/bootstrap/scss/bootstrap';
 @import 'node_modules/bootstrap-vue/src/index.scss';
 
@@ -11,10 +9,15 @@ img {
   color: $btn-color;
   text-transform: uppercase;
   text-decoration: none;
+  transition: $btn-transition, transform .4s;
 
   &.disabled,
   &:disabled {
     color: $btn-color;
+  }
+
+  &:hover {
+    transform: scale(1.02);
   }
 }
 
@@ -52,10 +55,6 @@ img {
       color: darken($blue, 10%);
     }
   }
-}
-
-.container {
-  max-width: 680px;
 }
 
 section {
