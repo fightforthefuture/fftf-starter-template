@@ -27,19 +27,25 @@ $headings-font-weight: 700;
 
 // BUTTONS
 $btn-font-weight: $font-weight-bold;
+$btn-border-width: 0;
+$btn-font-size-lg: 2.2rem;
+$btn-padding-y-lg: 1.125rem;
 
 // FORMS
-// $input-focus-border-color: $body-color;
-// $input-box-shadow: none;
-// $input-focus-box-shadow: none;
 $input-padding-y: 0.7rem;
 $input-padding-x: 1.25rem;
-// $input-box-shadow: none;
-// $input-focus-box-shadow: none;
 
 // PROGRESS BAR
 $progress-height: 1.5rem;
 $progress-bar-transition: width 2s ease-in-out;
+
+// CONTAINER WIDTH
+$container-max-widths: (
+  // sm: 540px,
+  // md: 720px,
+  lg: 768px,
+  xl: 768px
+);
 
 // MIXINS
 
