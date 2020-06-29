@@ -66,7 +66,7 @@ export default ({ app, store }) => {
   if (config.fathomSiteId) {
     (function() {
       const script = document.createElement('script')
-      script.src = 'https://cdn.usefathom.com/script.js'
+      script.src = 'https://hedgehog.fightforthefuture.org/script.js'
       script.defer = true
       script.setAttribute('site', config.fathomSiteId)
       script.setAttribute('spa', 'auto')
