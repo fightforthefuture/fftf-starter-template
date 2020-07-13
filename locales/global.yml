@@ -27,6 +27,7 @@ en:
       tweet: Tweet
       yes: "Yes"
       download: Download
+      and: and
     scorecard:
       tweet:
         text_bad:

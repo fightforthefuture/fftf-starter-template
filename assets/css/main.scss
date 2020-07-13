@@ -1,6 +1,20 @@
 @import 'node_modules/bootstrap/scss/bootstrap';
 @import 'node_modules/bootstrap-vue/src/index.scss';
 
+@keyframes fade-in {
+  0% {
+    opacity: 0;
+  }
+  100% {
+    opacity: 1;
+  }
+}
+
+.fade-in {
+  animation: fade-in .3s;
+  animation-fill-mode: forwards;
+}
+
 img {
   max-width: 100%;
 }
@@ -48,7 +62,7 @@ img {
     color: $gray-600 !important;
   }
 
-  a {
+  a:not(.btn) {
     color: $blue;
 
     &:hover {

@@ -166,7 +166,25 @@
             <span v-if="isSending">{{ $t('global.common.sending') }}</span>
             <span v-else>{{ buttonCta }}</span>
           </button>
-          <small class="text-muted text-center d-block mt-1" v-html="isJointPetition ? $t('joint_petition_privacy_html') : $t('privacy_html')"></small>
+          <small class="text-muted text-center d-block mt-1" v-if="!optedOut">
+            <span v-html="privacyDisclaimer"></span>
+            <a href="#" @click.prevent="isEditingSubscription = !isEditingSubscription">{{ $t('edit_subscription') }}</a>
+          </small>
+        </div>
+
+        <div class="form-group bg-dark p-3 rounded fade-in" v-if="isEditingSubscription && !optedOut">
+          <div class="form-check mb-1">
+            <label class="form-check-label">
+              <input class="form-check-input" type="checkbox" v-model="optInToSponsors">
+              {{ $t('sponsors_opt_in_label', { sponsor_list: sponsorList }) }}
+            </label>
+          </div>
+          <div class="form-check" v-if="referrerGroup">
+            <label class="form-check-label">
+              <input class="form-check-input" type="checkbox" v-model="optInToReferrer">
+              {{ $t('referrer_opt_in_label', { referrer: referrerGroup }) }}
+            </label>
+          </div>
         </div>
       </form>
     </div>
@@ -326,7 +344,11 @@ export default {
       comment: null,
       companyName: null,
       optedOut: null,
-      referrerGroup: null
+      referrerGroup: null,
+      sponsorList: '',
+      isEditingSubscription: false,
+      optInToSponsors: true,
+      optInToReferrer: true
     }
   },
 
@@ -451,6 +473,20 @@ export default {
 
     isUnitedStates() {
       return this.country === 'US'
+    },
+
+    privacyDisclaimer() {
+      if (this.isJointPetition && this.sponsorList) {
+        return this.$t('joint_petition_sponsor_list_privacy_html', {
+          sponsor_list: this.sponsorList
+        })
+      }
+      else if (this.isJointPetition) {
+        return this.$t('joint_petition_privacy_html')
+      }
+      else {
+        return this.$t('privacy_html')
+      }
     }
   },
 
@@ -505,6 +541,27 @@ export default {
         this.referrerGroup = labels[1].innerText.replace(/Opt in to updates from/, '').trim()
         if (typeof console !== 'undefined') console.log(`Referring group: ${this.referrerGroup}`)
       }
+
+      // add sponsor list to our form
+      this.sponsorList = this.extractSponsorList()
+    },
+
+    extractSponsorList() {
+      let sponsorList = ''
+      const sponsorLinks = document.querySelectorAll('.action_info_user:last-child a')
+
+      sponsorLinks.forEach((a, i) => {
+        sponsorList += a.innerText
+
+        if (i < sponsorLinks.length - 2) {
+          sponsorList += ', '
+        }
+        else if (i === sponsorLinks.length - 2) {
+          sponsorList += `, ${this.$t('global.common.and')} `
+        }
+      })
+
+      return sponsorList
     },
 
     async submitForm() {
@@ -532,8 +589,19 @@ export default {
       // set country val
       setValue('#form-country', this.country)
 
-      // set optin
-      setValue('input[name="subscription[group]"]', !this.optedOut)
+      // hard opt-out from GDPR form. uncheck all lists
+      if (this.optedOut) {
+        setValue('input[name="subscription[group]"]', false)
+        setValue('input[name="subscription[group_referrer]"]', false)
+      }
+      // otherwise, use subscription settings
+      else {
+        // full sponsor list
+        setValue('input[name="subscription[group]"]', this.optInToSponsors)
+
+        // referrer group (if present)
+        setValue('input[name="subscription[group_referrer]"]', this.optInToReferrer)
+      }
 
       document.querySelector('#new_signature input[name="commit"]').click()
     },
