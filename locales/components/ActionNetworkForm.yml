@@ -11,6 +11,11 @@ en:
     By signing this petition you agree to receive occasional emails
     from one or more sponsor organization. You may of course unsubscribe
     at any time.
+  joint_petition_sponsor_list_privacy_html: |
+    You may receive updates from {sponsor_list}, the sponsors of this petition.
+  edit_subscription: Edit subscription
+  sponsors_opt_in_label: Opt in to updates from {sponsor_list}
+  referrer_opt_in_label: Opt in to updates from {referrer}
   noscript_html: |
     Sorry, but this form requires JavaScript. To sign, please turn on
     JavaScript for this site or visit
