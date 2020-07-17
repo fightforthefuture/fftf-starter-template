@@ -410,7 +410,7 @@ export default {
     },
 
     referrer() {
-      return this.$route.query.referrer
+      return this.$route.query.referrer || this.$t('default_referrer')
     },
 
     firstName() {

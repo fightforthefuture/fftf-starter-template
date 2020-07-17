@@ -16,6 +16,7 @@ en:
   edit_subscription: Edit subscription
   sponsors_opt_in_label: Opt in to updates from {sponsor_list}
   referrer_opt_in_label: Opt in to updates from {referrer}
+  default_referrer: group-fight-for-the-future
   noscript_html: |
     Sorry, but this form requires JavaScript. To sign, please turn on
     JavaScript for this site or visit
