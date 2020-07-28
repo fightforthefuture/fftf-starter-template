@@ -348,7 +348,8 @@ export default {
       sponsorList: '',
       isEditingSubscription: false,
       optInToSponsors: true,
-      optInToReferrer: true
+      optInToReferrer: true,
+      jointPetitionMounted: false
     }
   },
 
@@ -504,7 +505,7 @@ export default {
     }
   },
 
-  destroyed() {
+  beforeDestroy() {
     if (this.isJointPetition) {
       this.teardownJointPetition()
     }
@@ -520,7 +521,6 @@ export default {
       document.body.appendChild(script)
 
       document.addEventListener('can_embed_loaded', this.setupJointPetitionForm)
-      document.addEventListener('can_embed_submitted', this.handleJointPetitionFormSuccess)
     },
 
     teardownJointPetition() {
@@ -570,6 +570,10 @@ export default {
       this.isSending = true
 
       if (this.isJointPetition) {
+        if (!this.jointPetitionMounted) {
+          document.addEventListener('can_embed_submitted', this.handleJointPetitionFormSuccess)
+          this.jointPetitionMounted = true
+        }
         this.submitJointPetitionForm()
       }
       else {
@@ -609,12 +613,12 @@ export default {
     async handleJointPetitionFormSuccess() {
       this.$trackEvent(`joint_petition_form_${this.routeName}`, 'submit')
       this.$trackEvent(`joint_petition_form_${this.routeName}_${this.referrerGroup}`, 'submit')
-      this.$trackGoal('signPetition')
 
       if (this.contactCongress) {
         this.submitToMothership()
       }
       else {
+        this.$trackGoal('signPetition')
         this.showAfterAction()
       }
     },
