@@ -1,6 +1,57 @@
 import Vue from 'vue'
 import config from '~/config.json'
 
+const Social = {
+  getTrafficSource() {
+    let source
+
+    if (document.referrer) {
+      const url = new URL(document.referrer)
+
+      if (url.host === 't.co' || url.host === 'twitter.com') {
+        source = 'twitter'
+      }
+      else if (url.host.match(/facebook\.com$/)) {
+        source = 'facebook'
+      }
+      else if (url.host.match(/instagram/)) {
+        source = 'instagram'
+      }
+    }
+    else if (location.search.match(/email_referrer/)) {
+      source = 'email'
+    }
+
+    return source
+  },
+
+  pingCounter(action) {
+    const source = this.getTrafficSource()
+
+    if (source) {
+      const website = location.host.replace(/^www\./, '')
+
+      const data = {
+        ping: {
+          source: source,
+          action: action,
+          website: website
+        }
+      }
+
+      try {
+        const xhr = new XMLHttpRequest()
+        xhr.open('POST', 'https://counter.fightforthefuture.org/pings')
+        xhr.setRequestHeader('Content-Type', 'application/json')
+        xhr.send(JSON.stringify(data))
+      }
+      catch (error) {
+        // console.error(error)
+      }
+    }
+  }
+}
+
 const AnalyticsPlugin = {
   install(Vue, options) {
     // add event tracking convenience method
@@ -18,6 +69,8 @@ const AnalyticsPlugin = {
       if (window.fathom && config.fathomGoals[goal]) {
         fathom.trackGoal(config.fathomGoals[goal], valueInCents)
       }
+
+      Social.pingCounter(goal)
     }
 
     // add click tracking convenience method
@@ -75,7 +128,6 @@ export default ({ app, store }) => {
   }
 
   app.router.afterEach((to, from) => {
-    /* eslint-disable no-undef */
     if (window.ga) {
       ga('set', 'page', to.fullPath)
       ga('send', 'pageview')
@@ -89,6 +141,7 @@ export default ({ app, store }) => {
     if (window.fathom) {
       fathom.trackPageview()
     }
-    /* eslint-enable no-undef */
+
+    Social.pingCounter('pageView')
   })
 }
