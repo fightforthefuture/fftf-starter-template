@@ -23,7 +23,6 @@
     "nuxt-i18n": "^6.8.0"
   },
   "devDependencies": {
-    "@nuxtjs/eslint-config": "^0.0.1",
     "@nuxtjs/style-resources": "^0.1.2",
     "babel-polyfill": "^6.26.0",
     "bootstrap": "^4.4.1",
