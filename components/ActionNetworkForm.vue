@@ -168,7 +168,7 @@
           </button>
           <small class="text-muted text-center d-block mt-1" v-if="!optedOut">
             <span v-html="privacyDisclaimer"></span>
-            <a href="#" @click.prevent="isEditingSubscription = !isEditingSubscription">{{ $t('edit_subscription') }}</a>
+            <a v-if="isJointPetition" href="#" @click.prevent="isEditingSubscription = !isEditingSubscription">{{ $t('edit_subscription') }}</a>
           </small>
         </div>
 
