@@ -72,6 +72,13 @@
         br
         QuoteScroller
 
+    section#parallax
+      .container
+        parallax(:speed="0.8" is-grayscale stop-at-el="#parallax h2" :start-distance="100")
+          img(src="~/assets/images/fftf-logo-light.svg")
+        h2 Parallax
+        p.mt-5 Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nunc vel dapibus tortor. Nam a hendrerit turpis. Aliquam mollis porta lacus, id pellentesque massa tincidunt et. Phasellus facilisis pellentesque justo id egestas. Praesent orci augue, congue id consectetur eget, pharetra at ligula. Donec a augue ornare, vestibulum velit eget, lacinia orci. Aliquam erat volutpat. Donec molestie congue neque, non rutrum lacus maximus a. Proin sed pharetra magna. Fusce est urna, porta et laoreet non, ullamcorper id tellus. Quisque tempor odio sed orci malesuada, quis fringilla urna tristique. Proin at elementum libero.
+
     section
       .container
         h2 Modals
@@ -86,18 +93,18 @@
         h2 ClickToCopy
         br
         ClickToCopy(text-to-copy="this is the text to copy")
-
 </template>
 
 <script>
 import config from '~/config'
 import ActionNetworkForm from '~/components/ActionNetworkForm'
+import ClickToCopy from '~/components/ClickToCopy'
 import Letter from '~/components/Letter'
 import LogoCloud from '~/components/LogoCloud'
 import Map from '~/components/Map'
+import Parallax from '~/components/Parallax'
 import ProgressBar from '~/components/ProgressBar'
 import QuoteScroller from '~/components/QuoteScroller'
-import ClickToCopy from '~/components/ClickToCopy'
 import YoutubeVideo from '~/components/YoutubeVideo'
 
 export default {
@@ -107,6 +114,7 @@ export default {
     Letter,
     LogoCloud,
     Map,
+    Parallax,
     ProgressBar,
     QuoteScroller,
     YoutubeVideo
