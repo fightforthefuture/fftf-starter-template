@@ -1,0 +1,24 @@
+en:
+  comment_label: "ADD YOUR COMMENTS:"
+  comment_placeholder: “YOUR COMMENT GOES HERE”
+  upload_button: Upload
+  upload_button_full_width: Upload Photo
+  take_photo: Take Photo
+  retake_photo: Retake Photo
+  submit_button: Submit my photo
+  camera_connection_error: Couldn't connect to camera 😞
+  starting: Starting...
+  ready_in: Ready in
+  character_count: no characters left | 1 character left | {count} characters left
+  download: download
+
+  # customize the stuff below for this site
+  title: Take a selfie
+  description_html: >
+    Upload a photo to show your support.
+  default_comment: >
+    I just took a selfie for this important cause. Will you?
+  twitter_hashtags: ""
+  airtable_base_id: appZlXLkidj42iSp0
+  s3_bucket: photos.daytonsbbq.club
+  share_base_url: https://selfies.fftf.xyz/share/daytonsbbq/

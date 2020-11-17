@@ -80,6 +80,7 @@
           button.btn.btn-info(@click.prevent="$store.commit('showModal', 'archived')") Archived
           button.btn.btn-info(@click.prevent="$store.commit('showModal', 'call-form')") Call Form
           button.btn.btn-info(@click.prevent="$store.commit('showModal', 'call-script')") Call Script
+          button.btn.btn-info(@click.prevent="$store.commit('showModal', 'selfie-form')") Selfie Form
 
     section
       .container

@@ -1,4 +1,6 @@
-import EXIF from 'exif-js'
+// import EXIF from 'exif-js'
+import canvasTxt from '~/node_modules/canvas-txt/src/index.js'
+// import { getMobileOperatingSystem } from '~/assets/js/helpers.js'
 
 function rotateImage(image, degrees) {
   const canvas = document.createElement('canvas')
@@ -41,17 +43,21 @@ function createImageFromFile(file) {
       const img = new Image()
 
       img.onload = () => {
-        EXIF.getData(img, () => {
-          const exifData = EXIF.getAllTags(img)
-          const degrees = getRotationDegrees(exifData.Orientation)
+        return resolve(img)
 
-          if (degrees) {
-            const rotatedImage = rotateImage(img, degrees)
-            return resolve(rotatedImage)
-          }
+        // TODO: test on Android / old iOS versions and put this back if necessary
+        //
+        // EXIF.getData(img, () => {
+        //   const exifData = EXIF.getAllTags(img)
+        //   const degrees = getRotationDegrees(exifData.Orientation)
 
-          resolve(img)
-        })
+        //   if (degrees) {
+        //     const rotatedImage = rotateImage(img, degrees)
+        //     return resolve(rotatedImage)
+        //   }
+
+        //   resolve(img)
+        // })
       }
 
       img.onerror = (error) => {
@@ -71,7 +77,7 @@ function createImageFromFile(file) {
   })
 }
 
-export async function createPNG({ sourceElement, sourceFile, overlayElement, width=640, height=640 }) {
+export async function createSourcePNG({ sourceElement, sourceFile, width=640, height=640 }) {
   let sourceWidth, sourceHeight
 
   if (sourceFile) {
@@ -103,6 +109,46 @@ export async function createPNG({ sourceElement, sourceFile, overlayElement, wid
     }
   }
 
+  return canvas.toDataURL('image/png')
+}
+
+export async function createCombinedPNG({ sourcePNG, overlayElement, width=640, height=640, comment=null }) {
+  // do our best to center the comment
+  const bestGuessOfCharsPerLine = 72
+  const lineCount = Math.ceil(comment.length / bestGuessOfCharsPerLine)
+  const fontSize = 32
+  const fontFamily = 'mongoose'
+  const paddingTop = 20
+  const paddingBottom = 40
+  const overlayLogoOffset = 30
+  const paddingX = 20
+
+  // create canvas
+  const canvas = document.createElement('canvas')
+  canvas.width = width
+  canvas.height = height
+  const context = canvas.getContext('2d')
+
+  // add source image
+  const sourceElement = document.createElement('img')
+  sourceElement.src = sourcePNG
+  context.drawImage(sourceElement, 0, 0, width, height)
+
+  // draw yellow box
+  context.fillStyle = "#ffce00"
+  const boxHeight = (fontSize * lineCount) + paddingTop + paddingBottom
+  context.fillRect(0, canvas.height - boxHeight, canvas.width, boxHeight)
+
+  // draw comment
+  context.font = `${fontSize}px ${fontFamily}`
+  context.fillStyle = "black"
+  canvasTxt.fontSize = fontSize
+  canvasTxt.fontStyle = fontFamily
+  canvasTxt.lineHeight = fontSize
+  canvasTxt.vAlign = 'middle'
+  canvasTxt.drawText(context, comment, paddingX, canvas.height - boxHeight - 5, canvas.width - (paddingX * 2), boxHeight - overlayLogoOffset)
+
+  // add june2020.org overlay
   if (overlayElement) {
     context.drawImage(overlayElement, 0, 0, width, height)
   }

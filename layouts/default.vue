@@ -8,6 +8,7 @@
     <ArchivedModal v-if="modal === 'archived'" />
     <CallFormModal v-else-if="modal === 'call-form'" />
     <CallScriptModal v-else-if="modal === 'call-script'" />
+    <SelfieFormModal v-else-if="modal === 'selfie-form'" />
   </div>
 </template>
 
@@ -17,6 +18,7 @@ import { createMetaTags } from '~/assets/js/helpers'
 import CallFormModal from '~/components/CallFormModal'
 import CallScriptModal from '~/components/CallScriptModal'
 import ArchivedModal from '~/components/ArchivedModal'
+import SelfieFormModal from '~/components/SelfieFormModal'
 import PageFooter from '~/components/PageFooter'
 
 export default {
@@ -24,6 +26,7 @@ export default {
     CallFormModal,
     CallScriptModal,
     ArchivedModal,
+    SelfieFormModal,
     PageFooter
   },
 
