@@ -49,12 +49,10 @@ $container-max-widths: (
 
 // MIXINS
 
-@mixin arrow-up($color, $size: $spacer*1.5) {
+@mixin arrow-generic($color, $size: $spacer * 1.5) {
   position: relative;
 
   &:after {
-    bottom: 100%;
-    left: 50%;
     border: solid transparent;
     content: " ";
     height: 0;
@@ -62,9 +60,110 @@ $container-max-widths: (
     position: absolute;
     pointer-events: none;
     border-color: transparent;
-    border-bottom-color: $color;
     border-width: $size;
+  }
+}
+
+@mixin arrow-up($color, $size: $spacer*1.5) {
+  @include arrow-generic($color, $size);
+
+  &:after {
+    bottom: 100%;
+    left: 50%;
+    border-bottom-color: $color;
     margin-left: $size * -1;
+  }
+}
+
+@mixin arrow-right($color, $size: $spacer*1.5) {
+  @include arrow-generic($color, $size);
+
+  &:after {
+    left: 100%;
+    top: 50%;
+    border-left-color: $color;
+    margin-top: $size * -1;
+  }
+}
+
+@mixin arrow-left($color, $size: $spacer*1.5) {
+  @include arrow-generic($color, $size);
+
+  &:after {
+    right: 100%;
+    top: 50%;
+    border-right-color: $color;
+    margin-top: $size * -1;
+  }
+}
+
+@mixin arrow-down($color, $size: $spacer*1.5) {
+  @include arrow-generic($color, $size);
+
+  &:after {
+    top: 100%;
+    left: $spacer * 2;
+    border-top-color: $color;
+    margin-left: $size * -1;
+  }
+}
+
+@mixin arrow-up-left($color, $size: $spacer*1.5) {
+  @include arrow-up($color, $size);
+
+  &:after {
+    left: $size * 2;
+  }
+}
+
+@mixin background-icon($url, $size: $spacer * 3) {
+  position: relative;
+  &:before {
+    content: '';
+    background-image: url($url);
+    background-position: center center;
+    background-repeat: no-repeat;
+    background-size: contain;
+    bottom: 0;
+    position: absolute;
+    top: 0;
+    width: $size;
+  }
+}
+
+@mixin background-icon-left($url, $size: $spacer *3, $margin: null) {
+  @include background-icon($url, $size);
+  @if $margin==null {
+    $margin: $size / 2;
+  }
+
+  $padding: $margin * 2 + $size;
+  @if $margin==0 {
+    $padding: $spacer + $padding;
+  }
+
+  padding-left: $padding;
+
+  &:before {
+    left: $margin;
+  }
+}
+
+@mixin background-icon-right($url, $size: $spacer *3, $margin: '') {
+  @include background-icon($url, $size);
+  @if $margin=='' {
+    $margin: $size / 2;
+  }
+
+  $padding: $margin * 2 + $size;
+  @if $margin==0 {
+    $padding: $spacer + $padding;
+  }
+
+  padding-right: $margin * 2 + $size;
+
+  &:before {
+    right: $margin;
   }
 }
 
