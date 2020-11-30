@@ -17,21 +17,21 @@
     "deploy": "rsync -avh dist/ static1:~/www/__REPLACE_ME_WITH_DOMAIN_NAME__ --delete"
   },
   "dependencies": {
-    "@nuxtjs/axios": "^5.9.7",
+    "@nuxtjs/axios": "^5.12.2",
     "clipboard": "^2.0.6",
-    "nuxt": "^2.14.4",
-    "nuxt-i18n": "^6.8.0"
+    "nuxt": "^2.14.7",
+    "nuxt-i18n": "^6.15.4"
   },
   "devDependencies": {
     "@nuxtjs/style-resources": "^0.1.2",
     "babel-polyfill": "^6.26.0",
-    "bootstrap": "^4.4.1",
-    "bootstrap-vue": "^2.10.1",
+    "bootstrap": "^4.5.3",
+    "bootstrap-vue": "^2.19.0",
     "cross-env": "^5.2.1",
     "exif-js": "^2.3.0",
     "node-sass": "^4.14.1",
     "nodemon": "^1.19.4",
-    "pug": "^2.0.3",
+    "pug": "^2.0.4",
     "pug-plain-loader": "^1.0.0",
     "sass-loader": "^7.3.1",
     "yaml-loader": "^0.5.0"
