@@ -538,7 +538,7 @@ export default {
       // Log referrer for debugging
       const labels = document.querySelectorAll('#d_sharing label')
       if (labels.length > 1) {
-        this.referrerGroup = labels[1].innerText.replace(/Opt in to updates from/, '').trim()
+        this.referrerGroup = labels[1].innerText.replace(/Opt in to email updates from/, '').trim()
         if (typeof console !== 'undefined') console.log(`Referring group: ${this.referrerGroup}`)
       }
 
