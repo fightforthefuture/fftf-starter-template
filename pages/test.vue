@@ -93,10 +93,24 @@
         h2 ClickToCopy
         br
         ClickToCopy(text-to-copy="this is the text to copy")
+
+    section
+      .container
+        h2 Accordion
+        br
+        Accordion
+          AccordionItem(id="accordion-item-1" title="Item Number 1" :visible="true")
+            | This is the first accordion item
+          AccordionItem(id="accordion-item-2" title="Item Number 2")
+            | This is the second accordion item
+          AccordionItem(id="accordion-item-3" title="Item Number 3")
+            | This is the third accordion item
 </template>
 
 <script>
 import config from '~/config'
+import Accordion from '~/components/Accordion'
+import AccordionItem from '~/components/AccordionItem'
 import ActionNetworkForm from '~/components/ActionNetworkForm'
 import ClickToCopy from '~/components/ClickToCopy'
 import Letter from '~/components/Letter'
@@ -109,6 +123,8 @@ import YoutubeVideo from '~/components/YoutubeVideo'
 
 export default {
   components: {
+    Accordion,
+    AccordionItem,
     ActionNetworkForm,
     ClickToCopy,
     Letter,

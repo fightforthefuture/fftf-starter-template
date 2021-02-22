@@ -48,6 +48,7 @@ module.exports = {
     '@nuxtjs/style-resources',
     'bootstrap-vue/nuxt',
     ['nuxt-i18n', {
+      seo: true,
       locales: [
         {
           code: 'en',
@@ -69,9 +70,12 @@ module.exports = {
     components: [
       'BModal',
       'BCarousel',
-      'BCarouselSlide'
+      'BCarouselSlide',
+      'BCollapse'
      ],
-    directives: []
+    directives: [
+      'VBToggle'
+    ]
   },
 
   /*
