@@ -21,10 +21,10 @@
             type="tel"
             :placeholder="$t('zip_placeholder')"
           )
-    button.btn.btn-primary.btn-block(:disabled="isSending")
+    button.btn.btn-primary.btn-block(:disabled="isSending" aria-describedby="call-form-privacy")
       span(v-if="isSending") {{ $t('sending') }}
       span(v-else) {{ $t('call') }}
-    small.d-block.mt-1.text-muted(v-html="$t('privacy_html')")
+    small.d-block.mt-1.text-muted#call-form-privacy(v-html="$t('privacy_html')")
 </template>
 
 

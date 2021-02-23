@@ -15,8 +15,19 @@
 </style>
 
 <template lang="pug">
-  b-modal#archived-modal(:visible="true" centered modal-class="text-center" hide-footer)
+  Modal(id="archived-modal" title-sr-only)
+    template(v-slot:modal-title) {{ $t('title') }}
     p
       img(src="~assets/images/fftf-logo-dark.svg" :alt="$t('global.common.logo_alt')")
     p(v-html="$t('message_html')")
 </template>
+
+<script>
+import Modal from '~/components/Modal'
+
+export default {
+  components: {
+    Modal
+  }
+}
+</script>
