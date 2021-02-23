@@ -1,4 +1,9 @@
 <style lang="scss" scoped>
+ul {
+  list-style-type: none;
+  margin: 0;
+  padding: 0;
+}
 .bg-white {
   height: 5rem;
 
@@ -10,10 +15,10 @@
 </style>
 
 <template lang="pug">
-  .row
-    .col-6.col-sm-3(v-for="logo in logos")
+  ul.row
+    li.col-6.col-sm-3(v-for="logo in logos")
       .bg-white.rounded.d-flex.align-items-center.justify-content-center.mb-2
-        img(:src="logo.image_url" :alt="logo.name")
+        img(:src="logo.image_url" :alt="`${logo.name} logo`")
 </template>
 
 <script>
