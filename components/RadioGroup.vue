@@ -62,6 +62,8 @@ export default {
 
   methods: {
     setChecked(currentItem) {
+      if (!currentItem) return
+
       for (var i = 0; i < this.radioButtons.length; i++) {
         var rb = this.radioButtons[i]
         rb.setAttribute('aria-checked', 'false')
@@ -81,8 +83,9 @@ export default {
 
     setCheckedToPreviousItem(currentItem) {
       var index;
-
-      if (currentItem === this.firstRadioButton) {
+      if (!currentItem) {
+        this.setChecked(this.firstRadioButton)
+      } else if (currentItem === this.firstRadioButton) {
         this.setChecked(this.lastRadioButton)
       } else {
         index = this.radioButtons.indexOf(currentItem)
@@ -93,7 +96,7 @@ export default {
     setCheckedToNextItem(currentItem) {
       var index;
 
-      if (currentItem === this.lastRadioButton) {
+      if (!currentItem || currentItem === this.lastRadioButton) {
         this.setChecked(this.firstRadioButton)
       } else {
         index = this.radioButtons.indexOf(currentItem)
@@ -103,24 +106,12 @@ export default {
 
     getCurrentRadioButton() {
       var id = this.$refs.groupNode.getAttribute('aria-activedescendant');
-      if (!id) {
-        this.$refs.groupNode.setAttribute(
-          'aria-activedescendant',
-          this.firstRadioButton.id
-        );
-        return this.firstRadioButton
-      }
       for (var i = 0; i < this.radioButtons.length; i++) {
         var rb = this.radioButtons[i];
         if (rb.id === id) {
           return rb
         }
       }
-      this.$refs.groupNode.setAttribute(
-        'aria-activedescendant',
-        this.firstRadioButton.id
-      );
-      return this.firstRadioButton
     },
 
     handleKeydown(event) {
@@ -166,11 +157,13 @@ export default {
 
     handleFocus() {
       const currentItem = this.getCurrentRadioButton()
+      if (!currentItem) return
       currentItem.classList.add('focus')
     },
 
     handleBlur() {
       const currentItem = this.getCurrentRadioButton()
+      if (!currentItem) return
       currentItem.classList.remove('focus')
     }
   }
