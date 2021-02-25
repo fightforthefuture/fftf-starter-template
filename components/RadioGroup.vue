@@ -67,12 +67,12 @@ export default {
       for (var i = 0; i < this.radioButtons.length; i++) {
         var rb = this.radioButtons[i]
         rb.setAttribute('aria-checked', 'false')
-        rb.classList.remove('focus')
         rb.classList.remove('active')
+        rb.querySelector('.btn').classList.remove('focus')
       }
 
       currentItem.setAttribute('aria-checked', 'true')
-      currentItem.classList.add('focus')
+      currentItem.querySelector('.btn').classList.add('focus')
       currentItem.classList.add('active')
 
       this.$refs.groupNode.setAttribute('aria-activedescendant', currentItem.id)
@@ -158,7 +158,7 @@ export default {
     handleFocus() {
       const currentItem = this.getCurrentRadioButton()
       if (!currentItem) return
-      currentItem.classList.add('focus')
+      currentItem.querySelector('.btn').classList.add('focus')
     },
 
     handleBlur() {
