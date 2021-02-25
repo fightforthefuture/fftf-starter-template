@@ -38,6 +38,17 @@ export function smoothScrollToElement(el, duration) {
   if (el) {
     const box = el.getBoundingClientRect()
     smoothScrollTo(box.x, box.y, duration)
+
+    const h2 = el.querySelector(`h2`)
+    if (!h2) { return }
+
+    h2.focus()
+    if (h2 === document.activeElement) {
+      return
+    } else {
+      h2.setAttribute('tabindex','-1')
+      h2.focus()
+    }
   }
 }
 
