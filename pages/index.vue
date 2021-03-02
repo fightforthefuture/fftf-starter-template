@@ -1,5 +1,5 @@
 <template lang="pug">
-  .index-page.text-center
+  main.index-page.text-center
     include ../templates/index.html
 </template>
 

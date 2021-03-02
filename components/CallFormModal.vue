@@ -1,7 +1,13 @@
 <i18n src="~/locales/components/CallFormModal.yml"></i18n>
-
+<style lang="scss">
+#call-form-modal h1 {
+  @include font-size($h5-font-size);
+  margin: 0;
+  padding: 0;
+}
+</style>
 <template lang="pug">
-b-modal#call-form-modal(:visible="true" centered modal-class="text-center" hide-footer)
+Modal(id="call-form-modal")
   template(v-slot:modal-title)
     span.text-success {{ $t('thanks') }}
     |  {{ $t('please_call') }}
@@ -11,10 +17,12 @@ b-modal#call-form-modal(:visible="true" centered modal-class="text-center" hide-
 
 <script>
 import CallForm from '~/components/CallForm'
+import Modal from '~/components/Modal'
 
 export default {
   components: {
-    CallForm
+    CallForm,
+    Modal
   }
 }
 </script>

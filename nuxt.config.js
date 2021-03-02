@@ -35,6 +35,7 @@ module.exports = {
   */
   plugins: [
     { src: '~/plugins/analytics.js', ssr: false },
+    { src: '~/plugins/components.js', ssr: false },
     { src: '~/plugins/hash-link-fix.js', ssr: false },
     { src: '~/plugins/scroll-to.js', ssr: false }
   ],
@@ -48,6 +49,7 @@ module.exports = {
     '@nuxtjs/style-resources',
     'bootstrap-vue/nuxt',
     ['nuxt-i18n', {
+      seo: true,
       locales: [
         {
           code: 'en',
@@ -69,9 +71,12 @@ module.exports = {
     components: [
       'BModal',
       'BCarousel',
-      'BCarouselSlide'
+      'BCarouselSlide',
+      'BCollapse'
      ],
-    directives: []
+    directives: [
+      'VBToggle'
+    ]
   },
 
   /*

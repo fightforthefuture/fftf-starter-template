@@ -1,3 +1,5 @@
+<i18n src="~/locales/components/ProgressBar.yml"></i18n>
+
 <style lang="scss" scoped>
   .progress {
     position: relative;
@@ -20,6 +22,7 @@
                   aria-valuenow="75"
                   aria-valuemin="0"
                   aria-valuemax="100"
+                  :aria-valuetext="$t('aria_text', {count: this.totalSignatures})"
                   :style="`width: ${percentComplete}%;`")
       span(v-show="totalSignatures") {{ totalSignatures }} SIGNERS
 </template>

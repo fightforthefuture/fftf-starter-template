@@ -12,9 +12,6 @@
       font-size: 1.3rem;
     }
   }
-  small {
-    text-transform: uppercase;
-  }
 
   .target {
     @if $enable-rounded {

@@ -34,8 +34,9 @@
         <div class="form-row">
           <div class="col-sm-12 col-md-6">
             <div class="form-group">
-              <label>{{ $t('form.name.label') }}</label>
+              <label :for="getId('name')">{{ $t('form.name.label') }}</label>
               <input
+                :id="getId('name')"
                 class="form-control"
                 type="text"
                 v-model.lazy.trim="name"
@@ -46,8 +47,9 @@
           </div>
           <div class="col-sm-12 col-md-6">
             <div class="form-group">
-              <label>{{ $t('form.email.label') }}</label>
+              <label :for="getId('email')">{{ $t('form.email.label') }}</label>
               <input
+                :id="getId('email')"
                 class="form-control"
                 type="email"
                 v-model.lazy.trim="email"
@@ -61,8 +63,8 @@
         <div class="form-row" v-if="isInternational">
           <div class="col">
             <div class="form-group">
-              <label>{{ $t('form.country.label') }}</label>
-              <select class="form-control" v-model="country">
+              <label :for="getId('country')">{{ $t('form.country.label') }}</label>
+              <select :id="getId('country')" class="form-control" v-model="country">
                 <option v-for="(text, value) in countries"
                   :value="value"
                   :key="`country-select-${value}`">{{ text }}</option>
@@ -74,8 +76,9 @@
         <div class="form-row">
           <div class="col-sm-12 col-md-6">
             <div class="form-group">
-              <label>{{ $t('form.address.label') }}</label>
+              <label :for="getId('address')">{{ $t('form.address.label') }}</label>
               <input
+                :id="getId('address')"
                 class="form-control"
                 type="text"
                 v-model.lazy.trim="address"
@@ -86,10 +89,11 @@
           </div>
           <div class="col-sm-12 col-md-6">
             <div class="form-group">
-              <label>
+              <label :for="getId('zip')">
                 {{ $t('form.zip.label') }}
               </label>
               <input
+                :id="getId('zip')"
                 class="form-control"
                 type="text"
                 v-model.lazy.trim="zipCode"
@@ -101,19 +105,22 @@
         </div>
 
         <div class="form-group">
-          <label>{{ $t('form.phone.label') }}</label>
+          <label :for="getId('phone')">{{ $t('form.phone.label') }}</label>
           <input
+            :id="getId('phone')"
             class="form-control"
             type="tel"
             v-model.lazy.trim="phone"
             name="member[phone_number]"
+            :aria-describedby="getId('phone-disclaimer')"
             :placeholder="$t('form.phone.placeholder')" />
-          <small class="d-block mt-1 text-muted" v-html="$t('form.phone.disclaimer_html')"></small>
+          <small :id="getId('phone-disclaimer')" class="d-block mt-1 text-muted" v-html="$t('form.phone.disclaimer_html')"></small>
         </div>
 
         <div v-if="hasCompany" class="form-group">
-          <label>{{ $t('form.company.label') }}</label>
+          <label :for="getId('company')">{{ $t('form.company.label') }}</label>
           <input
+            :id="getId('company')"
             class="form-control"
             v-model.lazy.trim="companyName"
             type="text"
@@ -122,9 +129,10 @@
         </div>
 
         <div class="form-group" v-if="hasComment">
-          <label>{{ $t('form.comment.label') }}</label>
+          <label :for="getId('comment')">{{ $t('form.comment.label') }}</label>
           <div class="textarea-with-btn">
             <textarea
+              :id="getId('comment')"
               class="form-control"
               v-model="comment"
               ref="comment"
@@ -132,43 +140,41 @@
               name="action_comment"
               rows="3"
               max-rows="6"></textarea>
-            <a class="btn btn-secondary" href="#" @click.prevent="clearComment()">
-              {{ $t('global.common.clear') }}
-            </a>
+            <button class="btn btn-secondary" @click.prevent="clearComment()">
+              {{ $t('global.common.clear') }} <custom-span class="sr-only">the comment field</custom-span>
+            </button>
           </div>
         </div>
 
         <div v-if="isGDPRCountry" class="form-group opt-in-wrapper">
-          <label>{{ $t('gdpr.opt_in_label') }}</label>
-          <div class="form-check">
-            <label class="form-check-label">
-              <input class="form-check-input" type="radio" name="opt_out"
-                :value="false" v-model="optedOut" required>
-              {{ $t('gdpr.yes_label') }}
-            </label>
-          </div>
-          <div class="form-check">
-            <label class="form-check-label">
-              <input class="form-check-input" type="radio" name="opt_out"
-                :value="true" v-model="optedOut" required>
-              {{ $t('gdpr.no_label') }}
-            </label>
-          </div>
+          <label :id="getId('gdpr')">{{ $t('gdpr.opt_in_label') }}</label>
+          <radio-group :aria-label="getId('gdpr')" @set-radio-selection="setOptedOut" class="row">
+            <radio-button :id="getId('gdpr-radio-button-yes')" class="col-md-6 mb-3">
+              <span ref="optIn" class="btn btn-block btn-dark radio-label">
+                {{ $t('gdpr.yes_label') }}
+              </span>
+            </radio-button>
+            <radio-button :id="getId('gdpr-radio-button-no')" :aria-describedby="getId('gdpr-nudge')" class="col-md-6 mb-3">
+              <span class="btn btn-block btn-dark radio-label">
+                {{ $t('gdpr.no_label') }}
+              </span>
+            </radio-button>
+          </radio-group>
 
           <div v-if="optedOut" class="mt-4 mb-5">
-            <label>{{ $t('gdpr.nudge') }}</label>
-            <a class="btn btn-primary btn-sm" @click.prevent="optedOut = false">{{ $t('gdpr.nudge_button') }}</a>
+            <label :id="getId('gdpr-nudge')">{{ $t('gdpr.nudge') }}</label>
+            <button class="btn btn-primary btn-sm" @click.prevent="$refs.optIn.click()">{{ $t('gdpr.nudge_button') }}</button>
           </div>
         </div>
 
         <div class="form-group">
-          <button class="btn btn-primary btn-block btn-lg" :disabled="isSending">
+          <button class="btn btn-primary btn-block btn-lg" :disabled="isSending" :aria-describedby="getId('privacy-disclaimer')">
             <span v-if="isSending">{{ $t('global.common.sending') }}</span>
             <span v-else>{{ buttonCta }}</span>
           </button>
-          <small class="text-muted text-center d-block mt-1" v-if="!optedOut">
+          <small class="text-muted text-center d-block mt-1" v-if="!optedOut" :id="getId('privacy-disclaimer')">
             <span v-html="privacyDisclaimer"></span>
-            <a v-if="isJointPetition" href="#" @click.prevent="isEditingSubscription = !isEditingSubscription">{{ $t('edit_subscription') }}</a>
+            <button class="btn-link" v-if="isJointPetition" @click.prevent="isEditingSubscription = !isEditingSubscription">{{ $t('edit_subscription') }}</button>
           </small>
         </div>
 
@@ -191,7 +197,7 @@
 
     <!-- STEP 2: AFTER-ACTION -->
     <div v-if="hasSigned" class="text-center mt-5">
-      <h2 class="text-success">{{ $t('thanks.title') }}</h2>
+      <h3 tabindex="-1" ref="afteraction" class="text-success">{{ $t('thanks.title') }}</h3>
       <p>{{ $t('thanks.share') }}</p>
       <div class="row">
         <div class="col-sm-12 col-lg-4 mb-2 mb-md-0">
@@ -228,8 +234,11 @@
 
 <script>
 import { sendToMothership } from '~/assets/js/helpers'
+import RadioButton from '~/components/RadioButton'
+import RadioGroup from '~/components/RadioGroup'
 import ShareButton from '~/components/ShareButton'
 import countries from '~/assets/data/countries'
+
 
 function setValue(selector, newValue=null) {
   const elements = document ? document.querySelectorAll(selector) : []
@@ -256,6 +265,8 @@ function setValue(selector, newValue=null) {
 
 export default {
   components: {
+    RadioButton,
+    RadioGroup,
     ShareButton
   },
 
@@ -349,7 +360,8 @@ export default {
       isEditingSubscription: false,
       optInToSponsors: true,
       optInToReferrer: true,
-      jointPetitionMounted: false
+      jointPetitionMounted: false,
+      uniqueId: null
     }
   },
 
@@ -493,6 +505,7 @@ export default {
 
   created() {
     this.comment = this.defaultComment
+    this.uniqueId = Math.random(0,1000)
   },
 
   mounted() {
@@ -512,6 +525,14 @@ export default {
   },
 
   methods: {
+    setOptedOut(value) {
+      this.optedOut = value > 0
+    },
+
+    getId(field) {
+      return `form-${field}-${this.uniqueId}`
+    },
+
     mountJointPetition() {
       const script = document.createElement('script')
       script.id = 'ACTION_NETWORK_EMBED_SCRIPT'
@@ -664,6 +685,10 @@ export default {
 
       this.isSending = false
       this.hasSigned = true
+
+      setTimeout( () => {
+        this.$refs.afteraction.focus()
+      }, 300)
     },
 
     clearComment() {
