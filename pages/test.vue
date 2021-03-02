@@ -119,6 +119,12 @@
             span.btn.btn-block.btn-alt Option 3
           RadioButton(id="radio-button-4" class="col-md-6 mb-3")
             span.btn.btn-block.btn-alt Option 4
+
+    section(aria-labelledby="h2-uppercase-group")
+      .container
+        h2#h2-uppercase-group Uppercase
+        Uppercase
+          | This text should be uppercase for sighted users and normal case for non-sighted users
 </template>
 
 <script>
