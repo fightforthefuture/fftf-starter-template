@@ -68,17 +68,22 @@ export default {
         var rb = this.radioButtons[i]
         rb.setAttribute('aria-checked', 'false')
         rb.classList.remove('active')
-        rb.querySelector('.btn').classList.remove('focus')
+        rb.querySelector('.radio-label').classList.remove('focus')
       }
 
       currentItem.setAttribute('aria-checked', 'true')
-      currentItem.querySelector('.btn').classList.add('focus')
+      currentItem.querySelector('.radio-label').classList.add('focus')
       currentItem.classList.add('active')
 
       this.$refs.groupNode.setAttribute('aria-activedescendant', currentItem.id)
       this.$refs.groupNode.focus()
 
-      this.$emit('set-answer', this.radioButtons.indexOf(currentItem))
+      let emitValue = this.radioButtons.indexOf(currentItem)
+      let input = currentItem.querySelector('input')
+      if (input) {
+        emitValue = input.value
+      }
+      this.$emit('set-radio-selection', emitValue)
     },
 
     setCheckedToPreviousItem(currentItem) {
@@ -158,7 +163,7 @@ export default {
     handleFocus() {
       const currentItem = this.getCurrentRadioButton()
       if (!currentItem) return
-      currentItem.querySelector('.btn').classList.add('focus')
+      currentItem.querySelector('.radio-label').classList.add('focus')
     },
 
     handleBlur() {

@@ -112,13 +112,13 @@
         h3#radio-group-label Which option do you like best?
         RadioGroup(aria-label="radio-group-label" class="row")
           RadioButton(id="radio-button-1" class="col-md-6 mb-3")
-            span.btn.btn-block.btn-alt Option 1
+            span.btn.btn-block.btn-alt.radio-label Option 1
           RadioButton(id="radio-button-2" class="col-md-6 mb-3")
-            span.btn.btn-block.btn-alt Option 2
+            span.btn.btn-block.btn-alt.radio-label Option 2
           RadioButton(id="radio-button-3" class="col-md-6 mb-3")
-            span.btn.btn-block.btn-alt Option 3
+            span.btn.btn-block.btn-alt.radio-label Option 3
           RadioButton(id="radio-button-4" class="col-md-6 mb-3")
-            span.btn.btn-block.btn-alt Option 4
+            span.btn.btn-block.btn-alt.radio-label Option 4
 
     section(aria-labelledby="h2-uppercase-group")
       .container
