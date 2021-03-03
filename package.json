@@ -31,7 +31,7 @@
     "exif-js": "^2.3.0",
     "node-sass": "^4.14.1",
     "nodemon": "^1.19.4",
-    "pug": "^2.0.4",
+    "pug": "^3.0.1",
     "pug-plain-loader": "^1.0.0",
     "sass-loader": "^7.3.1",
     "yaml-loader": "^0.5.0"
