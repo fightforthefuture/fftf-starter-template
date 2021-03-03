@@ -1,6 +1,7 @@
+<i18n src="~/locales/components/CustomA.yml"></i18n>
 <template>
   <a :href="href"
-     :target="target"><slot :aria-hidden="srText" /><span v-if="srText" class="sr-only">{{ srText }}</span></a>
+     :target="target"><slot :aria-hidden="srText" /><custom-span class="sr-only">{{ srDisplayText }}</custom-span></a>
 </template>
 
 <script>
@@ -20,6 +21,13 @@ export default {
       required: false,
       default: null
     }
+  },
+
+  computed: {
+    srDisplayText() {
+      return this.srText ? this.srText : this.$t('default_sr_text')
+    }
   }
+
 }
 </script>
