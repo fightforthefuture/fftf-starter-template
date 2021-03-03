@@ -35,7 +35,7 @@ module.exports = {
   */
   plugins: [
     { src: '~/plugins/analytics.js', ssr: false },
-    { src: '~/plugins/components.js', ssr: false },
+    { src: '~/plugins/components.js', ssr: true },
     { src: '~/plugins/hash-link-fix.js', ssr: false },
     { src: '~/plugins/scroll-to.js', ssr: false }
   ],

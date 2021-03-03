@@ -1,9 +1,7 @@
 <template>
   <a :href="href"
      :target="target">
-    <slot :aria-hidden="srText">
-      {{ text }}
-    </slot>
+    <slot :aria-hidden="srText" />
     <span v-if="srText" class="sr-only">{{ srText }}</span>
    </a>
 </template>
