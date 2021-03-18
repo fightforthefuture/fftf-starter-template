@@ -176,6 +176,9 @@
             <span v-html="privacyDisclaimer"></span>
             <button class="btn-link" v-if="isJointPetition" @click.prevent="isEditingSubscription = !isEditingSubscription">{{ $t('edit_subscription') }}</button>
           </small>
+          <p v-if="regulationsDoc">
+            <small class="text-muted text-center d-block mt-1" v-html="$t('regulations_disclaimer_html', {regulations_doc: regulationsDoc})"></small>
+          </p>
         </div>
 
         <div class="form-group bg-dark p-3 rounded fade-in" v-if="isEditingSubscription && !optedOut">
@@ -344,6 +347,10 @@ export default {
       type: Boolean,
       required: false,
       default: false
+    },
+    regulationsDoc: {
+      type: String,
+      required: false
     }
   },
 
@@ -664,7 +671,8 @@ export default {
           an_tags: this.mothershipTags,
           an_petition_id: this.petitionId,
           skip_action_network: this.isJointPetition ? true : null,
-          action_comment: this.hasComment ? this.comment : ''
+          action_comment: this.hasComment ? this.comment : '',
+          regulations_doc: this.regulationsDoc
         })
 
         this.$trackEvent(`petition_form_${this.routeName}`, 'submit')

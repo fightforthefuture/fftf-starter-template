@@ -16,6 +16,10 @@ en:
   edit_subscription: Edit subscription
   sponsors_opt_in_label: Opt in to updates from {sponsor_list}
   referrer_opt_in_label: Opt in to updates from {referrer}
+  regulations_disclaimer_html: |
+    Your comment will be submitted to <a href="https://www.regulations.gov/document/{regulations_doc}" target="_blank">regulations.gov</a>.
+    Read the <a href="https://www.regulations.gov/privacy-notice" target="_blank">Privacy Notice</a> and
+    <a href="https://www.regulations.gov/user-notice" target="_blank">Terms of Participation</a>
   default_referrer: group-fight-for-the-future
   noscript_html: |
     Sorry, but this form requires JavaScript. To sign, please turn on
