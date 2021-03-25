@@ -40,6 +40,7 @@
                 class="form-control"
                 type="text"
                 v-model.lazy.trim="name"
+                v-on:keydown.enter.prevent
                 name="member[first_name]"
                 :placeholder="$t('form.name.placeholder')"
                 required />
@@ -53,6 +54,7 @@
                 class="form-control"
                 type="email"
                 v-model.lazy.trim="email"
+                v-on:keydown.enter.prevent
                 name="member[email]"
                 :placeholder="$t('form.email.placeholder')"
                 required />
@@ -82,6 +84,7 @@
                 class="form-control"
                 type="text"
                 v-model.lazy.trim="address"
+                v-on:keydown.enter.prevent
                 name="member[street_address]"
                 :placeholder="`${$t('form.address.placeholder')}${contactCongress ? '*' : ''}`"
                 :required="contactCongress" />
@@ -97,6 +100,7 @@
                 class="form-control"
                 type="text"
                 v-model.lazy.trim="zipCode"
+                v-on:keydown.enter.prevent
                 name="member[postcode]"
                 :placeholder="$t('form.zip.placeholder')"
                 required />
@@ -111,6 +115,7 @@
             class="form-control"
             type="tel"
             v-model.lazy.trim="phone"
+            v-on:keydown.enter.prevent
             name="member[phone_number]"
             :aria-describedby="getId('phone-disclaimer')"
             :placeholder="$t('form.phone.placeholder')" />
@@ -123,6 +128,7 @@
             :id="getId('company')"
             class="form-control"
             v-model.lazy.trim="companyName"
+            v-on:keydown.enter.prevent
             type="text"
             :placeholder="$t('form.company.placeholder')"
             name="member[company]" />
