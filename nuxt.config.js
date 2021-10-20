@@ -1,7 +1,7 @@
 import config from './config'
 
 module.exports = {
-  mode: 'universal',
+  target: 'static',
 
   /*
   ** Headers of the page
@@ -114,7 +114,7 @@ module.exports = {
     presets: [
       ['vue-app', {
         useBuiltIns: true,
-        targets: { ie: 9, uglify: true }
+        targets: { ie: 11, uglify: true }
       }]
     ]
   },
