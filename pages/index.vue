@@ -16,7 +16,7 @@
         p(v-html="$t('cms.petition_description')")
         ActionNetworkForm(
           :petition-id="$t('cms.petition_id')"
-          tags="$te('cms.petition_tags') ? $t('cms.petition_tags') : ''"
+          :tags="$te('cms.petition_tags') ? $t('cms.petition_tags') : ''"
         )
 </template>
 
