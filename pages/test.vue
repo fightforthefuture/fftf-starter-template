@@ -125,41 +125,14 @@
         h2#h2-uppercase-group Uppercase
         Uppercase
           | This text should be uppercase for sighted users and normal case for non-sighted users
+
+    PersistentButton(target="sign") Sign the petition
 </template>
 
 <script>
 import config from '~/config'
-import Accordion from '~/components/Accordion'
-import AccordionItem from '~/components/AccordionItem'
-import ActionNetworkForm from '~/components/ActionNetworkForm'
-import ClickToCopy from '~/components/ClickToCopy'
-import Letter from '~/components/Letter'
-import LogoCloud from '~/components/LogoCloud'
-import Map from '~/components/Map'
-import Parallax from '~/components/Parallax'
-import ProgressBar from '~/components/ProgressBar'
-import QuoteScroller from '~/components/QuoteScroller'
-import RadioButton from '~/components/RadioButton'
-import RadioGroup from '~/components/RadioGroup'
-import YoutubeVideo from '~/components/YoutubeVideo'
 
 export default {
-  components: {
-    Accordion,
-    AccordionItem,
-    ActionNetworkForm,
-    ClickToCopy,
-    Letter,
-    LogoCloud,
-    Map,
-    Parallax,
-    ProgressBar,
-    QuoteScroller,
-    RadioButton,
-    RadioGroup,
-    YoutubeVideo
-  },
-
   computed: {
     hasMap() {
       return config.features.map
