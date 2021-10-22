@@ -95,7 +95,7 @@ section {
   display: inline-block;
 }
 
-@if $theme == dark {
+@if $fftf-logo-light {
   .fftf-logo {
     background-image: url("~assets/images/fftf-logo-light.svg");
   }

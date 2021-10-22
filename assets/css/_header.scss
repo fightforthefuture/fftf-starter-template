@@ -10,10 +10,19 @@
 $theme-colors: (
   "twitter": #499FEC,
   "facebook": #405993,
+  "primary": #41CF7A,
+  "alt": #424956,
+  "success": #41CF7A,
 );
 
+$text-muted: rgba(255, 255, 255, 0.7);
+$modal-content-color: #222;
+
 // BODY
-// $body-color: #222;
+$body-color: #fff;
+$body-bg: #29303C;
+
+$link-color: #52B1FF;
 
 // COMPONENTS
 $border-radius: 5px;
@@ -46,6 +55,18 @@ $container-max-widths: (
   lg: 768px,
   xl: 770px
 );
+
+// CARD
+$card-color: $body-bg;
+$card-cap-bg: #f6f6f6;
+$card-cap-color: $body-bg;
+$card-border-color: none;
+
+
+// stuff we made up
+$btn-color: #fff;
+$fftf-logo-light: true;
+
 
 // MIXINS
 
@@ -167,11 +188,6 @@ $container-max-widths: (
   }
 }
 
-// Active theme
-@import 'themes/dark';
-// @import 'themes/light.scss';
-// @import 'themes/purple.scss';
-// @import 'themes/blue.scss';
 
 // Give all components access to BS mixins and vars
 @import '~bootstrap/scss/_functions.scss';
