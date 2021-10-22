@@ -1,4 +1,4 @@
-<i18n src="~/locales/global.yml"></i18n>
+<i18n src="~/locales/cms.yml"></i18n>
 
 <template>
   <a :href="shareURL" target="_blank"
@@ -66,8 +66,8 @@ export default {
     },
     shareURL() {
       const network = this.networkName
-      let url = this.url || `${this.$t('global.sharing.url')}${this.$nuxt.$route.path}`
-      const text = this.text || this.$t('global.sharing.default_tweet_text')
+      let url = this.url || `${this.$t('cms.site_url')}${this.$nuxt.$route.path}`
+      const text = this.text || this.$t('cms.default_tweet_text')
 
       if (network === 'facebook' && !url.match(/facebook\.com\/sharer/)) {
         url = `https://www.facebook.com/sharer/sharer.php?u=${encodeURIComponent(url)}`
