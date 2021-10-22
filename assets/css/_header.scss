@@ -13,6 +13,8 @@ $theme-colors: (
   "primary": #41CF7A,
   "alt": #424956,
   "success": #41CF7A,
+  "dark-grey": darken(#424956, 15%),
+  "darker-grey": darken(#424956, 20%),
 );
 
 $text-muted: rgba(255, 255, 255, 0.7);
