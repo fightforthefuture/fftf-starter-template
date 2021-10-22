@@ -1,5 +1,6 @@
 <i18n src="~/locales/components/Scorecard.yml"></i18n>
 <i18n src="~/locales/global.yml"></i18n>
+<i18n src="~/locales/cms.yml"></i18n>
 <style lang="scss" scoped>
 .targets-list {
   text-align:left;
@@ -133,7 +134,7 @@
               size="sm"
               :is-button="false"
               :text="tweetText(target)"
-              :url="$t('global.sharing.url')"
+              :url="$t('cms.site_url')"
               @click.native="$trackClick('logo_tweet_button', target.twitter.toLowerCase())">
                 {{ $t('tweet_at') }}
             </share-button>
