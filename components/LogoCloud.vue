@@ -1,3 +1,4 @@
+<i18n src="~/locales/cms.yml"></i18n>
 <style lang="scss" scoped>
 ul {
   list-style-type: none;
@@ -15,18 +16,8 @@ ul {
 </style>
 
 <template lang="pug">
-  ul.row
-    li.col-6.col-sm-3(v-for="logo in logos")
+  ul.row(v-if="$te('cms.supporters')")
+    li.col-6.col-sm-3(v-for="logo in $t('cms.supporters')")
       .bg-white.rounded.d-flex.align-items-center.justify-content-center.mb-2
-        img(:src="logo.image_url" :alt="`${logo.name} logo`")
+        img(:src="logo.logo" :alt="`${logo.name} logo`")
 </template>
-
-<script>
-import logos from '~/assets/data/logos.json'
-
-export default {
-  computed: {
-    logos: () => logos
-  }
-}
-</script>
