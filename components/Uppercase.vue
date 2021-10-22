@@ -8,13 +8,3 @@
     </custom-span>
   </span>
 </template>
-
-<script>
-import CustomSpan from '~/components/CustomSpan'
-
-export default {
-  components: {
-    CustomSpan
-  }
-}
-</script>

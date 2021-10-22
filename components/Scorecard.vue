@@ -162,13 +162,8 @@
 
 <script>
 import axios from 'axios'
-import ShareButton from '~/components/ShareButton'
 
 export default {
-  components: {
-    ShareButton
-  },
-
   data() {
     return {
       showingAll: false,
