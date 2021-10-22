@@ -1,7 +1,13 @@
 en:
   cms:
+    site_title: SITE TITLE
+
     intro_title: SITE TITLE
-    intro_subheading: Sub heading goes here, lorem ipsum dolor sit amet, consectetur adipiscing elit. In nibh libero, venenatis sed justo eu, sollicitudin nisi. Integer semper tortor orci, id ultricies velit laoreet in. Vestibulum sit amet ante vel risus ornare ultrices sed id leo.
+    intro_description: Sub heading goes here, lorem ipsum dolor sit amet, consectetur adipiscing elit. In nibh libero, venenatis sed justo eu, sollicitudin nisi. Integer semper tortor orci, id ultricies velit laoreet in. Vestibulum sit amet ante vel risus ornare ultrices sed id leo.
 
     petition_title: Sign the petition
     petition_description: This issue is important because lorem ipsum dolor sit amet, consectetur elit. In nibh libero, venenatis sed justo eu, sollicitudin nisi. Integer semper tortor orci, id ultricies velit laoreet in. Vestibulum sit amet ante vel risus ornare ultrices sed id leo.
+
+    supporters:
+      - name: Sample Org
+        logo: "/logos/Sample Org.png"

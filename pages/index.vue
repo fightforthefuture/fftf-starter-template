@@ -6,7 +6,7 @@
     section#intro(aria-labelledby="h1-intro")
       h1#h1-intro(v-html="$t('cms.intro_title')")
       .container
-        p(v-html="$t('cms.intro_subheading')")
+        p(v-html="$t('cms.intro_description')")
         a.btn.btn-link(@click.prevent="$scrollTo('#sign')")
           img(src="~assets/images/arrow-down-light.svg" alt="Scroll down to sign the petition")
 
