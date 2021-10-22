@@ -1,5 +1,6 @@
 <i18n src="~/locales/components/ActionNetworkForm.yml"></i18n>
 <i18n src="~/locales/global.yml"></i18n>
+<i18n src="~/locales/cms.yml"></i18n>
 
 <template>
   <div>
@@ -297,7 +298,7 @@ export default {
       type: String,
       required: false,
       default: function () {
-        return this.$t('global.site_title')
+        return this.$t('cms.site_title')
       }
     },
     fccDocket: {
@@ -346,7 +347,7 @@ export default {
       type: String,
       required: false,
       default: function() {
-        return `${this.$t('global.site_url')}?signed=true`
+        return `${this.$t('cms.site_url')}?signed=true`
       }
     },
     isJointPetition: {
