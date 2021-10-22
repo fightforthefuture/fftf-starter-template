@@ -5,28 +5,17 @@
     <nuxt />
     <PageFooter />
 
-    <ArchivedModal v-if="modal === 'archived'" />
-    <CallFormModal v-else-if="modal === 'call-form'" />
-    <CallScriptModal v-else-if="modal === 'call-script'" />
+    <LazyArchivedModal v-if="modal === 'archived'" />
+    <LazyCallFormModal v-else-if="modal === 'call-form'" />
+    <LazyCallScriptModal v-else-if="modal === 'call-script'" />
   </div>
 </template>
 
 <script>
 import { mapState } from 'vuex'
 import { createMetaTags } from '~/assets/js/helpers'
-import CallFormModal from '~/components/CallFormModal'
-import CallScriptModal from '~/components/CallScriptModal'
-import ArchivedModal from '~/components/ArchivedModal'
-import PageFooter from '~/components/PageFooter'
 
 export default {
-  components: {
-    CallFormModal,
-    CallScriptModal,
-    ArchivedModal,
-    PageFooter
-  },
-
   head() {
     return {
       title: this.$t('global.site_title'),
