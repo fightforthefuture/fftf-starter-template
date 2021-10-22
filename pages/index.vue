@@ -15,7 +15,7 @@
         h2#h2-petition(v-html="$t('cms.petition_title')")
         p(v-html="$t('cms.petition_description')")
         ActionNetworkForm(
-          :petition-id="$t('cms.an_petition_id')"
+          :petition-id="$t('cms.petition_id')"
           tags="$te('cms.petition_tags') ? $t('cms.petition_tags') : ''"
         )
 </template>
