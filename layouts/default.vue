@@ -1,4 +1,4 @@
-<i18n src="~/locales/global.yml"></i18n>
+<i18n src="~/locales/cms.yml"></i18n>
 
 <template>
   <div>
@@ -18,13 +18,13 @@ import { createMetaTags } from '~/assets/js/helpers'
 export default {
   head() {
     return {
-      title: this.$t('global.site_title'),
+      title: this.$t('cms.site_title'),
       meta: createMetaTags({
-        siteName: this.$t('global.site_title'),
-        title: this.$t('global.sharing.title'),
-        description: this.$t('global.sharing.description'),
-        image: this.$t('global.sharing.image'),
-        url: this.$t('global.sharing.url')
+        siteName: this.$t('cms.site_title'),
+        title: this.$t('cms.open_graph_title'),
+        description: this.$t('cms.open_graph_description'),
+        image: this.$t('cms.open_graph_image'),
+        url: this.$t('cms.site_url')
       })
     }
   },

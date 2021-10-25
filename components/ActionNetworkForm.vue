@@ -1,5 +1,6 @@
 <i18n src="~/locales/components/ActionNetworkForm.yml"></i18n>
 <i18n src="~/locales/global.yml"></i18n>
+<i18n src="~/locales/cms.yml"></i18n>
 
 <template>
   <div>
@@ -206,8 +207,8 @@
 
     <!-- STEP 2: AFTER-ACTION -->
     <div v-if="hasSigned" class="text-center mt-5">
-      <h3 tabindex="-1" ref="afteraction" class="text-success">{{ $t('thanks.title') }}</h3>
-      <p>{{ $t('thanks.share') }}</p>
+      <h3 tabindex="-1" ref="afteraction" class="text-success">{{ thanksTitle }}</h3>
+      <p>{{ thanksShare }}</p>
       <div class="row">
         <div class="col-sm-12 col-lg-4 mb-2 mb-md-0">
           <ShareButton
@@ -288,7 +289,7 @@ export default {
       type: String,
       required: false,
       default: function () {
-        return this.$t('global.site_title')
+        return this.$t('cms.site_title')
       }
     },
     fccDocket: {
@@ -337,7 +338,7 @@ export default {
       type: String,
       required: false,
       default: function() {
-        return `${this.$t('global.site_url')}?signed=true`
+        return `${this.$t('cms.site_url')}?signed=true`
       }
     },
     isJointPetition: {
@@ -348,6 +349,20 @@ export default {
     regulationsDoc: {
       type: String,
       required: false
+    },
+    thanksTitle: {
+      type: String,
+      required: false,
+      default: function () {
+        return this.$te('cms.petition_thanks_title') ? this.$t('cms.petition_thanks_title') : this.$t('thanks.title')
+      }
+    },
+    thanksShare: {
+      type: String,
+      required: false,
+      default: function() {
+        return this.$te('cms.petition_thanks_share_ask') ? this.$t('cms.petition_thanks_share_ask') : this.$t('thanks.share')
+      }
     }
   },
 
