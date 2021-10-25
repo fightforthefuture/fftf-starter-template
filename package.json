@@ -11,8 +11,6 @@
     "pregenerate": "npm run generate-strings",
     "generate": "nuxt generate",
     "generate-strings": "node scripts/generate-strings.js",
-    "generate-routes": "node scripts/generate-routes.js",
-    "generate-logos": "node scripts/generate-logos.js",
     "lint": "eslint --ext .js,.vue --ignore-path .gitignore .",
     "precommit": "npm run lint",
     "analyze": "nuxt build --analyze",
