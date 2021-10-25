@@ -21,13 +21,3 @@
       img(src="~assets/images/fftf-logo-dark.svg" :alt="$t('global.common.logo_alt')")
     p(v-html="$t('message_html')")
 </template>
-
-<script>
-import Modal from '~/components/Modal'
-
-export default {
-  components: {
-    Modal
-  }
-}
-</script>

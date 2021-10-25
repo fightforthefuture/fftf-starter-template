@@ -243,9 +243,6 @@
 
 <script>
 import { sendToMothership } from '~/assets/js/helpers'
-import RadioButton from '~/components/RadioButton'
-import RadioGroup from '~/components/RadioGroup'
-import ShareButton from '~/components/ShareButton'
 import countries from '~/assets/data/countries'
 
 
@@ -273,12 +270,6 @@ function setValue(selector, newValue=null) {
 }
 
 export default {
-  components: {
-    RadioButton,
-    RadioGroup,
-    ShareButton
-  },
-
   props: {
     petitionId: {
       type: String,

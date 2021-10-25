@@ -23,13 +23,8 @@
 </template>
 
 <script>
-import ShareButton from '~/components/ShareButton'
 
 export default {
-  components: {
-    ShareButton
-  },
-
   props: {
     url: {
       type: String,

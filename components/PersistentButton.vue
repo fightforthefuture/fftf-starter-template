@@ -25,17 +25,14 @@
 </style>
 
 <template>
-  <b-button class="persistent-button shadow-lg"
-            variant="info"
-            size="lg"
+  <button class="persistent-button btn-lg btn-info shadow-lg"
             :class="{ visible: isVisible }"
             @click="$trackClick('sticky_button_homepage'); scrollTo(`#${target}`);" >
     <slot></slot>
-  </b-button>
+  </button>
 </template>
 
 <script>
-import { smoothScrollToElement } from '~/assets/js/helpers'
 export default {
   props: {
     target: {
@@ -86,7 +83,7 @@ export default {
 
     scrollTo(hash) {
       const duration = 500
-      smoothScrollToElement(hash, duration)
+      this.$scrollTo(hash, duration)
       setTimeout(() => {
         location.hash = hash
       }, duration)
