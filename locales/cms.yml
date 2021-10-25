@@ -1,21 +1,22 @@
 en:
   cms:
-    site_title: SITE TITLE
-    site_url: https://www.example.com
-    open_graph_title:
-    open_graph_description:
-    open_graph_image:
-    default_tweet_text:
+    site_title: __REPLACE_ME_WITH_DOMAIN_NAME__
+    site_url: https://www.__REPLACE_ME_WITH_DOMAIN_NAME__
+    open_graph_title: __REPLACE_ME_WITH_DOMAIN_NAME__
+    open_graph_description: A campaign by Fight for the Future.
+    open_graph_image: https://www.__REPLACE_ME_WITH_DOMAIN_NAME__/share.jpg
+    default_tweet_text: Check out __REPLACE_ME_WITH_DOMAIN_NAME__
 
-    intro_title: SITE TITLE
+    intro_title: __REPLACE_ME_WITH_DOMAIN_NAME__
     intro_description: Sub heading goes here, lorem ipsum dolor sit amet, consectetur adipiscing elit. In nibh libero, venenatis sed justo eu, sollicitudin nisi. Integer semper tortor orci, id ultricies velit laoreet in. Vestibulum sit amet ante vel risus ornare ultrices sed id leo.
 
-    petition_title: Sign the petition
-    petition_description: This issue is important because lorem ipsum dolor sit amet, consectetur elit. In nibh libero, venenatis sed justo eu, sollicitudin nisi. Integer semper tortor orci, id ultricies velit laoreet in. Vestibulum sit amet ante vel risus ornare ultrices sed id leo.
     petition_id:
     petition_tags:
-    petition_thanks_title:
-    petition_thanks_share_ask:
+    petition_title: Sign the petition
+    petition_description: This issue is important because lorem ipsum dolor sit amet, consectetur elit. In nibh libero, venenatis sed justo eu, sollicitudin nisi. Integer semper tortor orci, id ultricies velit laoreet in. Vestibulum sit amet ante vel risus ornare ultrices sed id leo.
+    petition_cta: Sign the Petition
+    petition_thanks_title: Thanks for signing the petition!
+    petition_thanks_share_ask: Please consider sharing with your friends and family.
 
     callpower_id:
     callpower_script:

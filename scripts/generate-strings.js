@@ -6,11 +6,9 @@ const showdown = require('showdown')
 const showdownTargetBlank = require('showdown-target-blank')
 const md = new showdown.Converter({ extensions: [showdownTargetBlank] })
 const { kebabCase, sortBy } = require('lodash')
-// const formatDate = require('date-fns/format')
+const { airtableBaseId } = require(path.resolve(__dirname, '..', 'config.json'))
 
 require('dotenv').config({ path: path.resolve(__dirname, '..', '.env') })
-
-const BASE_ID = '__AIRTABLE_BASE_ID__'
 
 function formatText(text='') {
   let html = md.makeHtml(text.trim())
@@ -29,7 +27,7 @@ function stripMarkdownArtifacts(text='') {
 
 function fetchCopy(lang='en') {
   return new Promise((resolve, reject) => {
-    const base = new Airtable({apiKey: process.env.AIRTABLE_API_KEY}).base(BASE_ID)
+    const base = new Airtable({apiKey: process.env.AIRTABLE_API_KEY}).base(airtableBaseId)
     const strings = {}
 
     base('CMS').select({
@@ -74,7 +72,7 @@ function fetchCopy(lang='en') {
 
 function fetchTable(table, requiredFields=[], formatFunction=null, sortFields=null) {
   return new Promise((resolve, reject) => {
-    const base = new Airtable({apiKey: process.env.AIRTABLE_API_KEY}).base(BASE_ID)
+    const base = new Airtable({apiKey: process.env.AIRTABLE_API_KEY}).base(airtableBaseId)
     let allRecords = []
 
     base(table).select({
@@ -109,6 +107,10 @@ function fetchTable(table, requiredFields=[], formatFunction=null, sortFields=nu
 }
 
 async function main() {
+  if (!airtableBaseId) {
+    return console.log(`No airtableBaseId set. Skipping generate-strings.`)
+  }
+
   const copy = await fetchCopy()
 
   // const supporters = await fetchTable('Supporters', ['Name'], ({ fields }) => {
@@ -129,7 +131,7 @@ async function main() {
     },
   }
 
-  console.log(i18n)
+  // console.log(i18n)
 
   // this could be JSON, but since everything else is YAML, we'll stick with that for now
   const outputFile = path.resolve(__dirname, '..', 'locales', 'cms.yml')

@@ -331,7 +331,7 @@ export default {
       type: String,
       required: false,
       default: function () {
-        return this.$t('form.button_cta')
+        return this.$t('cms.petition_cta')
       }
     },
     redirectTo: {
