@@ -14,7 +14,9 @@ en:
     petition_description: This issue is important because lorem ipsum dolor sit amet, consectetur elit. In nibh libero, venenatis sed justo eu, sollicitudin nisi. Integer semper tortor orci, id ultricies velit laoreet in. Vestibulum sit amet ante vel risus ornare ultrices sed id leo.
     petition_id:
     petition_tags:
+    petition_thanks_title:
+    petition_thanks_share_ask:
 
     supporters:
       - name: Sample Org
-        logo: "/logos/Sample Org.png"
+        logo: "/share.jpg"
