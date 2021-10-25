@@ -17,6 +17,9 @@ en:
     petition_thanks_title:
     petition_thanks_share_ask:
 
+    callpower_id:
+    callpower_script:
+
     supporters:
       - name: Sample Org
         logo: "/share.jpg"
