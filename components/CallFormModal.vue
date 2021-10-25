@@ -14,15 +14,3 @@ Modal(id="call-form-modal")
   p {{ $t('instructions') }}
   CallForm
 </template>
-
-<script>
-import CallForm from '~/components/CallForm'
-import Modal from '~/components/Modal'
-
-export default {
-  components: {
-    CallForm,
-    Modal
-  }
-}
-</script>

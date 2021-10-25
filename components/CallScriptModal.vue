@@ -36,15 +36,8 @@
 
 <script>
 import { mapState } from 'vuex'
-import Modal from '~/components/Modal'
-import SocialShareButtons from '~/components/SocialShareButtons'
 
 export default {
-  components: {
-    Modal,
-    SocialShareButtons
-  },
-
   computed: {
     ...mapState(['callpowerScript'])
   }

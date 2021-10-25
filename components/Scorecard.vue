@@ -40,7 +40,7 @@
       @if $enable-rounded {
         border-radius: 0 $border-radius $border-radius 0;
       }
-      background-color: $warn-color;
+      background-color: theme-color("danger");
       color: $white;
       display: flex;
       font-size: 1.3rem;
@@ -87,7 +87,7 @@
 .twitter-btn,
 .email-btn {
   background-color: gray(300);
-  color: $twitter-color;
+  color: theme-color('twitter');
   font-size: 14px;
   padding-right: 30px;
   position:relative;
@@ -163,13 +163,8 @@
 
 <script>
 import axios from 'axios'
-import ShareButton from '~/components/ShareButton'
 
 export default {
-  components: {
-    ShareButton
-  },
-
   data() {
     return {
       showingAll: false,

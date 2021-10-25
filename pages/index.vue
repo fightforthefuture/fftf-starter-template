@@ -19,13 +19,3 @@
           :tags="$te('cms.petition_tags') ? $t('cms.petition_tags') : ''"
         )
 </template>
-
-<script>
-import ActionNetworkForm from '~/components/ActionNetworkForm'
-
-export default {
-  components: {
-    ActionNetworkForm
-  }
-}
-</script>
