@@ -48,7 +48,6 @@ module.exports = {
     // Doc: https://axios.nuxtjs.org/usage
     '@nuxtjs/axios',
     '@nuxtjs/style-resources',
-    'bootstrap-vue/nuxt',
     ['nuxt-i18n', {
       seo: true,
       locales: [
@@ -66,19 +65,19 @@ module.exports = {
     }]
   ],
 
-  bootstrapVue: {
-    css: false,
-    bvCSS: false,
-    components: [
-      'BModal',
-      'BCarousel',
-      'BCarouselSlide',
-      'BCollapse'
-     ],
-    directives: [
-      'VBToggle'
-    ]
-  },
+  // bootstrapVue: {
+  //   css: false,
+  //   bvCSS: false,
+  //   components: [
+  //     'BModal',
+  //     'BCarousel',
+  //     'BCarouselSlide',
+  //     'BCollapse'
+  //    ],
+  //   directives: [
+  //     'VBToggle'
+  //   ]
+  // },
 
   /*
   ** Axios module configuration

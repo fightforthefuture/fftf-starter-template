@@ -9,7 +9,7 @@
         <div class="col" v-html="letterTitle"></div>
       </div>
     </div>
-    <div class="card-body text-left" v-html="letterText"></div>
+    <div class="card-body text-start" v-html="letterText"></div>
   </div>
 </template>
 

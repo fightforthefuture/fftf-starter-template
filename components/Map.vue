@@ -56,7 +56,7 @@
 
     img {
       height: 15px;
-      margin-right: $spacer/2;
+      margin-right: math.div($spacer, 2);
     }
 
     &:before {
@@ -101,7 +101,7 @@
     color: $body-color;
 
     h5 {
-      margin-bottom: $spacer/2;
+      margin-bottom: math.div($spacer, 2);
       color: $white;
       font-size: $font-size-base; // NOTE: change if h5's are ever used
     }

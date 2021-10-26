@@ -40,7 +40,7 @@
       @if $enable-rounded {
         border-radius: 0 $border-radius $border-radius 0;
       }
-      background-color: theme-color("danger");
+      background-color: $danger;
       color: $white;
       display: flex;
       font-size: 1.3rem;
@@ -87,7 +87,7 @@
 .twitter-btn,
 .email-btn {
   background-color: gray(300);
-  color: theme-color('twitter');
+  color: $twitter-color;
   font-size: 14px;
   padding-right: 30px;
   position:relative;
@@ -121,7 +121,7 @@
          :key="`target-${index}`"
          :class="getClasses(target)">
       <b-col>
-        <b-row class="py-2 pl-2 py-sm-3 pl-sm-3">
+        <b-row class="py-2 ps-2 py-sm-3 ps-sm-3">
           <b-col>
             <h3>{{ target.name }}</h3>
             <small>{{ target.location }}</small>

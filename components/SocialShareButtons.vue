@@ -1,22 +1,20 @@
 <template lang="pug">
   .text-center
     .row
-      .col
+      .col.d-grid
         ShareButton(
           network="Twitter"
           :url="url"
           :text="tweetText"
           :should-display-icon="false"
-          class="btn-block"
           size="sm"
           @click.native="$trackClick(`twitter_share_button_${routeName}`)"
         )
-      .col
+      .col.d-grid
         ShareButton(
           network="Facebook"
           :url="url"
           :should-display-icon="false"
-          class="btn-block"
           size="sm"
           @click.native="$trackClick(`facebook_share_button_${routeName}`)"
         )

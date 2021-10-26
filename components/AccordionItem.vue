@@ -1,6 +1,6 @@
 <style lang="scss" scoped>
 .card {
-  border-top: 1px solid darken(theme-color("primary"), 10%);
+  border-top: 1px solid darken($primary, 10%);
 
   &:first-child {
     border-top: none;

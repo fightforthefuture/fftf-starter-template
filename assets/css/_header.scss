@@ -1,3 +1,4 @@
+@use "sass:math";
 // Setup: Variables & Mixins
 //
 // This file is injected into every Vue component and SCSS file
@@ -6,15 +7,23 @@
 //
 // BOOTSTRAP VARIABLE OVERRIDES
 
-// COLORS
-$theme-colors: (
-  "twitter": #499FEC,
-  "facebook": #405993,
-  "primary": #41CF7A,
-  "alt": #424956,
-  "success": #41CF7A,
-  "dark-grey": darken(#424956, 15%),
-  "darker-grey": darken(#424956, 20%),
+// DEFAULT COLORS
+$primary: #41CF7A;
+$success: #41CF7A;
+
+// CUSTOM COLORS
+$twitter-color: #499FEC;
+$facebook-color: #405993;
+$alt-color: #424956;
+$dark-grey: darken(#424956, 15%);
+$darker-grey: darken(#424956, 20%);
+
+$custom-colors: (
+  "twitter": $twitter-color,
+  "facebook": $facebook-color,
+  "alt": $alt-color,
+  "dark-grey": $dark-grey,
+  "darker-grey": $darker-grey,
 );
 
 $text-muted: rgba(255, 255, 255, 0.7);
@@ -195,3 +204,5 @@ $fftf-logo-light: true;
 @import '~bootstrap/scss/_functions.scss';
 @import '~bootstrap/scss/_mixins.scss';
 @import '~bootstrap/scss/_variables.scss';
+
+$theme-colors: map-merge($theme-colors, $custom-colors);

@@ -4,7 +4,7 @@
 <template lang="pug">
   form(@submit.prevent="submitForm()")
     p.text-danger(v-if="errorMessage") {{ errorMessage }}
-    .row.text-left
+    .row.text-start
       .col-sm-6
         .form-group
           label.mb-0(for="call-form-phone") {{ $t('phone_label') }}

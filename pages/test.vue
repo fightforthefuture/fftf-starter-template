@@ -13,6 +13,7 @@
         ActionNetworkForm(
           petition-id=""
           has-comment
+          has-company
         )
 
     section(aria-labelledby="h2-joint-form")
@@ -29,7 +30,7 @@
       .container
         h2#h2-letter Letter
         br
-        Letter.text-left(
+        Letter.text-start(
           letter-title="TITLE OF LETTER"
           download-file="/share.jpg"
         )
