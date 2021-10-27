@@ -17,7 +17,7 @@ module.exports = {
     link: [
       { rel: 'icon', type: 'image/x-icon', href: '/favicon.ico' },
       { rel: 'stylesheet', href: 'https://fonts.googleapis.com/css2?family=Montserrat:wght@700&family=Open+Sans:ital,wght@0,300;0,400;0,700;1,300;1,400;1,700&display=swap' }
-    ]
+    ],
   },
 
   /*
@@ -36,9 +36,9 @@ module.exports = {
   ** Plugins to load before mounting the App
   */
   plugins: [
-    { src: '~/plugins/analytics.js', ssr: false },
-    { src: '~/plugins/hash-link-fix.js', ssr: false },
-    { src: '~/plugins/scroll-to.js', ssr: false }
+    { src: '~/plugins/analytics.js', mode: 'client' },
+    { src: '~/plugins/hash-link-fix.js', mode: 'client' },
+    { src: '~/plugins/scroll-to.js', mode: 'client' },
   ],
 
   /*
