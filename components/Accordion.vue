@@ -49,7 +49,6 @@ export default {
   async mounted() {
     if (process.browser) {
       const bootstrap = await import('bootstrap')
-      this.accordion = new bootstrap.Collapse(this.$refs.accordion)
     }
   }
 }
