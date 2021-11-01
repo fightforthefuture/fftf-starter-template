@@ -52,8 +52,12 @@ $btn-font-size-lg: 2.2rem;
 $btn-padding-y-lg: 1.125rem;
 
 // FORMS
+$input-bg: #fff;
+$input-color: #495057;
+$input-border-color: #ced4da;
 $input-padding-y: 0.7rem;
 $input-padding-x: 1.25rem;
+$form-label-color: #495057;
 
 // PROGRESS BAR
 $progress-height: 1.5rem;
@@ -205,4 +209,9 @@ $fftf-logo-light: true;
 @import '~bootstrap/scss/_mixins.scss';
 @import '~bootstrap/scss/_variables.scss';
 
+// adds our custom colors
 $theme-colors: map-merge($theme-colors, $custom-colors);
+$theme-colors-rgb: map-loop($theme-colors, to-rgb, "$value");
+$utilities-colors: map-merge($utilities-colors, $theme-colors-rgb);
+$utilities-text-colors: map-loop($utilities-colors, rgba-css-var, "$key", "text");
+$utilities-bg-colors: map-loop($utilities-colors, rgba-css-var, "$key", "bg");
