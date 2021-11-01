@@ -30,29 +30,31 @@
 
 </style>
 <template>
-  <li>
+  <li class="accordion-item">
     <div class="card">
-      <div class="card-header p-0">
-        <h3>
+      <div class="card-header accordion-header p-0">
+        <h3 class="d-grid">
           <button
             :id="`${id}-header`"
             :aria-controls="`${id}-panel`"
             :aria-expanded="visible"
-            class="btn btn-block btn-primary"
-            v-b-toggle="`${id}-panel`">
+            class="btn btn-primary accordion-button"
+            :class="visible ? '' : 'collapsed'"
+            data-bs-toggle="collapse"
+            :data-bs-target="`#${id}-panel`">
             {{ title }}
           </button>
         </h3>
       </div>
-      <b-collapse
+      <div
         :id="`${id}-panel`"
-        accordion="format-accordion"
         role="region"
-        :visible="visible"
+        :class="visible ? 'show' : ''"
         :aria-labelledby="`${id}-header`"
-        class="card-body">
+        :data-bs-parent="`#${accordionId}`"
+        class="card-body accordion-collapse collapse accordion-body">
         <slot />
-      </b-collapse>
+      </div>
     </div>
   </li>
 </template>
@@ -60,6 +62,10 @@
 <script>
   export default {
     props: {
+      accordionId: {
+        type: String,
+        required: true
+      },
       id: {
         type: String,
         required: true

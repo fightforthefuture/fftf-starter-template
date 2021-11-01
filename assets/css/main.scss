@@ -29,6 +29,7 @@ img {
   }
 
   &:not(.btn-link):hover {
+    color: $btn-color;
     transform: scale(1.02);
   }
 }
