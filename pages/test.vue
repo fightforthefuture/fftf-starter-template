@@ -99,13 +99,14 @@
       .container
         h2#h2-accordion Accordion
         br
-        Accordion
-          AccordionItem(id="accordion-item-1" title="Item Number 1" :visible="true")
+        Accordion(accordion-id="accordion1")
+          AccordionItem(id="accordion-item-1" title="Item Number 1" accordion-id="accordion1" :visible="true")
             | This is the first accordion item
-          AccordionItem(id="accordion-item-2" title="Item Number 2")
+          AccordionItem(id="accordion-item-2" title="Item Number 2" accordion-id="accordion1")
             | This is the second accordion item
-          AccordionItem(id="accordion-item-3" title="Item Number 3")
+          AccordionItem(id="accordion-item-3" title="Item Number 3" accordion-id="accordion1")
             | This is the third accordion item
+
 
     section(aria-labelledby="h2-radio-group")
       .container
