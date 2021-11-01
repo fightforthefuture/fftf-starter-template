@@ -25,7 +25,7 @@
 </style>
 
 <template>
-  <button class="persistent-button btn-lg btn-info shadow-lg"
+  <button class="persistent-button btn btn-lg btn-info shadow-lg"
             :class="{ visible: isVisible }"
             @click="$trackClick('sticky_button_homepage'); scrollTo(`#${target}`);" >
     <slot></slot>
