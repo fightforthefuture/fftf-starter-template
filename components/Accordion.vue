@@ -31,7 +31,25 @@ ul.accordion {
 
 </style>
 <template>
-  <ul class="accordion text-left mt-3">
+  <ul :id="accordionId" ref="accordion" class="accordion text-left mt-3">
     <slot />
   </ul>
 </template>
+
+<script>
+
+export default {
+  props: {
+    accordionId: {
+      type: String,
+      required: true
+    }
+  },
+
+  async mounted() {
+    if (process.browser) {
+      const bootstrap = await import('bootstrap')
+    }
+  }
+}
+</script>

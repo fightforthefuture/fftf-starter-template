@@ -32,12 +32,5 @@ export default {
   computed: {
     ...mapState(['modal'])
   },
-
-  mounted() {
-    // update state when bootstrap modal is closed
-    this.$root.$on('bv::modal::hidden', (bvEvent, modalId) => {
-      this.$store.commit('hideModal')
-    })
-  }
 }
 </script>

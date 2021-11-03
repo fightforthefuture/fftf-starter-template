@@ -1,3 +1,4 @@
+@use "sass:math";
 // Setup: Variables & Mixins
 //
 // This file is injected into every Vue component and SCSS file
@@ -6,15 +7,23 @@
 //
 // BOOTSTRAP VARIABLE OVERRIDES
 
-// COLORS
-$theme-colors: (
-  "twitter": #499FEC,
-  "facebook": #405993,
-  "primary": #41CF7A,
-  "alt": #424956,
-  "success": #41CF7A,
-  "dark-grey": darken(#424956, 15%),
-  "darker-grey": darken(#424956, 20%),
+// DEFAULT COLORS
+$primary: #41CF7A;
+$success: #41CF7A;
+
+// CUSTOM COLORS
+$twitter-color: #499FEC;
+$facebook-color: #405993;
+$alt-color: #424956;
+$dark-grey: darken(#424956, 15%);
+$darker-grey: darken(#424956, 20%);
+
+$custom-colors: (
+  "twitter": $twitter-color,
+  "facebook": $facebook-color,
+  "alt": $alt-color,
+  "dark-grey": $dark-grey,
+  "darker-grey": $darker-grey,
 );
 
 $text-muted: rgba(255, 255, 255, 0.7);
@@ -43,12 +52,23 @@ $btn-font-size-lg: 2.2rem;
 $btn-padding-y-lg: 1.125rem;
 
 // FORMS
+$input-bg: #fff;
+$input-color: #495057;
+$input-border-color: #ced4da;
 $input-padding-y: 0.7rem;
 $input-padding-x: 1.25rem;
+$form-label-color: #495057;
 
 // PROGRESS BAR
 $progress-height: 1.5rem;
 $progress-bar-transition: width 2s ease-in-out;
+
+// ACCORDIONS
+$accordion-border-color: $body-bg;
+$accordion-button-color: #fff;
+$accordion-button-bg: $primary;
+$accordion-button-active-bg: $primary;
+$accordion-button-active-color: #fff;
 
 // CONTAINER WIDTH
 $container-max-widths: (
@@ -63,7 +83,6 @@ $card-color: $body-bg;
 $card-cap-bg: #f6f6f6;
 $card-cap-color: $body-bg;
 $card-border-color: none;
-
 
 // stuff we made up
 $btn-color: #fff;
@@ -195,3 +214,10 @@ $fftf-logo-light: true;
 @import '~bootstrap/scss/_functions.scss';
 @import '~bootstrap/scss/_mixins.scss';
 @import '~bootstrap/scss/_variables.scss';
+
+// adds our custom colors
+$theme-colors: map-merge($theme-colors, $custom-colors);
+$theme-colors-rgb: map-loop($theme-colors, to-rgb, "$value");
+$utilities-colors: map-merge($utilities-colors, $theme-colors-rgb);
+$utilities-text-colors: map-loop($utilities-colors, rgba-css-var, "$key", "text");
+$utilities-bg-colors: map-loop($utilities-colors, rgba-css-var, "$key", "bg");

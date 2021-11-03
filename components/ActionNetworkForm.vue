@@ -7,7 +7,7 @@
     <!-- STEP 1: THE FORM -->
     <div v-if="!hasSigned">
 
-      <noscript v-if="isJointPetition" class="alert-danger p-3 mb-3 d-block rounded text-left" v-html="$t('noscript_html', { petition_id: petitionId })"></noscript>
+      <noscript v-if="isJointPetition" class="alert-danger p-3 mb-3 d-block rounded text-start" v-html="$t('noscript_html', { petition_id: petitionId })"></noscript>
 
       <div v-if="isJointPetition"
         class="d-none"
@@ -18,7 +18,7 @@
       <form @submit.prevent="submitForm()"
             :action="isJointPetition ? '' : 'https://queue.fftf.xyz/action'"
             method="post"
-            class="text-left">
+            class="text-start d-grid gap-2">
         <input type="hidden" name="subject" :value="congressEmailSubject">
         <input type="hidden" name="hp_enabled" value="true">
         <input type="hidden" name="guard" value="">
@@ -32,10 +32,9 @@
           {{ errorMessage }}
         </p>
 
-        <div class="form-row">
+        <div class="row gap-2 gap-md-0">
           <div class="col-sm-12 col-md-6">
-            <div class="form-group">
-              <label :for="getId('name')">{{ $t('form.name.label') }}</label>
+            <div class="form-floating">
               <input
                 :id="getId('name')"
                 class="form-control"
@@ -45,11 +44,11 @@
                 name="member[first_name]"
                 :placeholder="$t('form.name.placeholder')"
                 required />
+              <label class="form-label" :for="getId('name')">{{ $t('form.name.label') }}</label>
             </div>
           </div>
           <div class="col-sm-12 col-md-6">
-            <div class="form-group">
-              <label :for="getId('email')">{{ $t('form.email.label') }}</label>
+            <div class="form-floating">
               <input
                 :id="getId('email')"
                 class="form-control"
@@ -59,27 +58,27 @@
                 name="member[email]"
                 :placeholder="$t('form.email.placeholder')"
                 required />
+              <label class="form-label" :for="getId('email')">{{ $t('form.email.label') }}</label>
             </div>
           </div>
         </div>
 
-        <div class="form-row" v-if="isInternational">
+        <div class="row" v-if="isInternational">
           <div class="col">
-            <div class="form-group">
-              <label :for="getId('country')">{{ $t('form.country.label') }}</label>
+            <div class="form-floating">
               <select :id="getId('country')" class="form-control" v-model="country">
                 <option v-for="(text, value) in countries"
                   :value="value"
                   :key="`country-select-${value}`">{{ text }}</option>
               </select>
+              <label class="form-label" :for="getId('country')">{{ $t('form.country.label') }}</label>
             </div>
           </div>
         </div>
 
-        <div class="form-row">
+        <div class="row gap-2 gap-md-0">
           <div class="col-sm-12 col-md-6">
-            <div class="form-group">
-              <label :for="getId('address')">{{ $t('form.address.label') }}</label>
+            <div class="form-floating">
               <input
                 :id="getId('address')"
                 class="form-control"
@@ -89,13 +88,11 @@
                 name="member[street_address]"
                 :placeholder="`${$t('form.address.placeholder')}${contactCongress ? '*' : ''}`"
                 :required="contactCongress" />
+              <label class="form-label" :for="getId('address')">{{ $t('form.address.label') }}</label>
             </div>
           </div>
           <div class="col-sm-12 col-md-6">
-            <div class="form-group">
-              <label :for="getId('zip')">
-                {{ $t('form.zip.label') }}
-              </label>
+            <div class="form-floating">
               <input
                 :id="getId('zip')"
                 class="form-control"
@@ -105,12 +102,12 @@
                 name="member[postcode]"
                 :placeholder="$t('form.zip.placeholder')"
                 required />
+              <label class="form-label" :for="getId('zip')">{{ $t('form.zip.label') }}</label>
             </div>
           </div>
         </div>
 
-        <div class="form-group">
-          <label :for="getId('phone')">{{ $t('form.phone.label') }}</label>
+        <div class="form-floating">
           <input
             :id="getId('phone')"
             class="form-control"
@@ -120,11 +117,11 @@
             name="member[phone_number]"
             :aria-describedby="getId('phone-disclaimer')"
             :placeholder="$t('form.phone.placeholder')" />
-          <small :id="getId('phone-disclaimer')" class="d-block mt-1 text-muted" v-html="$t('form.phone.disclaimer_html')"></small>
+          <label class="form-label" :for="getId('phone')">{{ $t('form.phone.label') }}</label>
+          <small :id="getId('phone-disclaimer')" class="form-text d-block mt-1" v-html="$t('form.phone.disclaimer_html')"></small>
         </div>
 
-        <div v-if="hasCompany" class="form-group">
-          <label :for="getId('company')">{{ $t('form.company.label') }}</label>
+        <div class="form-floating" v-if="hasCompany">
           <input
             :id="getId('company')"
             class="form-control"
@@ -133,70 +130,69 @@
             type="text"
             :placeholder="$t('form.company.placeholder')"
             name="member[company]" />
+          <label class="form-label" :for="getId('company')">{{ $t('form.company.label') }}</label>
         </div>
 
-        <div class="form-group" v-if="hasComment">
-          <label :for="getId('comment')">{{ $t('form.comment.label') }}</label>
-          <div class="textarea-with-btn">
+        <div v-if="hasComment">
+          <div class="textarea-with-btn form-floating">
             <textarea
               :id="getId('comment')"
               class="form-control"
               v-model="comment"
               ref="comment"
               :placeholder="$t('form.comment.placeholder')"
-              name="action_comment"
-              rows="3"
-              max-rows="6"></textarea>
+              name="action_comment"></textarea>
+            <label class="form-label" :for="getId('comment')">{{ $t('form.comment.label') }}</label>
             <button class="btn btn-secondary" @click.prevent="clearComment()">
-              {{ $t('global.common.clear') }} <custom-span class="sr-only">the comment field</custom-span>
+              {{ $t('global.common.clear') }} <custom-span class="visually-hidden">the comment field</custom-span>
             </button>
           </div>
         </div>
 
-        <div v-if="isGDPRCountry" class="form-group opt-in-wrapper">
-          <label :id="getId('gdpr')">{{ $t('gdpr.opt_in_label') }}</label>
-          <radio-group :aria-label="getId('gdpr')" @set-radio-selection="setOptedOut" class="row">
-            <radio-button :id="getId('gdpr-radio-button-yes')" class="col-md-6 mb-3">
-              <span ref="optIn" class="btn btn-block btn-dark radio-label">
+        <div v-if="isGDPRCountry" class="opt-in-wrapper">
+          <label class="form-label" :id="getId('gdpr')">{{ $t('gdpr.opt_in_label') }}</label>
+          <radio-group :aria-label="getId('gdpr')" @set-radio-selection="setOptedOut" class="d-flex">
+            <radio-button :id="getId('gdpr-radio-button-yes')" class="mb-3 me-3">
+              <span ref="optIn" class="btn btn-dark radio-label text-nowrap">
                 {{ $t('gdpr.yes_label') }}
               </span>
             </radio-button>
-            <radio-button :id="getId('gdpr-radio-button-no')" :aria-describedby="getId('gdpr-nudge')" class="col-md-6 mb-3">
-              <span class="btn btn-block btn-dark radio-label">
+            <radio-button :id="getId('gdpr-radio-button-no')" :aria-describedby="getId('gdpr-nudge')" class="mb-3">
+              <span class="btn btn-dark radio-label text-nowrap">
                 {{ $t('gdpr.no_label') }}
               </span>
             </radio-button>
           </radio-group>
 
-          <div v-if="optedOut" class="mt-4 mb-5">
-            <label :id="getId('gdpr-nudge')">{{ $t('gdpr.nudge') }}</label>
+          <div v-if="optedOut" class="mb-3">
+            <label class="form-label" :id="getId('gdpr-nudge')">{{ $t('gdpr.nudge') }}</label>
             <button class="btn btn-primary btn-sm" @click.prevent="$refs.optIn.click()">{{ $t('gdpr.nudge_button') }}</button>
           </div>
         </div>
 
-        <div class="form-group">
-          <button class="btn btn-primary btn-block btn-lg" :disabled="isSending" :aria-describedby="getId('privacy-disclaimer')">
+        <div class="d-grid">
+          <button class="btn btn-primary btn-lg" :disabled="isSending" :aria-describedby="getId('privacy-disclaimer')">
             <span v-if="isSending">{{ $t('global.common.sending') }}</span>
             <span v-else>{{ buttonCta }}</span>
           </button>
           <small class="text-muted text-center d-block mt-1" v-if="!optedOut" :id="getId('privacy-disclaimer')">
             <span v-html="privacyDisclaimer"></span>
-            <button class="btn-link" v-if="isJointPetition" @click.prevent="isEditingSubscription = !isEditingSubscription">{{ $t('edit_subscription') }}</button>
+            <button class="btn btn-link btn-sm" v-if="isJointPetition" @click.prevent="isEditingSubscription = !isEditingSubscription">{{ $t('edit_subscription') }}</button>
           </small>
           <p v-if="regulationsDoc">
             <small class="text-muted text-center d-block mt-1" v-html="$t('regulations_disclaimer_html', {regulations_doc: regulationsDoc})"></small>
           </p>
         </div>
 
-        <div class="form-group bg-dark p-3 rounded fade-in" v-if="isEditingSubscription && !optedOut">
+        <div class="bg-dark p-3 rounded fade-in" v-if="isEditingSubscription && !optedOut">
           <div class="form-check mb-1">
-            <label class="form-check-label">
+            <label class="form-check-label form-label">
               <input class="form-check-input" type="checkbox" v-model="optInToSponsors">
               {{ $t('sponsors_opt_in_label', { sponsor_list: sponsorList }) }}
             </label>
           </div>
           <div class="form-check" v-if="referrerGroup">
-            <label class="form-check-label">
+            <label class="form-check-label form-label">
               <input class="form-check-input" type="checkbox" v-model="optInToReferrer">
               {{ $t('referrer_opt_in_label', { referrer: referrerGroup }) }}
             </label>
@@ -210,28 +206,26 @@
       <h3 tabindex="-1" ref="afteraction" class="text-success">{{ thanksTitle }}</h3>
       <p>{{ thanksShare }}</p>
       <div class="row">
-        <div class="col-sm-12 col-lg-4 mb-2 mb-md-0">
+        <div class="d-grid col-sm-12 col-lg-4 mb-2 mb-md-0">
           <ShareButton
             size="lg"
             network="twitter"
-            class="btn-block"
             :text="shareTweet"
             @click.native="$trackClick(`twitter_share_button_success_${routeName}`)">
             <span>{{ $t('global.common.tweet') }}</span>
           </ShareButton>
         </div> <!-- .c -->
-        <div class="col-sm-12 col-lg-4 mb-2 mb-md-0">
+        <div class="d-grid col-sm-12 col-lg-4 mb-2 mb-md-0">
           <ShareButton
             size="lg"
             network="facebook"
-            class="btn-block"
             @click.native="$trackClick(`facebook_share_button_sucess_${routeName}`)">
             <span>{{ $t('global.common.share') }}</span>
           </ShareButton>
         </div> <!-- .c -->
-        <div class="col-sm-12 col-lg-4 mb-2 mb-md-0">
+        <div class="d-grid col-sm-12 col-lg-4 mb-2 mb-md-0">
           <a :href="$t('global.donation_url')"
-             class="btn btn-block btn-primary btn-lg"
+             class="btn btn-primary btn-lg"
              @click="$trackClick(`donate_button_success_${routeName}`)">
             <span>{{ $t('global.common.donate') }}</span>
           </a>

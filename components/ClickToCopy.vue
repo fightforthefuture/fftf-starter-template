@@ -8,8 +8,7 @@
         :value="textToCopy"
         readonly
         )
-      .input-group-append
-        button.btn.btn-primary.js-clipboard(
+      button.btn.btn-primary.js-clipboard(
         type="button"
         @click.prevent
         :data-clipboard-text="textToCopy"

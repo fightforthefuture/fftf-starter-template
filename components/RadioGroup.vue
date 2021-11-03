@@ -11,7 +11,7 @@ ul[role=radiogroup]:focus {
 
 .radio-group {
   .active .btn {
-    background-color: theme-color('primary');
+    background-color: $primary;
   }
 }
 </style>

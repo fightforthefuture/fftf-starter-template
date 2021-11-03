@@ -57,7 +57,7 @@ img {
     </div>
     <div class="col-md-4 bg-darker-grey d-flex align-self-stretch justify-content-center justify-content-md-left">
       <div class="p-3 p-md-5 align-self-center social d-flex flex-row">
-        <a class="mr-3" href="https://twitter.com/fightfortheftr" target="_blank">
+        <a class="me-3" href="https://twitter.com/fightfortheftr" target="_blank">
           <img src="~assets/images/icon-twitter.svg"
                alt="Twitter Logo" />
         </a>

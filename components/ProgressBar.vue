@@ -28,8 +28,6 @@
 </template>
 
 <script>
-import { formatNumber } from 'assets/js/helpers'
-
 export default {
   data() {
     return {
@@ -49,7 +47,7 @@ export default {
     async fetchTotalSignatures() {
       try {
         const { data } = await this.$axios.get('https://data.fightforthefuture.org/takethisseriously/data.json')
-        this.totalSignatures = formatNumber(data.total_signatures)
+        this.totalSignatures = this.$n(data.total_signatures)
       }
       catch (error) {
         console.error('Failed to load signature count')

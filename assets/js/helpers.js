@@ -152,7 +152,3 @@ export function getMobileOperatingSystem() {
 export function isMobileOS() {
   return getMobileOperatingSystem() !== 'unknown'
 }
-
-export function formatNumber(x) {
-    return x.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",");
-}

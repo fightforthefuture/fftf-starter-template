@@ -1,21 +1,17 @@
 <template lang="pug">
-  b-modal(:static="true"
-          centered
-          modal-class="text-center"
-          hide-footer
-          v-model="modalShow"
-          :id="id"
-          title-tag="h1"
-          :size="size"
-          @shown="shown"
-          :title-sr-only="titleSrOnly")
-    template(v-slot:modal-title)
-      slot(name="modal-title")
-    slot
+  .modal.text-center.fade(:id="id" tabindex="-1" data-bs-backdrop="static" data-bs-keyboard="false" ref="modal")
+    .modal-dialog
+      .modal-content
+        .modal-header(role="presentation")
+          h1.modal-title(:class="titleSrOnly ? 'visually-hidden' : ''")
+            slot(name="modal-title")
+          button.btn-close(type="button" @click.prevent="closeModal" aria-label="Close")
+
+        .modal-body
+          slot
 </template>
 
 <script>
-
 export default {
   props: {
     id: {
@@ -35,19 +31,24 @@ export default {
 
   data() {
     return {
-      modalShow: false
+      modal: null
     }
   },
 
-  mounted() {
-    document.querySelector(`#${this.id}`).removeAttribute('aria-describedby')
-    document.querySelector(`#${this.id}___BV_modal_content_`).removeAttribute('tabindex')
+  async mounted() {
+    if (process.browser) {
+      const bootstrap = await import('bootstrap')
+      this.modal = new bootstrap.Modal(this.$refs.modal)
+      this.$refs.modal.addEventListener('shown.bs.modal', this.shown)
+      this.$refs.modal.addEventListener('hidden.bs.modal', this.hidden)
 
-    document.querySelector(`#${this.id}___BV_modal_header_`).setAttribute('role', 'presentation')
+      this.modal.show()
+    }
+  },
 
-    document.querySelector(`#${this.id}___BV_modal_title_`).setAttribute('tabindex', '-1')
-
-    this.modalShow = true
+  beforeDestroy() {
+    this.$refs.modal.removeEventListener('shown.bs.modal', this.shown)
+    this.$refs.modal.removeEventListener('hidden.bs.modal', this.hidden)
   },
 
   methods: {
@@ -60,8 +61,12 @@ export default {
       document.querySelector(`#${this.id} h1`).focus()
     },
 
+    hidden() {
+      this.$store.commit('hideModal')
+    },
+
     closeModal() {
-      this.modalShow = false
+      this.modal.hide()
     }
   }
 

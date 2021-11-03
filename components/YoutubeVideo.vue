@@ -2,15 +2,7 @@
 
 <style lang="scss" scoped>
 .video-container {
-  height: 0;
-  overflow: hidden;
-  padding-bottom: 56.25%;
-  position: relative;
-  width: 100%;
-  z-index: 2;
-
-  img,
-  iframe {
+  img {
     position: absolute;
     top: 0;
     left: 0;
@@ -21,7 +13,7 @@
 </style>
 
 <template>
-  <div class="video-container rounded">
+  <div class="video-container ratio ratio-16x9 rounded">
     <a v-show="!showVideo" href="#" @click.prevent="showAndPlayVideo()">
       <img :src="placeholderImage" :alt="$t('placeholder_alt')"
         class="rounded hover-scale">

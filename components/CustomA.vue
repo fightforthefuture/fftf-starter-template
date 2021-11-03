@@ -1,7 +1,7 @@
 <i18n src="~/locales/components/CustomA.yml"></i18n>
 <template>
   <a :href="href"
-     :target="target"><slot :aria-hidden="srText" /><custom-span class="sr-only">{{ srDisplayText }}</custom-span></a>
+     :target="target"><slot :aria-hidden="srText" /><custom-span class="visually-hidden">{{ srDisplayText }}</custom-span></a>
 </template>
 
 <script>

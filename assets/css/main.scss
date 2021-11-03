@@ -1,5 +1,4 @@
 @import 'node_modules/bootstrap/scss/bootstrap';
-@import 'node_modules/bootstrap-vue/src/index.scss';
 
 @keyframes fade-in {
   0% {
@@ -29,7 +28,8 @@ img {
     color: $btn-color;
   }
 
-  &:hover {
+  &:not(.btn-link):hover {
+    color: $btn-color;
     transform: scale(1.02);
   }
 }
@@ -45,8 +45,9 @@ img {
   position: relative;
 
   textarea {
+    height: 4rem * $input-line-height !important;
     // NOTE: magic number based on length of button text
-    padding-right: $spacer*10;
+    padding-right: $spacer*10 !important;
   }
 
   .btn {
@@ -54,6 +55,12 @@ img {
     top:   $spacer;
     right: $spacer*2;
   }
+}
+
+.btn-link {
+  line-height: inherit;
+  padding: 0;
+  vertical-align: baseline;
 }
 
 .modal {
@@ -78,7 +85,7 @@ section {
   }
 
   &:nth-child(even) {
-    background-color: theme-color(alt);
+    background-color: $alt-color;
   }
 
   &:last-child {
